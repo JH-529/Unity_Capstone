@@ -36,16 +36,13 @@ public class CameraScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) clickPoint = Input.mousePosition;
 
         if (Input.GetMouseButton(0))
-        {
-            if (isAlt)
-            {
-                /* Camera Move */
-                Vector3 position = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
+        {            
+            /* Camera Move */
+            Vector3 position = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
 
-                Vector3 move = position * (Time.deltaTime * dragSpeed);
+            Vector3 move = position * (Time.deltaTime * dragSpeed);
 
-                transform.Translate(move);
-            }
+            transform.Translate(move);
         }
     }
 
