@@ -10,9 +10,24 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("MainScene");
     }
 
+    public void LoadOptionScene()
+    {
+        SceneManager.LoadScene("OptionScene");
+    }
+
     public void LoadDifficultyScene()
     {
         SceneManager.LoadScene("DifficultyScene");
+    }
+
+    public void LoadEasyStageScene()
+    {
+        SceneManager.LoadScene("EasyScene");
+    }
+
+    public void LoadEasyShopScene()
+    {
+        SceneManager.LoadScene("EasyShop");
     }
 
     public void LoadNormalStageScene()
@@ -23,6 +38,16 @@ public class ButtonScript : MonoBehaviour
     public void LoadNormalShopScene()
     {
         SceneManager.LoadScene("NormalShop");
+    }
+
+    public void LoadHardStageScene()
+    {
+        SceneManager.LoadScene("HardScene");
+    }
+
+    public void LoadHardShopScene()
+    {
+        SceneManager.LoadScene("HardShop");
     }
 }
 

@@ -12,9 +12,24 @@ EditorBuildSettings:
     path: Assets/Scenes/DifficultyScene.unity
     guid: a3d90f3be76f4a848b051cd2481b00d3
   - enabled: 1
+    path: Assets/Scenes/EasyScene.unity
+    guid: 8d77de380565326488b5e642ef8a02fb
+  - enabled: 1
+    path: Assets/Scenes/EasyShop.unity
+    guid: b0b338caf80165946bb34d8bc1d8baa5
+  - enabled: 1
     path: Assets/Scenes/NormalScene.unity
     guid: 9a4cd632dba1bd64cbcebcb0cf47efa4
   - enabled: 1
     path: Assets/Scenes/NormalShop.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/HardScene.unity
+    guid: 2a05affe44ceec14393acf8052ab623a
+  - enabled: 1
+    path: Assets/Scenes/HardShop.unity
+    guid: a97a286741b9e9048980e2ad012a9567
+  - enabled: 1
+    path: Assets/Scenes/OptionScene.unity
+    guid: 56f57530da0b06247b37d1f594b385b2
   m_configObjects: {}
