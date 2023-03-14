@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 
 public enum UnitCode
-{
+{   
+    empty,
     player,
     enemy_easy,
     enemy_normal,
@@ -21,7 +22,7 @@ public class Status
     public float defence;
     public int gold;
 
-    public Status() { }
+    public Status() { unitcode = UnitCode.empty; }
     public Status(UnitCode code, float maxhp, float hp, float attack, float defence, int gold = 0)
     {
         this.unitcode = code;
@@ -60,11 +61,14 @@ public class Status
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-    public static Status playerStatus;
+    public static Status playerStatus = new Status();
+    public static Status enemyStatus = new Status();
     /*플레이어의 카드 목록*/
 
     public TextMeshProUGUI UIhp;
     public TextMeshProUGUI UIGold;
+    public TextMeshProUGUI UIhpBarText_Player;
+    public TextMeshProUGUI UIhpBarText_Enemy;
 
     public Slider playerHpBar;
     public Slider ememyHpBar;
@@ -95,17 +99,25 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerStatus = new Status();
-        playerStatus = playerStatus.SetUnitStatus(UnitCode.player);
-        playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();
-        ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
+        if(playerStatus.unitcode == UnitCode.empty)
+            playerStatus = playerStatus.SetUnitStatus(UnitCode.player);
+        playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();       
         playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
-        
+
+        if(enemyStatus.unitcode == UnitCode.empty)
+           enemyStatus = enemyStatus.SetUnitStatus(UnitCode.enemy_normal);
+        ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
+        ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+
         // 난이도 선택 창으로 이동할때 마다 NullReference 오류 -> 로직 변경 필요
         if (GameObject.Find("HPText").GetComponent<TextMeshProUGUI>())       
             UIhp = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();            
         if (GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>())
-            UIGold = GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>(); 
+            UIGold = GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
+            UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
+            UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -117,6 +129,16 @@ public class GameManager : MonoBehaviour
             UIGold.text = playerStatus.gold + " G";
         }
 
-        playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+        if(playerHpBar != null && ememyHpBar != null)
+        {
+            playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+            ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+        }
+
+        if (UIhpBarText_Player != null && UIhpBarText_Enemy != null)
+        {
+            UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
+            UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
+        }
     }
 }

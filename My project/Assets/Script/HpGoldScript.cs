@@ -18,20 +18,35 @@ public class HpGoldScript : MonoBehaviour
 
     public void PlayerDamaged(int damage)
     {
-        GameManager.playerStatus.hp -= damage;
+        if(GameManager.playerStatus.hp - damage > 0)
+            GameManager.playerStatus.hp -= damage;     
     }
 
     public void PlayerHealed(int heal)
     {
-        GameManager.playerStatus.hp += heal;
+        if(GameManager.playerStatus.hp <= GameManager.playerStatus.maxHp - heal)
+           GameManager.playerStatus.hp += heal;
+    }
+
+    public void EnemyDamaged(int damage)
+    {
+        if(GameManager.enemyStatus.hp - damage > 0)
+            GameManager.enemyStatus.hp -= damage;
+    }
+
+    public void EnemyHealed(int heal)
+    {
+        if (GameManager.enemyStatus.hp <= GameManager.enemyStatus.maxHp - heal)
+            GameManager.enemyStatus.hp += heal;
     }
 
     public void BuyItem(int gold)
     {
-        GameManager.playerStatus.gold -= gold;
+        if(GameManager.playerStatus.gold - gold >= 0)
+            GameManager.playerStatus.gold -= gold;
     }
 
-    public void EarnItem(int gold)
+    public void EarnGold(int gold)
     {
         GameManager.playerStatus.gold += gold;
     }

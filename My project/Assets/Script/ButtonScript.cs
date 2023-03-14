@@ -49,5 +49,10 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene("8.HardShop");
     }
+
+    public void LoadTestBattleScene()
+    {
+        SceneManager.LoadScene("9.TestBattleScene");
+    }
 }
 

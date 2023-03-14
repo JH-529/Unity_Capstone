@@ -827,7 +827,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922564212}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1504,11 +1504,11 @@ RectTransform:
   - {fileID: 647239617}
   - {fileID: 187253311}
   - {fileID: 1305110607}
+  - {fileID: 1626831289}
   - {fileID: 1061810746}
   - {fileID: 651473457}
-  - {fileID: 2109027556}
   - {fileID: 1931330438}
-  - {fileID: 1626831289}
+  - {fileID: 2109027556}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1696,7 +1696,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922564212}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2198,7 +2198,7 @@ GameObject:
   - component: {fileID: 1626831291}
   - component: {fileID: 1626831290}
   m_Layer: 5
-  m_Name: "Button(\uC6B02) (1)"
+  m_Name: "Button(\uC88C3)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2217,7 +2217,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922564212}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2428,7 +2428,7 @@ GameObject:
   - component: {fileID: 1931330440}
   - component: {fileID: 1931330439}
   m_Layer: 5
-  m_Name: "Button(\uC88C2) (1)"
+  m_Name: "Button(\uC6B03)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2567,6 +2567,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIhp: {fileID: 164181890}
   UIGold: {fileID: 721084280}
+  UIhpBarText_Player: {fileID: 0}
+  UIhpBarText_Enemy: {fileID: 0}
+  playerHpBar: {fileID: 0}
+  ememyHpBar: {fileID: 0}
 --- !u!4 &1945390981
 Transform:
   m_ObjectHideFlags: 0
@@ -2671,7 +2675,7 @@ GameObject:
   - component: {fileID: 2109027558}
   - component: {fileID: 2109027557}
   m_Layer: 5
-  m_Name: "\uCD5C\uC885"
+  m_Name: "Button(\uCD5C\uC885)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2690,7 +2694,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922564212}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

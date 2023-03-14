@@ -279,8 +279,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 416, y: 186}
-  m_SizeDelta: {x: 548.5126, y: 138.1427}
+  m_AnchoredPosition: {x: 0, y: 186}
+  m_SizeDelta: {x: 550, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &53738507
 MonoBehaviour:
@@ -1127,8 +1127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 416, y: -251}
-  m_SizeDelta: {x: 548.5126, y: 138.1427}
+  m_AnchoredPosition: {x: 0, y: -251}
+  m_SizeDelta: {x: 550, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514966481
 MonoBehaviour:
@@ -1274,8 +1274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 416, y: -39.071}
-  m_SizeDelta: {x: 548.5126, y: 138.1427}
+  m_AnchoredPosition: {x: 0, y: -39.071}
+  m_SizeDelta: {x: 550, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1639323075
 MonoBehaviour:
@@ -1517,8 +1517,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4b81b37143eae42a1291cf4e783eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHp: 0
-  playerGold: 0
+  UIhp: {fileID: 0}
+  UIGold: {fileID: 0}
+  playerHpBar: {fileID: 0}
+  ememyHpBar: {fileID: 0}
 --- !u!4 &1945390981
 Transform:
   m_ObjectHideFlags: 0
