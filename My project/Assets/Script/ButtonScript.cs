@@ -20,7 +20,6 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("2.OptionScene");
     }
         
-
     public void LoadEasyStageScene()
     {
         SceneManager.LoadScene("3.EasyScene");

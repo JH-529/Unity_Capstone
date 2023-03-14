@@ -8,4 +8,10 @@ public class BattleSceneRule : MonoBehaviour
     // 플레이어, 적 등 오브젝트의 깊이는 400
     // ahhyun push test
     // 
+
+    void damaged(int value, Status objectStatus)
+    {
+        
+    }
+
 }

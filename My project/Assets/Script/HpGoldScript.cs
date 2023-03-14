@@ -18,22 +18,22 @@ public class HpGoldScript : MonoBehaviour
 
     public void PlayerDamaged(int damage)
     {
-        GameManager.playerHp -= damage;
+        GameManager.playerStatus.hp -= damage;
     }
 
     public void PlayerHealed(int heal)
     {
-        GameManager.playerHp += heal;
+        GameManager.playerStatus.hp += heal;
     }
 
     public void BuyItem(int gold)
     {
-        GameManager.playerGold -= gold;
+        GameManager.playerStatus.gold -= gold;
     }
 
     public void EarnItem(int gold)
     {
-        GameManager.playerGold += gold;
+        GameManager.playerStatus.gold += gold;
     }
 
     
