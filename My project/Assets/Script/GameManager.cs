@@ -116,10 +116,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 난이도 세팅 함수
     public static void DifficultySetEasy() { difficulty = DIFFICULTY.EASY; }
     public static void DifficultySetNormal() { difficulty = DIFFICULTY.NORMAL; }
     public static void DifficultySetHard() { difficulty = DIFFICULTY.HARD; }
 
+    // 테스트용 CardSet생성 함수
     void MakeEasyCardSet()
     {
         for(int i=0; i<10; i++)
@@ -135,6 +137,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    // 현재 Scene에 있는 Canvas들, Camera들을 모두 Load
     void LoadCanvas()
     {
         if (GameObject.Find("Canvas(Main)"))
@@ -158,6 +161,7 @@ public class GameManager : MonoBehaviour
             cameraManager.shopCamera = GameObject.Find("ShopCamera").GetComponent<Camera>();
     }
 
+    // 함수 이름에 해당하는 Canvas를 활성화, 이외의 Canvas는 off
     void OnMainCanvas()
     {
         mainCanvas.SetActive(true);
@@ -183,7 +187,7 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(true);
     }
 
-
+    // 각 함수에 해당하는 파트의 Text관련 UI 오브젝트를 인자로 받은 TextUI변수에 저장
     void FindMainHpGoldText(TextUI uI)
     {
         if (GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>())
@@ -209,6 +213,7 @@ public class GameManager : MonoBehaviour
         if (GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>())
             uI.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
     }
+    // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
     void ShowText(TextUI uI)
     {
         if (uI.UIhp != null && uI.UIGold != null)
@@ -279,6 +284,7 @@ public class GameManager : MonoBehaviour
         FindBattleHpGoldText(battleUI);
         FindShopHpGoldText(shopUI);
 
+        // 테스트용(의미X)
         if (GameObject.Find("Card1").GetComponent<CardScript>())
         {
             GameObject.Find("Card1").GetComponent<CardScript>().number = numberCards[3].attack;
@@ -297,20 +303,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
+        // 현 Camera를 MainCamera로 세팅
         if (cameraSelect == CAMERA_TYPE.MAIN)
         {
             cameraManager.OnMainCamera();
             OnMainCanvas();
             ShowText(mainUI);
         }
-
+        // 현 Camera를 BattleCamera로 세팅
         if (cameraSelect == CAMERA_TYPE.BATTLE)
         {
             cameraManager.OnBattleCamera();
             OnBattleCanvas();
             ShowText(battleUI);
         }
-
+        // 현 Camera를 ShopCamera로 세팅
         if(cameraSelect == CAMERA_TYPE.SHOP)
         {
             cameraManager.OnShopCamera();

@@ -340,7 +340,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 53738507}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStageScene
+        m_MethodName: LoadEasyMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1176,7 +1176,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1514966484}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadHardStageScene
+        m_MethodName: LoadHardMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1323,7 +1323,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1639323078}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadNormalStageScene
+        m_MethodName: LoadNormalMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1517,10 +1517,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4b81b37143eae42a1291cf4e783eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIhp: {fileID: 0}
-  UIGold: {fileID: 0}
-  playerHpBar: {fileID: 0}
-  ememyHpBar: {fileID: 0}
+  cameraManager: {fileID: 0}
+  mainCanvas: {fileID: 0}
+  mainMapCanvas: {fileID: 0}
+  battleCanvas: {fileID: 0}
+  shopCanvas: {fileID: 0}
+  cardSO: {fileID: 0}
+  numberCards: []
+  operatorCards: []
 --- !u!4 &1945390981
 Transform:
   m_ObjectHideFlags: 0

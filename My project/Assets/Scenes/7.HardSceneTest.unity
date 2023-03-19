@@ -933,7 +933,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 187253315}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStage1
+        m_MethodName: LoadBattleStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3837,7 +3837,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 651473461}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStage4
+        m_MethodName: LoadBattleStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5845,7 +5845,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 893201418}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStageScene
+        m_MethodName: LoadHardMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6356,7 +6356,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 950811438}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyShopScene
+        m_MethodName: LoadShopScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6861,7 +6861,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1056315089}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStageScene
+        m_MethodName: LoadHardMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6995,7 +6995,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1061810750}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStage2
+        m_MethodName: LoadBattleStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8798,7 +8798,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1305110611}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyStage3
+        m_MethodName: LoadBattleStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11566,6 +11566,7 @@ GameObject:
   - component: {fileID: 2109027559}
   - component: {fileID: 2109027558}
   - component: {fileID: 2109027557}
+  - component: {fileID: 2109027560}
   m_Layer: 5
   m_Name: "Button(\uCD5C\uC885)"
   m_TagString: Untagged
@@ -11636,7 +11637,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2109027558}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2109027560}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+        m_MethodName: LoadBattleStage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2109027558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11675,6 +11688,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109027555}
   m_CullTransparentMesh: 1
+--- !u!114 &2109027560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109027555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2144059965
 GameObject:
   m_ObjectHideFlags: 0
