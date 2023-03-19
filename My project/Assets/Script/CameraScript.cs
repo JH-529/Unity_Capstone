@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    bool isAlt;
     Vector2 clickPoint;
     float dragSpeed = 700.0f;
 
@@ -28,9 +27,6 @@ public class CameraScript : MonoBehaviour
             Vector3 position = new Vector3(0, -Time.deltaTime * dragSpeed, 0);
             transform.Translate(position);
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftAlt)) isAlt = true;
-        if (Input.GetKeyUp(KeyCode.LeftAlt)) isAlt = false;
 
         /* 마우스 위치 기억 */
         if (Input.GetMouseButtonDown(0)) clickPoint = Input.mousePosition;

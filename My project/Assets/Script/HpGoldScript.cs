@@ -42,13 +42,13 @@ public class HpGoldScript : MonoBehaviour
 
     public void BuyItem(int gold)
     {
-        if(GameManager.playerStatus.gold - gold >= 0)
-            GameManager.playerStatus.gold -= gold;
+        if(GameManager.playerGold - gold >= 0)
+            GameManager.playerGold -= gold;
     }
 
     public void EarnGold(int gold)
     {
-        GameManager.playerStatus.gold += gold;
+        GameManager.playerGold += gold;
     }
 
     

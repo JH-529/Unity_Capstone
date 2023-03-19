@@ -3,7 +3,14 @@ guid: 9b4b81b37143eae42a1291cf4e783eff
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - UIhp: {instanceID: 0}
+  - UIGold: {instanceID: 0}
+  - UIhpBarText_Player: {instanceID: 0}
+  - UIhpBarText_Enemy: {instanceID: 0}
+  - playerHpBar: {instanceID: 0}
+  - ememyHpBar: {instanceID: 0}
+  - cardSO: {fileID: 11400000, guid: 4dbb24580b0294f469a93e43b6e63627, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

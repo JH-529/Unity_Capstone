@@ -4,58 +4,76 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum UnitCode
+public enum DIFFICULTY
+{ 
+    NONE,
+    EASY,
+    NORMAL,
+    HARD
+}
+public enum UNIT_TYPE
 {   
-    empty,
-    player,
+    EMPTY,
+    PLAYER,
     enemy_easy,
     enemy_normal,
     enemy_hard,
 }
+public enum CAMERA_TYPE
+{
+    MAIN,
+    BATTLE,
+    SHOP,
+}
 
 public class Status
 {
-    public UnitCode unitcode;
+    public UNIT_TYPE unitcode;
     public float maxHp;
-    public float hp;
-    public float attack;
+    public float hp;    
     public float defence;
-    public int gold;
 
-    public Status() { unitcode = UnitCode.empty; }
-    public Status(UnitCode code, float maxhp, float hp, float attack, float defence, int gold = 0)
+    public Status() { unitcode = UNIT_TYPE.EMPTY; }
+    public Status(UNIT_TYPE code, float maxhp, float hp, float defence)
     {
         this.unitcode = code;
         this.maxHp = maxhp;
         this.hp = hp;
-        this.attack = attack;
         this.defence = defence;
-        this.gold = gold;
     }
   
-    // Object의 해당 UnitCode별 Status 부여
-    public Status SetUnitStatus(UnitCode unitcode)
+    // Object의 UnitCode에 따라 정해진 Status를 반환
+    public Status SetUnitStatus(UNIT_TYPE unitcode)
     {
         Status status = null;
 
         switch(unitcode)
         {
-            case UnitCode.player:
-                status = new Status(unitcode, 50, 50, 10, 5, 10);
-                break;                      
-            case UnitCode.enemy_easy:       
-                status = new Status(unitcode, 30, 30, 5, 2);
-                break;                      
-            case UnitCode.enemy_normal:     
-                status = new Status(unitcode, 50, 50, 7, 3);
+            case UNIT_TYPE.PLAYER:
+                status = new Status(unitcode, 50, 50, 5);
                 break;
-            case UnitCode.enemy_hard:
-                status = new Status(unitcode, 70, 70, 10, 4);
+            case UNIT_TYPE.enemy_easy:       
+                status = new Status(unitcode, 30, 30, 5);
+                break;
+            case UNIT_TYPE.enemy_normal:     
+                status = new Status(unitcode, 50, 50, 7);
+                break;
+            case UNIT_TYPE.enemy_hard:
+                status = new Status(unitcode, 70, 70, 10);
                 break;
         }
 
         return status;
     }
+}
+public class TextUI
+{
+    public TextMeshProUGUI UIhp;
+    public TextMeshProUGUI UIGold;
+    public TextMeshProUGUI UIhpBarText_Player;
+    public TextMeshProUGUI UIhpBarText_Enemy;
+    public Slider playerHpBar;
+    public Slider ememyHpBar;
 }
 
 public class GameManager : MonoBehaviour
@@ -63,15 +81,21 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     public static Status playerStatus = new Status();
     public static Status enemyStatus = new Status();
-    /*플레이어의 카드 목록*/
+    public static DIFFICULTY difficulty = DIFFICULTY.NONE;
+    public static CAMERA_TYPE cameraSelect;
+    public static int playerGold = 0;
 
-    public TextMeshProUGUI UIhp;
-    public TextMeshProUGUI UIGold;
-    public TextMeshProUGUI UIhpBarText_Player;
-    public TextMeshProUGUI UIhpBarText_Enemy;
+    public CameraManager cameraManager;
+    public GameObject mainCamera;
+    public GameObject battleCamera;
 
-    public Slider playerHpBar;
-    public Slider ememyHpBar;
+    public TextUI mainUI = new TextUI();
+    public TextUI battleUI = new TextUI();
+    public TextUI shopUI = new TextUI();
+
+    public CardSO cardSO;
+    public List<NumberCard> numberCards;
+    public List<OperatorCard> operatorCards;
 
     // GameManager의 SingleTon패턴
     public static GameManager Instance
@@ -90,55 +114,170 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static void DifficultySetEasy() { difficulty = DIFFICULTY.EASY; }
+    public static void DifficultySetNormal() { difficulty = DIFFICULTY.NORMAL; }
+    public static void DifficultySetHard() { difficulty = DIFFICULTY.HARD; }
+
+    void MakeEasyCardSet()
+    {
+        for(int i=0; i<10; i++)
+        {
+            NumberCard card = new NumberCard("name", i, null);
+            numberCards.Add(card);
+        }
+
+        for(int i=0; i<4; i++)
+        {
+            OperatorCard card = new OperatorCard("operator", OperatorCard.OPERATOR_TYPE.PLUS, null);
+            operatorCards.Add(card);
+        }
+    }
+    
+    void FindMainHpGoldText(TextUI uI)
+    {
+        Debug.Log("FindingMainText");
+        if (GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>())
+            uI.UIhp = GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>())
+            uI.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
+        // 전투씬 전용 Text UI
+        //if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
+        //    uI.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
+        //if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
+        //    uI.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
+    }
+    void FindBattleHpGoldText(TextUI uI)
+    {
+        Debug.Log("FindingMainText");
+        if (GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>())
+            uI.UIhp = GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>())
+            uI.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();        
+        if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
+            uI.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
+            uI.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
+    }
+    void FindShopHpGoldText(TextUI uI)
+    {
+        Debug.Log("FindingMainText");
+        if (GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>())
+            uI.UIhp = GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>())
+            uI.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
+    }
+    void ShowText(TextUI uI)
+    {
+        if (uI.UIhp != null && uI.UIGold != null)
+        {
+            Debug.Log("logingHP");
+            uI.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
+            uI.UIGold.text = playerGold + " G";
+        }
+
+        if (uI.playerHpBar != null && uI.ememyHpBar != null)
+        {
+            uI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+            uI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+        }
+
+        if (uI.UIhpBarText_Player != null && uI.UIhpBarText_Enemy != null)
+        {
+            uI.UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
+            uI.UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
+        }
+    }
+
+    #region Life Cycle Function
     void Awake()
-    {  
-       
-                
+    {
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(playerStatus.unitcode == UnitCode.empty)
-            playerStatus = playerStatus.SetUnitStatus(UnitCode.player);
-        playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();       
-        playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+        // 카드셋 생성 함수
+        MakeEasyCardSet();
 
-        if(enemyStatus.unitcode == UnitCode.empty)
-           enemyStatus = enemyStatus.SetUnitStatus(UnitCode.enemy_normal);
-        ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
-        ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+        if (GameObject.Find("MainCamera"))
+            cameraManager.mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+        if (GameObject.Find("BattleCamera"))
+            cameraManager.battleCamera = GameObject.Find("BattleCamera").GetComponent<Camera>();
+        if (GameObject.Find("ShopCamera"))
+            cameraManager.shopCamera = GameObject.Find("ShopCamera").GetComponent<Camera>();
 
-        // 난이도 선택 창으로 이동할때 마다 NullReference 오류 -> 로직 변경 필요
-        if (GameObject.Find("HPText").GetComponent<TextMeshProUGUI>())       
-            UIhp = GameObject.Find("HPText").GetComponent<TextMeshProUGUI>();            
-        if (GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>())
-            UIGold = GameObject.Find("GoldText").GetComponent<TextMeshProUGUI>();
-        if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
-            UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
-        if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
-            UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
+        // player의 Status부여, HP bar 매칭
+        if (playerStatus.unitcode == UNIT_TYPE.EMPTY)
+            playerStatus = playerStatus.SetUnitStatus(UNIT_TYPE.PLAYER);
+        battleUI.playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();
+        battleUI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+
+        // 현재 설정된 난이도에 따른 enemy의 Status수치 부여
+        // 이후 Enemy의 HP bar 매칭
+        if (difficulty != DIFFICULTY.NONE)
+        {
+            switch(difficulty)
+            {
+                case DIFFICULTY.EASY:
+                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
+                    break;
+                case DIFFICULTY.NORMAL:
+                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
+                    break;
+                case DIFFICULTY.HARD:
+                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_hard);
+                    break;
+            }
+        }
+        battleUI.ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
+        battleUI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+
+        FindMainHpGoldText(mainUI);
+        FindBattleHpGoldText(battleUI);
+        FindShopHpGoldText(shopUI);
+
+        if (GameObject.Find("Card1").GetComponent<CardScript>())
+        {
+            GameObject.Find("Card1").GetComponent<CardScript>().number = numberCards[3].attack;
+        }
+        if (GameObject.Find("Card2").GetComponent<CardScript>())
+        {                        
+            GameObject.Find("Card2").GetComponent<CardScript>().number = numberCards[5].attack;
+        }
+        if (GameObject.Find("Card3").GetComponent<CardScript>())
+        {                        
+            GameObject.Find("Card3").GetComponent<CardScript>().number = numberCards[7].attack;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (UIhp != null && UIGold != null)
+    {  
+        if (cameraSelect == CAMERA_TYPE.MAIN)
         {
-            UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
-            UIGold.text = playerStatus.gold + " G";
+            //Debug.Log("OnMainCamera");
+            cameraManager.OnMainCamera();
+            ShowText(mainUI);
         }
 
-        if(playerHpBar != null && ememyHpBar != null)
+        if (cameraSelect == CAMERA_TYPE.BATTLE)
         {
-            playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
-            ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+            //Debug.Log("OnBattleCamera");
+            cameraManager.OnBattleCamera();
+            ShowText(battleUI);
         }
 
-        if (UIhpBarText_Player != null && UIhpBarText_Enemy != null)
+        if(cameraSelect == CAMERA_TYPE.SHOP)
         {
-            UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
-            UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
+            //Debug.Log("OnShopCamera");
+            cameraManager.OnShopCamera();
+            ShowText(shopUI);
         }
     }
+    #endregion
 }

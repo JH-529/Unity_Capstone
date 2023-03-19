@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffff4be46726eb24688d1c2be86123af, type: 3}
+  m_Name: CardSO
+  m_EditorClassIdentifier: 
+  numbers:
+  - name: 1
+    attack: 1
+    sprite: {fileID: 21300000, guid: bd0124f051256c2408212aaf8f39ee09, type: 3}
+  - name: 2
+    attack: 2
+    sprite: {fileID: 21300000, guid: c67f3ee3f5891bb42b064cb2f3753396, type: 3}
+  operators:
+  - name: plus
+    type: 0
+    sprite: {fileID: 21300000, guid: f1d2732960a12434a91c2cba94b04cb5, type: 3}
