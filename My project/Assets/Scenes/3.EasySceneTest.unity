@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 11298848}
   battleCamera: {fileID: 593444333}
-  shopCamera: {fileID: 0}
+  shopCamera: {fileID: 585623869}
 --- !u!1 &424672660
 GameObject:
   m_ObjectHideFlags: 0
