@@ -86,12 +86,14 @@ public class GameManager : MonoBehaviour
     public static int playerGold = 0;
 
     public CameraManager cameraManager;
-    public GameObject mainCamera;
-    public GameObject battleCamera;
 
     public TextUI mainUI = new TextUI();
     public TextUI battleUI = new TextUI();
     public TextUI shopUI = new TextUI();
+    public GameObject mainCanvas;
+    public GameObject mainMapCanvas;
+    public GameObject battleCanvas;
+    public GameObject shopCanvas;
 
     public CardSO cardSO;
     public List<NumberCard> numberCards;
@@ -133,22 +135,64 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    void LoadCanvas()
+    {
+        if (GameObject.Find("Canvas(Main)"))
+            mainCanvas = GameObject.Find("Canvas(Main)");
+        else if (GameObject.Find("Canvas"))
+            mainCanvas = GameObject.Find("Canvas");
+        if (GameObject.Find("Canvas(MainMap)"))
+            mainMapCanvas = GameObject.Find("Canvas(MainMap)");
+        if (GameObject.Find("Canvas(Battle)"))
+            battleCanvas = GameObject.Find("Canvas(Battle)");        
+        if (GameObject.Find("Canvas(Shop)"))
+            shopCanvas = GameObject.Find("Canvas(Shop)");
+    }
+    void LoadCamera()
+    {
+        if (GameObject.Find("MainCamera"))
+            cameraManager.mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+        if (GameObject.Find("BattleCamera"))
+            cameraManager.battleCamera = GameObject.Find("BattleCamera").GetComponent<Camera>();
+        if (GameObject.Find("ShopCamera"))
+            cameraManager.shopCamera = GameObject.Find("ShopCamera").GetComponent<Camera>();
+    }
+
+    void OnMainCanvas()
+    {
+        mainCanvas.SetActive(true);
+        if(mainMapCanvas)
+            mainMapCanvas.SetActive(true);
+        battleCanvas.SetActive(false);
+        shopCanvas.SetActive(false);
+    }
+    void OnBattleCanvas()
+    {
+        mainCanvas.SetActive(false);
+        if(mainMapCanvas)
+            mainMapCanvas.SetActive(false);
+        battleCanvas.SetActive(true);
+        shopCanvas.SetActive(false);
+    }
+    void OnShopCanvas()
+    {
+        mainCanvas.SetActive(false);
+        if(mainMapCanvas)
+            mainMapCanvas.SetActive(false);
+        battleCanvas.SetActive(false);
+        shopCanvas.SetActive(true);
+    }
+
+
     void FindMainHpGoldText(TextUI uI)
     {
-        Debug.Log("FindingMainText");
         if (GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>())
             uI.UIhp = GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>())
             uI.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
-        // 전투씬 전용 Text UI
-        //if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
-        //    uI.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
-        //if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
-        //    uI.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
     }
     void FindBattleHpGoldText(TextUI uI)
     {
-        Debug.Log("FindingMainText");
         if (GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>())
             uI.UIhp = GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>())
@@ -160,7 +204,6 @@ public class GameManager : MonoBehaviour
     }
     void FindShopHpGoldText(TextUI uI)
     {
-        Debug.Log("FindingMainText");
         if (GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>())
             uI.UIhp = GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>())
@@ -170,7 +213,6 @@ public class GameManager : MonoBehaviour
     {
         if (uI.UIhp != null && uI.UIGold != null)
         {
-            Debug.Log("logingHP");
             uI.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
             uI.UIGold.text = playerGold + " G";
         }
@@ -199,13 +241,9 @@ public class GameManager : MonoBehaviour
     {
         // 카드셋 생성 함수
         MakeEasyCardSet();
-
-        if (GameObject.Find("MainCamera"))
-            cameraManager.mainCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
-        if (GameObject.Find("BattleCamera"))
-            cameraManager.battleCamera = GameObject.Find("BattleCamera").GetComponent<Camera>();
-        if (GameObject.Find("ShopCamera"))
-            cameraManager.shopCamera = GameObject.Find("ShopCamera").GetComponent<Camera>();
+        // Canvas, Camera들 Load
+        LoadCanvas();
+        LoadCamera();
 
         // player의 Status부여, HP bar 매칭
         if (playerStatus.unitcode == UNIT_TYPE.EMPTY)
@@ -236,6 +274,7 @@ public class GameManager : MonoBehaviour
         battleUI.ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
         battleUI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
 
+        // 각 장면에서 활용된 Hp, Gold 관련 UI를 Find
         FindMainHpGoldText(mainUI);
         FindBattleHpGoldText(battleUI);
         FindShopHpGoldText(shopUI);
@@ -260,22 +299,22 @@ public class GameManager : MonoBehaviour
     {  
         if (cameraSelect == CAMERA_TYPE.MAIN)
         {
-            //Debug.Log("OnMainCamera");
             cameraManager.OnMainCamera();
+            OnMainCanvas();
             ShowText(mainUI);
         }
 
         if (cameraSelect == CAMERA_TYPE.BATTLE)
         {
-            //Debug.Log("OnBattleCamera");
             cameraManager.OnBattleCamera();
+            OnBattleCanvas();
             ShowText(battleUI);
         }
 
         if(cameraSelect == CAMERA_TYPE.SHOP)
         {
-            //Debug.Log("OnShopCamera");
             cameraManager.OnShopCamera();
+            OnShopCanvas();
             ShowText(shopUI);
         }
     }

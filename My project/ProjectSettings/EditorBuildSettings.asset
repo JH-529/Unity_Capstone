@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/3.EasyScene.unity
     guid: 8d77de380565326488b5e642ef8a02fb
   - enabled: 1
+    path: Assets/Scenes/3.EasySceneTest.unity
+    guid: 06db177f95e2aed46b1901d762f16fad
+  - enabled: 1
     path: Assets/Scenes/3-1.EasyBattle-1.unity
     guid: 98048b854b7c6844193df16a40e00cfe
   - enabled: 1
@@ -27,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/5.NormalScene.unity
     guid: 9a4cd632dba1bd64cbcebcb0cf47efa4
   - enabled: 1
+    path: Assets/Scenes/5.NormalSceneTest.unity
+    guid: ca33927943261f04eac1493e5e6a6bd3
+  - enabled: 1
     path: Assets/Scenes/5-1.NormalBattle-1.unity
     guid: d8348d7acf073ab45a17f83638249e93
   - enabled: 1
@@ -35,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/7.HardScene.unity
     guid: 2a05affe44ceec14393acf8052ab623a
+  - enabled: 1
+    path: Assets/Scenes/7.HardSceneTest.unity
+    guid: 9ab15f71be6131c4c994fe6e149d2ee8
   - enabled: 1
     path: Assets/Scenes/7-1.HardBattle-1.unity
     guid: 05a578a776eb6ed4e83b5c171595da00

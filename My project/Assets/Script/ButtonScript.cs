@@ -68,7 +68,7 @@ public class ButtonScript : MonoBehaviour
 #region NormalStage
     public void LoadNormalStageScene()
     {
-        SceneManager.LoadScene("5.NormalScene");
+        SceneManager.LoadScene("5.NormalSceneTest");
         GameManager.DifficultySetNormal();
     }
 
@@ -101,7 +101,7 @@ public class ButtonScript : MonoBehaviour
 #region HardStage
     public void LoadHardStageScene()
     {
-        SceneManager.LoadScene("7.HardScene");
+        SceneManager.LoadScene("7.HardSceneTest");
         GameManager.DifficultySetHard();
     }
 
