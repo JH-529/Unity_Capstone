@@ -25,6 +25,26 @@ public enum CAMERA_TYPE
     BATTLE,
     SHOP,
 }
+public enum PLAYER_CARD
+{
+    NOT,
+    FIRST,
+    SECOND,
+    THIRD,
+}
+public enum PLAYER_OPERATOR
+{
+    NOT,
+    FIRST,
+    SECOND,
+}
+public enum SELECTED_CARD_COUNT
+{
+    FIRST,
+    SECOND,
+    THIRD,
+}
+
 
 public class Status
 {
@@ -76,6 +96,42 @@ public class TextUI
     public Slider ememyHpBar;
 }
 
+public class CardTEXT
+{
+    public TextMeshProUGUI cardText;
+    public TextMeshProUGUI operatorCardText;
+    public TextMeshProUGUI selectedCardText;
+    public TextMeshProUGUI enemyCardText;
+}
+public class CardSET
+{
+    public List<NumberCard> numberCards;
+    public List<OperatorCard> operatorCards;
+    public float result;
+
+    public CardSET()
+    {
+        numberCards = new List<NumberCard>();
+        operatorCards = new List<OperatorCard>();
+    }
+}
+
+public class SelectedCardSET
+{
+    public NumberCard numberCard1;
+    public NumberCard numberCard2;
+    public OperatorCard operatorCard;
+    public float result;
+
+    public SelectedCardSET()
+    {
+        numberCard1 = new NumberCard();
+        numberCard2 = new NumberCard();
+        operatorCard = new OperatorCard();
+        result = 0;
+    }
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
@@ -83,21 +139,35 @@ public class GameManager : MonoBehaviour
     public static Status enemyStatus = new Status();
     public static DIFFICULTY difficulty = DIFFICULTY.NONE;
     public static CAMERA_TYPE cameraSelect;
+    public static PLAYER_CARD selectNumberCard = PLAYER_CARD.NOT;
+    public static PLAYER_OPERATOR selectOperatorCard = PLAYER_OPERATOR.NOT;
+    public static SELECTED_CARD_COUNT selectedCardCount = SELECTED_CARD_COUNT.FIRST;
     public static int playerGold = 0;
 
+    public static bool inGame = false;
+    public static bool mustSelectedNumber = true;
     public CameraManager cameraManager;
 
     public TextUI mainUI = new TextUI();
     public TextUI battleUI = new TextUI();
     public TextUI shopUI = new TextUI();
+    public TextMeshProUGUI playerResult;
+    public TextMeshProUGUI enemyResult;    
     public GameObject mainCanvas;
     public GameObject mainMapCanvas;
     public GameObject battleCanvas;
     public GameObject shopCanvas;
 
     public CardSO cardSO;
-    public List<NumberCard> numberCards;
-    public List<OperatorCard> operatorCards;
+    public CardSET playerCardSet = new CardSET();
+    public SelectedCardSET selectedCardSet = new SelectedCardSET();
+    public CardSET enemyCardSet = new CardSET();
+
+    public GameObject[] cards;
+    public GameObject[] operatorCards;
+    public GameObject[] selectedCards;
+    public GameObject[] enemyCards;
+    public CardTEXT[] cardText = new CardTEXT[5];
 
     // GameManager의 SingleTon패턴
     public static GameManager Instance
@@ -121,22 +191,273 @@ public class GameManager : MonoBehaviour
     public static void DifficultySetNormal() { difficulty = DIFFICULTY.NORMAL; }
     public static void DifficultySetHard() { difficulty = DIFFICULTY.HARD; }
 
-    // 테스트용 CardSet생성 함수
-    void MakeEasyCardSet()
+    // 테스트용 CardSet생성 함수(숫자3개, 기호2개), CardSet에 대한 Clear수행 함수
+    void MakeCardSet()
     {
-        for(int i=0; i<10; i++)
+        // 카드 List가 비워져있으면 새로 채운다
+        if(playerCardSet.numberCards.Count == 0)
         {
-            NumberCard card = new NumberCard("name", i, null);
-            numberCards.Add(card);
-        }
+            for (int i = 0; i < 3; i++)
+            {
+                NumberCard card = new NumberCard(i, Random.Range(0, 10), null);
+                playerCardSet.numberCards.Add(card);
+            }
 
-        for(int i=0; i<4; i++)
+            for (int i = 0; i < 2; i++)
+            {
+                OperatorCard card;
+                int rand = Random.Range(0, 4);
+                switch (rand)
+                {
+                    case 0:
+                        card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                        playerCardSet.operatorCards.Add(card);
+                        break;
+                    case 1:
+                        card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                        playerCardSet.operatorCards.Add(card);
+                        break;
+                    case 2:
+                        card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                        playerCardSet.operatorCards.Add(card);
+                        break;
+                    case 3:
+                        card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                        playerCardSet.operatorCards.Add(card);
+                        break;
+                }
+            }
+        }        
+    }
+    void ClearCardSet()
+    {
+        // 카드 세트가 비워져있지 않다면 비운다.
+        if (playerCardSet.numberCards.Count != 0)
         {
-            OperatorCard card = new OperatorCard("operator", OperatorCard.OPERATOR_TYPE.PLUS, null);
-            operatorCards.Add(card);
+            playerCardSet.numberCards.Clear();
+            playerCardSet.operatorCards.Clear();
+        }        
+    }
+    void MakeEnemyCardSet()
+    {
+        if (enemyCardSet.numberCards.Count == 0)
+        {
+            for (int i = 0; i < 2; i++)
+            {                
+                NumberCard enemyCard = new NumberCard(i, Random.Range(0, 10), null);
+                enemyCardSet.numberCards.Add(enemyCard);
+                Debug.Log("enemy" + i + "번째: " + enemyCardSet.numberCards[i].number);
+            }   
+
+            OperatorCard card;
+            int rand = Random.Range(0, 4);
+            Debug.Log("enemy 1: " + enemyCardSet.numberCards[0].number);
+            Debug.Log("enemy 2: " + enemyCardSet.numberCards[1].number);          
+            switch (rand)
+            {
+                case 0:
+                    card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                    Debug.Log("PLUS");
+                    enemyCardSet.operatorCards.Add(card);
+                    enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
+                    break;
+                case 1:
+                    card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                    Debug.Log("MINUS");
+                    enemyCardSet.operatorCards.Add(card);
+                    enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
+                    break;
+                case 2:
+                    card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                    Debug.Log("MULTIPLY");
+                    enemyCardSet.operatorCards.Add(card);
+                    enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
+                    break;
+                case 3:
+                    card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                    Debug.Log("DIVIDE");
+                    enemyCardSet.operatorCards.Add(card);
+                    enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
+                    break;
+            }      
+        }       
+    }
+    void ClearEnemyCardSet()
+    {
+        if(enemyCardSet.numberCards.Count != 0)
+        {
+            enemyCardSet.numberCards.Clear();
+            enemyCardSet.operatorCards.Clear();
+        }        
+    }
+        
+    // Scnee에 있는 Tag가 Card, SelectedCard, EnemyCard인 GameObject들을 Load
+    void LoadCardGameObject()
+    {
+        cards = GameObject.FindGameObjectsWithTag("CardText");
+        operatorCards = GameObject.FindGameObjectsWithTag("OperatorCardText");
+        selectedCards = GameObject.FindGameObjectsWithTag("SelectedCardText");
+        enemyCards = GameObject.FindGameObjectsWithTag("EnemyCardText");
+    }
+    void WriteCardText()
+    {
+        // 숫자 카드가 비워져있지 않다면 수행
+        if(playerCardSet.numberCards.Count != 0)
+        {
+            for(int i=0; i< playerCardSet.numberCards.Count; i++)
+            {
+                cardText[i] = new CardTEXT();
+                cardText[i].cardText = cards[i].GetComponent<TextMeshProUGUI>();
+                if (i < 2)
+                { cardText[i].operatorCardText = operatorCards[i].GetComponent<TextMeshProUGUI>(); }                
+                cardText[i].selectedCardText = selectedCards[i].GetComponent<TextMeshProUGUI>();
+                cardText[i].enemyCardText = enemyCards[i].GetComponent<TextMeshProUGUI>();
+            }
+
+            for (int i = 0; i < playerCardSet.numberCards.Count; i++)
+            {
+                cardText[i].cardText.text = playerCardSet.numberCards[i].number.ToString();
+                if(i<2)
+                { cardText[i].operatorCardText.text = playerCardSet.operatorCards[i].name; }                
+                cardText[i].selectedCardText.text = "empty";                
+            }
+
+            for(int i=0; i<=enemyCardSet.numberCards.Count; i++)
+            {
+                if (i == 0)
+                { cardText[0].enemyCardText.text = enemyCardSet.numberCards[0].number.ToString(); }
+                else
+                { cardText[1].enemyCardText.text = enemyCardSet.operatorCards[0].name; }
+                if (i == 2)
+                { cardText[2].enemyCardText.text = enemyCardSet.numberCards[1].number.ToString(); }                
+            }
         }
     }
-    
+
+    void CardSelectFunction()
+    {
+        if (selectedCardCount == SELECTED_CARD_COUNT.FIRST)
+        {
+            switch (selectNumberCard)
+            {
+
+                case PLAYER_CARD.FIRST:
+                    selectedCardSet.numberCard1 = playerCardSet.numberCards[0];
+                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
+                    break;
+                case PLAYER_CARD.SECOND:
+                    selectedCardSet.numberCard1 = playerCardSet.numberCards[1];
+                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
+                    break;
+                case PLAYER_CARD.THIRD:
+                    selectedCardSet.numberCard1 = playerCardSet.numberCards[2];
+                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        // 선택한 카드의 연산자를 SelectedCardObject의 Text로 출력
+        switch(selectOperatorCard)
+        {
+            case PLAYER_OPERATOR.FIRST:
+                selectedCardSet.operatorCard = playerCardSet.operatorCards[0];
+                //WriteSelectedCardText(SELECTED_CARD_COUNT.SECOND, 0, selectedCardSet.operatorCard.name);
+                break;
+            case PLAYER_OPERATOR.SECOND:
+                selectedCardSet.operatorCard = playerCardSet.operatorCards[1];
+                //WriteSelectedCardText(SELECTED_CARD_COUNT.SECOND, 0, selectedCardSet.operatorCard.name);
+                break;
+            default:
+                break;
+        }
+
+        if (selectedCardCount == SELECTED_CARD_COUNT.THIRD)
+        {
+            switch (selectNumberCard)
+            {
+                case PLAYER_CARD.FIRST:
+                    selectedCardSet.numberCard2 = playerCardSet.numberCards[0];
+                    break;
+                case PLAYER_CARD.SECOND:
+                    selectedCardSet.numberCard2 = playerCardSet.numberCards[1];
+                    break;
+                case PLAYER_CARD.THIRD:
+                    selectedCardSet.numberCard2 = playerCardSet.numberCards[2];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    float CalculateResult()
+    {
+        OperatorCard.OPERATOR_TYPE type = selectedCardSet.operatorCard.type;
+        float result = 0;
+
+        switch (type)
+        {
+            case OperatorCard.OPERATOR_TYPE.PLUS:
+                result = selectedCardSet.numberCard1.number + selectedCardSet.numberCard2.number;
+                break;
+            case OperatorCard.OPERATOR_TYPE.MINUS:
+                result = selectedCardSet.numberCard1.number - selectedCardSet.numberCard2.number;
+                break;
+            case OperatorCard.OPERATOR_TYPE.MULTIPLY:
+                result = selectedCardSet.numberCard1.number * selectedCardSet.numberCard2.number;
+                break;
+            case OperatorCard.OPERATOR_TYPE.DIVIDE:
+                result = selectedCardSet.numberCard1.number / selectedCardSet.numberCard2.number;
+                break;
+            default:
+                //Debug.Log("연산 오류");
+                break;
+        }
+
+        return result;
+        
+    }
+    void WriteResultText()
+    {
+        if (GameObject.Find("PlayerResultText"))
+            playerResult = GameObject.Find("PlayerResultText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("EnemyResultText"))
+            enemyResult = GameObject.Find("EnemyResultText").GetComponent<TextMeshProUGUI>();
+
+        float result = CalculateResult();
+        playerResult.text = result.ToString();
+        enemyResult.text = enemyCardSet.result.ToString();
+    }
+
+    // selectedCard번째 SelectedCard 오브젝트에 value 또는 name을 Text로 출력
+    void WriteSelectedCardText(SELECTED_CARD_COUNT selectedCard, int value, string name)
+    {        
+        switch (selectedCard)
+        {
+            case SELECTED_CARD_COUNT.FIRST:
+                cardText[0].selectedCardText.text = value.ToString();
+                break;
+            case SELECTED_CARD_COUNT.SECOND:
+                cardText[1].selectedCardText.text = name;
+                break;
+            case SELECTED_CARD_COUNT.THIRD:
+                cardText[2].selectedCardText.text = value.ToString();
+                break;
+        }
+    }
+    void WriteSelectedCardText(NumberCard number1, OperatorCard oper, NumberCard number2)
+    {
+        if(number1 != null)
+        { cardText[0].selectedCardText.text = number1.number.ToString(); }
+        if(oper != null)
+        { cardText[1].selectedCardText.text = oper.name; }
+        if(number2 != null)
+        { cardText[2].selectedCardText.text = number2.number.ToString(); }
+    }
+
+
     // 현재 Scene에 있는 Canvas들, Camera들을 모두 Load
     void LoadCanvas()
     {
@@ -214,7 +535,7 @@ public class GameManager : MonoBehaviour
             uI.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
     }
     // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
-    void ShowText(TextUI uI)
+    void ShowHpGoldText(TextUI uI)
     {
         if (uI.UIhp != null && uI.UIGold != null)
         {
@@ -235,6 +556,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     #region Life Cycle Function
     void Awake()
     {
@@ -245,85 +567,86 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // 카드셋 생성 함수
-        MakeEasyCardSet();
         // Canvas, Camera들 Load
         LoadCanvas();
         LoadCamera();
 
-        // player의 Status부여, HP bar 매칭
-        if (playerStatus.unitcode == UNIT_TYPE.EMPTY)
-            playerStatus = playerStatus.SetUnitStatus(UNIT_TYPE.PLAYER);
-        battleUI.playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();
-        battleUI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+        if(inGame)
+        {        
+            // player의 Status부여, HP bar 매칭
+            if (playerStatus.unitcode == UNIT_TYPE.EMPTY)
+                playerStatus = playerStatus.SetUnitStatus(UNIT_TYPE.PLAYER);
+            battleUI.playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();
+            battleUI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
 
-        // 현재 설정된 난이도에 따른 enemy의 Status수치 부여
-        // 이후 Enemy의 HP bar 매칭
-        if (difficulty != DIFFICULTY.NONE)
-        {
-            switch(difficulty)
+            // 현재 설정된 난이도에 따른 enemy의 Status수치 부여
+            // 이후 Enemy의 HP bar 매칭
+            if (difficulty != DIFFICULTY.NONE)
             {
-                case DIFFICULTY.EASY:
-                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
-                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
-                    break;
-                case DIFFICULTY.NORMAL:
-                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
-                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
-                    break;
-                case DIFFICULTY.HARD:
-                    if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
-                        enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_hard);
-                    break;
+                switch (difficulty)
+                {
+                    case DIFFICULTY.EASY:
+                        if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                            enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
+                        break;
+                    case DIFFICULTY.NORMAL:
+                        if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                            enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
+                        break;
+                    case DIFFICULTY.HARD:
+                        if (enemyStatus.unitcode == UNIT_TYPE.EMPTY)
+                            enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_hard);
+                        break;
+                }
             }
-        }
-        battleUI.ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
-        battleUI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+            battleUI.ememyHpBar = GameObject.Find("Enemy_Hp_Slider").GetComponent<Slider>();
+            battleUI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
 
-        // 각 장면에서 활용된 Hp, Gold 관련 UI를 Find
-        FindMainHpGoldText(mainUI);
-        FindBattleHpGoldText(battleUI);
-        FindShopHpGoldText(shopUI);
+            // 각 장면에서 활용된 Hp, Gold 관련 UI를 Find
+            FindMainHpGoldText(mainUI);
+            FindBattleHpGoldText(battleUI);
+            FindShopHpGoldText(shopUI);
 
-        // 테스트용(의미X)
-        if (GameObject.Find("Card1").GetComponent<CardScript>())
-        {
-            GameObject.Find("Card1").GetComponent<CardScript>().number = numberCards[3].attack;
-        }
-        if (GameObject.Find("Card2").GetComponent<CardScript>())
-        {                        
-            GameObject.Find("Card2").GetComponent<CardScript>().number = numberCards[5].attack;
-        }
-        if (GameObject.Find("Card3").GetComponent<CardScript>())
-        {                        
-            GameObject.Find("Card3").GetComponent<CardScript>().number = numberCards[7].attack;
-        }
-
+            ClearCardSet();
+            ClearEnemyCardSet();
+            selectedCardCount = SELECTED_CARD_COUNT.FIRST;
+        }        
     }
 
     // Update is called once per frame
     void Update()
     {  
-        // 현 Camera를 MainCamera로 세팅
-        if (cameraSelect == CAMERA_TYPE.MAIN)
+        if(inGame)
         {
-            cameraManager.OnMainCamera();
-            OnMainCanvas();
-            ShowText(mainUI);
-        }
-        // 현 Camera를 BattleCamera로 세팅
-        if (cameraSelect == CAMERA_TYPE.BATTLE)
-        {
-            cameraManager.OnBattleCamera();
-            OnBattleCanvas();
-            ShowText(battleUI);
-        }
-        // 현 Camera를 ShopCamera로 세팅
-        if(cameraSelect == CAMERA_TYPE.SHOP)
-        {
-            cameraManager.OnShopCamera();
-            OnShopCanvas();
-            ShowText(shopUI);
-        }
+            // 현 Camera를 MainCamera로 세팅
+            if (cameraSelect == CAMERA_TYPE.MAIN)
+            {
+                cameraManager.OnMainCamera();
+                OnMainCanvas();
+                ShowHpGoldText(mainUI);
+            }
+            // 현 Camera를 BattleCamera로 세팅
+            if (cameraSelect == CAMERA_TYPE.BATTLE)
+            {
+                cameraManager.OnBattleCamera();
+                MakeCardSet();
+                MakeEnemyCardSet();
+                OnBattleCanvas();
+                ShowHpGoldText(battleUI);
+                LoadCardGameObject();               
+                WriteCardText();
+                CardSelectFunction();
+                WriteSelectedCardText(selectedCardSet.numberCard1, selectedCardSet.operatorCard, selectedCardSet.numberCard2);
+                WriteResultText();
+            }
+            // 현 Camera를 ShopCamera로 세팅
+            if (cameraSelect == CAMERA_TYPE.SHOP)
+            {
+                cameraManager.OnShopCamera();
+                OnShopCanvas();
+                ShowHpGoldText(shopUI);
+            }
+        }       
     }
     #endregion
 }
