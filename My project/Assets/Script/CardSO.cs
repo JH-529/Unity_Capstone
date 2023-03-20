@@ -5,14 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class NumberCard
 {
-    public string name;
-    public int attack;
+    public int count;
+    public int number;
     public Sprite sprite;
 
-    public NumberCard(string n, int a, Sprite s)
+    public NumberCard()
+    { count = 0; number = 0; sprite = null; }
+    public NumberCard(int c, int n, Sprite s)
     {
-        name = n;
-        attack = a;
+        count = c;
+        number = n;
         sprite = s;
     }
 }
@@ -22,6 +24,7 @@ public class OperatorCard
 {
     public enum OPERATOR_TYPE
     {
+        NONE,
         PLUS,
         MINUS,
         MULTIPLY,
@@ -32,6 +35,8 @@ public class OperatorCard
     public OPERATOR_TYPE type;
     public Sprite sprite;
 
+    public OperatorCard()
+    { name = "empty operator"; type = OPERATOR_TYPE.NONE; sprite = null; }
     public OperatorCard(string n, OPERATOR_TYPE t, Sprite s)
     {
         name = n;

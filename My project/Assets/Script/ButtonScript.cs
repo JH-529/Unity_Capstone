@@ -15,6 +15,7 @@ public class ButtonScript : MonoBehaviour
     public void LoadDifficultyScene()
     {
         SceneManager.LoadScene("1.DifficultyScene");
+        GameManager.inGame = false;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
@@ -30,6 +31,7 @@ public class ButtonScript : MonoBehaviour
     {  
         SceneManager.LoadScene("3.EasySceneTest");
         GameManager.DifficultySetEasy();
+        GameManager.inGame = true;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
@@ -70,7 +72,8 @@ public class ButtonScript : MonoBehaviour
     public void LoadNormalMainScene()
     {
         SceneManager.LoadScene("5.NormalSceneTest");
-        GameManager.DifficultySetNormal();
+        GameManager.inGame = true;
+        GameManager.DifficultySetNormal();        
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
@@ -100,6 +103,7 @@ public class ButtonScript : MonoBehaviour
     public void LoadHardMainScene()
     {
         SceneManager.LoadScene("7.HardSceneTest");
+        GameManager.inGame = true;
         GameManager.DifficultySetHard();
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }

@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Card
+  - SelectedCard
+  - EnemyCard
+  - CardText
+  - SelectedCardText
+  - EnemyCardText
+  - OperatorCardText
+  - OperatorCard
+  - PlayerResult
+  - PlayerResultText
+  - EnemyResult
+  - EnemyResultText
   layers:
   - Default
   - TransparentFX
