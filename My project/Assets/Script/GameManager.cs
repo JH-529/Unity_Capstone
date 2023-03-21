@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+#region 열거형
 public enum DIFFICULTY
 { 
     NONE,
@@ -44,8 +45,9 @@ public enum SELECTED_CARD_COUNT
     SECOND,
     THIRD,
 }
+#endregion
 
-
+#region 구조체
 public class Status
 {
     public UNIT_TYPE unitcode;
@@ -131,6 +133,7 @@ public class SelectedCardSET
         result = 0;
     }
 }
+#endregion
 
 public class GameManager : MonoBehaviour
 {
@@ -291,7 +294,7 @@ public class GameManager : MonoBehaviour
         }        
     }
         
-    // Scnee에 있는 Tag가 Card, SelectedCard, EnemyCard인 GameObject들을 Load
+    // Scene에 있는 Tag가 Card, SelectedCard, EnemyCard인 GameObject들을 Load
     void LoadCardGameObject()
     {
         cards = GameObject.FindGameObjectsWithTag("CardText");
@@ -340,7 +343,6 @@ public class GameManager : MonoBehaviour
         {
             switch (selectNumberCard)
             {
-
                 case PLAYER_CARD.FIRST:
                     selectedCardSet.numberCard1 = playerCardSet.numberCards[0];
                     //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
@@ -391,7 +393,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     float CalculateResult()
     {
         OperatorCard.OPERATOR_TYPE type = selectedCardSet.operatorCard.type;
