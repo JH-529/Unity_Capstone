@@ -72,7 +72,7 @@ public class Status
         switch(unitcode)
         {
             case UNIT_TYPE.PLAYER:
-                status = new Status(unitcode, 50, 50, 5);
+                status = new Status(unitcode, 50, 50, 0);
                 break;
             case UNIT_TYPE.enemy_easy:       
                 status = new Status(unitcode, 30, 30, 5);
@@ -116,6 +116,15 @@ public class CardSET
         numberCards = new List<NumberCard>();
         operatorCards = new List<OperatorCard>();
     }
+
+    public void ClearCardSET()
+    {
+        numberCards = null;
+        operatorCards = null;
+        System.GC.Collect();
+        numberCards = new List<NumberCard>();
+        operatorCards = new List<OperatorCard>();
+    }
 }
 
 public class SelectedCardSET
@@ -132,6 +141,18 @@ public class SelectedCardSET
         operatorCard = new OperatorCard();
         result = 0;
     }
+
+    public void ClearSelectedCard()
+    {
+        numberCard1 = null;
+        numberCard2 = null;
+        operatorCard = null;
+        result = 0;
+        System.GC.Collect();
+        numberCard1 = new NumberCard();
+        numberCard2 = new NumberCard();
+        operatorCard = new OperatorCard();
+    }
 }
 #endregion
 
@@ -146,16 +167,25 @@ public class GameManager : MonoBehaviour
     public static PLAYER_OPERATOR selectOperatorCard = PLAYER_OPERATOR.NOT;
     public static SELECTED_CARD_COUNT selectedCardCount = SELECTED_CARD_COUNT.FIRST;
     public static int playerGold = 0;
+    public static float playerDamage = 0;
+    public static float enemyDamage = 0;
+    public static int turnCount = 0;
+    public static bool turnStart = true;
+    
 
     public static bool inGame = false;
     public static bool mustSelectedNumber = true;
+    public static bool inBattle = false;
     public CameraManager cameraManager;
 
     public TextUI mainUI = new TextUI();
     public TextUI battleUI = new TextUI();
     public TextUI shopUI = new TextUI();
     public TextMeshProUGUI playerResult;
-    public TextMeshProUGUI enemyResult;    
+    public TextMeshProUGUI enemyResult;
+    public TextMeshProUGUI playerDefence;
+    public TextMeshProUGUI enemyDefence;    
+    public TextMeshProUGUI turnText;    
     public GameObject mainCanvas;
     public GameObject mainMapCanvas;
     public GameObject battleCanvas;
@@ -249,36 +279,36 @@ public class GameManager : MonoBehaviour
             {                
                 NumberCard enemyCard = new NumberCard(i, Random.Range(0, 10), null);
                 enemyCardSet.numberCards.Add(enemyCard);
-                Debug.Log("enemy" + i + "번째: " + enemyCardSet.numberCards[i].number);
+                //Debug.Log("enemy" + i + "번째: " + enemyCardSet.numberCards[i].number);
             }   
 
             OperatorCard card;
             int rand = Random.Range(0, 4);
-            Debug.Log("enemy 1: " + enemyCardSet.numberCards[0].number);
-            Debug.Log("enemy 2: " + enemyCardSet.numberCards[1].number);          
+           // Debug.Log("enemy 1: " + enemyCardSet.numberCards[0].number);
+            //Debug.Log("enemy 2: " + enemyCardSet.numberCards[1].number);          
             switch (rand)
             {
                 case 0:
                     card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
-                    Debug.Log("PLUS");
+                   // Debug.Log("PLUS");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
                     break;
                 case 1:
                     card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
-                    Debug.Log("MINUS");
+                   // Debug.Log("MINUS");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
                     break;
                 case 2:
                     card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
-                    Debug.Log("MULTIPLY");
+                   // Debug.Log("MULTIPLY");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
                     break;
                 case 3:
                     card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
-                    Debug.Log("DIVIDE");
+                    //Debug.Log("DIVIDE");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
                     break;
@@ -393,6 +423,37 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    void NextTurn()
+    {
+        playerCardSet.ClearCardSET();
+        enemyCardSet.ClearCardSET();
+        selectNumberCard = PLAYER_CARD.NOT;
+        selectOperatorCard = PLAYER_OPERATOR.NOT;
+        selectedCardCount = SELECTED_CARD_COUNT.FIRST;
+        playerDamage = 0;
+        enemyDamage = 0;
+    }
+    void BattleStateClear()
+    {
+        selectNumberCard = PLAYER_CARD.NOT;
+        selectOperatorCard = PLAYER_OPERATOR.NOT;
+        selectedCardCount = SELECTED_CARD_COUNT.FIRST;
+        playerDamage = 0;
+        enemyDamage = 0;
+        turnCount = 0;
+        switch (difficulty)
+        {
+            case DIFFICULTY.EASY:
+                    enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
+                break;
+            case DIFFICULTY.NORMAL:
+                    enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
+                break;
+            case DIFFICULTY.HARD:
+                    enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_hard);
+                break;
+        }
+    }
     float CalculateResult()
     {
         OperatorCard.OPERATOR_TYPE type = selectedCardSet.operatorCard.type;
@@ -430,6 +491,18 @@ public class GameManager : MonoBehaviour
         float result = CalculateResult();
         playerResult.text = result.ToString();
         enemyResult.text = enemyCardSet.result.ToString();
+        playerDamage = result;
+        enemyDamage = enemyCardSet.result;
+    }
+    void WriteDefenceText()
+    {
+        if (GameObject.Find("PlayerDefenceText"))
+            playerDefence = GameObject.Find("PlayerDefenceText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("EnemyDefenceText"))
+            enemyDefence = GameObject.Find("EnemyDefenceText").GetComponent<TextMeshProUGUI>();
+
+        playerDefence.text = playerStatus.defence.ToString();
+        enemyDefence.text = enemyStatus.defence.ToString();
     }
 
     // selectedCard번째 SelectedCard 오브젝트에 value 또는 name을 Text로 출력
@@ -556,7 +629,18 @@ public class GameManager : MonoBehaviour
             uI.UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
         }
     }
-
+    void FindTurnUI()
+    {
+        if (GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>())
+            turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
+    }
+    void ShowTurnUI()
+    {
+        if(turnText)
+        {
+            turnText.text = turnCount + " Turn";
+        }
+    }
 
     #region Life Cycle Function
     void Awake()
@@ -607,6 +691,7 @@ public class GameManager : MonoBehaviour
             FindMainHpGoldText(mainUI);
             FindBattleHpGoldText(battleUI);
             FindShopHpGoldText(shopUI);
+            FindTurnUI();
 
             ClearCardSet();
             ClearEnemyCardSet();
@@ -619,6 +704,21 @@ public class GameManager : MonoBehaviour
     {  
         if(inGame)
         {
+            if(!inBattle)
+            {
+                Debug.Log("초기화");
+                selectedCardSet.ClearSelectedCard();
+                BattleStateClear();
+                inBattle = true;
+            }
+            if(turnStart)
+            {
+                Debug.Log("다음턴");
+                selectedCardSet.ClearSelectedCard();
+                NextTurn();
+                turnCount++;
+                turnStart = false;
+            }
             // 현 Camera를 MainCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.MAIN)
             {
@@ -629,16 +729,19 @@ public class GameManager : MonoBehaviour
             // 현 Camera를 BattleCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.BATTLE)
             {
+                inBattle = true;
                 cameraManager.OnBattleCamera();
                 MakeCardSet();
                 MakeEnemyCardSet();
                 OnBattleCanvas();
                 ShowHpGoldText(battleUI);
+                ShowTurnUI();
                 LoadCardGameObject();               
                 WriteCardText();
                 CardSelectFunction();
                 WriteSelectedCardText(selectedCardSet.numberCard1, selectedCardSet.operatorCard, selectedCardSet.numberCard2);
                 WriteResultText();
+                WriteDefenceText();
             }
             // 현 Camera를 ShopCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.SHOP)

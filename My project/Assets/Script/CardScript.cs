@@ -42,16 +42,4 @@ public class CardScript : MonoBehaviour
         GameManager.selectOperatorCard = PLAYER_OPERATOR.SECOND;
         GameManager.selectedCardCount = SELECTED_CARD_COUNT.SECOND;
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

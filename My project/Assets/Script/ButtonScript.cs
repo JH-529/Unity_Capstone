@@ -32,16 +32,19 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("3.EasySceneTest");
         GameManager.DifficultySetEasy();
         GameManager.inGame = true;
+        GameManager.inBattle = false;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void LoadBattleStage()
     {
+        GameManager.inBattle = true;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
     }
 
     public void LoadShopScene()
     {
+        GameManager.inBattle = false;
         GameManager.cameraSelect = CAMERA_TYPE.SHOP;
     }
 
