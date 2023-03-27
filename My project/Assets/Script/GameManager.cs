@@ -88,6 +88,7 @@ public class Status
         return status;
     }
 }
+
 public class TextUI
 {
     public TextMeshProUGUI UIhp;
@@ -105,6 +106,7 @@ public class CardTEXT
     public TextMeshProUGUI selectedCardText;
     public TextMeshProUGUI enemyCardText;
 }
+
 public class CardSET
 {
     public List<NumberCard> numberCards;
@@ -172,9 +174,7 @@ public class GameManager : MonoBehaviour
     public static int turnCount = 0;
     public static bool turnStart = true;
     
-
     public static bool inGame = false;
-    public static bool mustSelectedNumber = true;
     public static bool inBattle = false;
     public CameraManager cameraManager;
 
@@ -531,7 +531,6 @@ public class GameManager : MonoBehaviour
         { cardText[2].selectedCardText.text = number2.number.ToString(); }
     }
 
-
     // 현재 Scene에 있는 Canvas들, Camera들을 모두 Load
     void LoadCanvas()
     {
@@ -583,50 +582,50 @@ public class GameManager : MonoBehaviour
     }
 
     // 각 함수에 해당하는 파트의 Text관련 UI 오브젝트를 인자로 받은 TextUI변수에 저장
-    void FindMainHpGoldText(TextUI uI)
+    void FindMainHpGoldText(TextUI ui)
     {
         if (GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>())
-            uI.UIhp = GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>();
+            ui.UIhp = GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>())
-            uI.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
+            ui.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
     }
-    void FindBattleHpGoldText(TextUI uI)
+    void FindBattleHpGoldText(TextUI ui)
     {
         if (GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>())
-            uI.UIhp = GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>();
+            ui.UIhp = GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>())
-            uI.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();        
+            ui.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();        
         if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
-            uI.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
+            ui.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
-            uI.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
+            ui.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
     }
-    void FindShopHpGoldText(TextUI uI)
+    void FindShopHpGoldText(TextUI ui)
     {
         if (GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>())
-            uI.UIhp = GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>();
+            ui.UIhp = GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>())
-            uI.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
+            ui.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
     }
     // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
-    void ShowHpGoldText(TextUI uI)
+    void ShowHpGoldText(TextUI ui)
     {
-        if (uI.UIhp != null && uI.UIGold != null)
+        if (ui.UIhp != null && ui.UIGold != null)
         {
-            uI.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
-            uI.UIGold.text = playerGold + " G";
+            ui.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
+            ui.UIGold.text = playerGold + " G";
         }
 
-        if (uI.playerHpBar != null && uI.ememyHpBar != null)
+        if (ui.playerHpBar != null && ui.ememyHpBar != null)
         {
-            uI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
-            uI.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+            ui.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+            ui.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
         }
 
-        if (uI.UIhpBarText_Player != null && uI.UIhpBarText_Enemy != null)
+        if (ui.UIhpBarText_Player != null && ui.UIhpBarText_Enemy != null)
         {
-            uI.UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
-            uI.UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
+            ui.UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
+            ui.UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
         }
     }
     void FindTurnUI()

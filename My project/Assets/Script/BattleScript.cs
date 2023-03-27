@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class BattleScript : MonoBehaviour
 {
+    // 플레이어의 공격 수행 함수
+    // 플레이어 공격 종료 후 EnemyAttack() 자동 진행
+    // 적 처치시 승리처리 포함
     public void PlayerAttack()
     {
         float damage = GameManager.playerDamage;
@@ -44,6 +47,8 @@ public class BattleScript : MonoBehaviour
         }
     }
 
+    // 방어력 증가 함수
+    // 방어력 증가 후 EnemyAttack() 자동 진행
     public void GetDefence()
     {
         float defence = GameManager.playerDamage;
@@ -64,6 +69,8 @@ public class BattleScript : MonoBehaviour
         }
     }
 
+    // 적의 공격 수행 함수
+    // 적의 공격으로 플레이어 사망시 처리하는 기능 포함
     public void EnemyAttack()
     {
         float damage = GameManager.enemyDamage;
@@ -97,6 +104,5 @@ public class BattleScript : MonoBehaviour
             GameManager.cameraSelect = CAMERA_TYPE.MAIN;
         }
     }
-
     
 }

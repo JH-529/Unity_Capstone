@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
     public Camera battleCamera;
     public Camera shopCamera;
 
+    // 메인 카메라 ON
     public void OnMainCamera()
     {
         mainCamera.enabled = true;
@@ -15,6 +16,7 @@ public class CameraManager : MonoBehaviour
         shopCamera.enabled = false;
     }
 
+    // 전투화면 카메라 ON
     public void OnBattleCamera()
     {
         mainCamera.enabled = false;
@@ -22,6 +24,7 @@ public class CameraManager : MonoBehaviour
         shopCamera.enabled = false;
     }
 
+    // 상점화면 카메라 ON
     public void OnShopCamera()
     {
         mainCamera.enabled = false;
