@@ -171,12 +171,14 @@ public class GameManager : MonoBehaviour
     public static int playerGold = 0;
     public static float playerDamage = 0;
     public static float enemyDamage = 0;
-    public static int turnCount = 0;
-    public static bool turnStart = true;
-    
+    public static int turnCount = 1;
+    public static bool turnStart = false;
+    public static GameObject button;
+
     public static bool inGame = false;
     public static bool inBattle = false;
     public CameraManager cameraManager;
+    public SpriteManager spriteManager;
 
     public TextUI mainUI = new TextUI();
     public TextUI battleUI = new TextUI();
@@ -185,7 +187,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI enemyResult;
     public TextMeshProUGUI playerDefence;
     public TextMeshProUGUI enemyDefence;    
-    public TextMeshProUGUI turnText;    
+    public TextMeshProUGUI turnText;
+
     public GameObject mainCanvas;
     public GameObject mainMapCanvas;
     public GameObject battleCanvas;
@@ -232,7 +235,8 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                NumberCard card = new NumberCard(i, Random.Range(0, 10), null);
+                int rand = Random.Range(0, 10);
+                NumberCard card = new NumberCard(i, rand, null);
                 playerCardSet.numberCards.Add(card);
             }
 
@@ -279,36 +283,29 @@ public class GameManager : MonoBehaviour
             {                
                 NumberCard enemyCard = new NumberCard(i, Random.Range(0, 10), null);
                 enemyCardSet.numberCards.Add(enemyCard);
-                //Debug.Log("enemy" + i + "번째: " + enemyCardSet.numberCards[i].number);
             }   
 
             OperatorCard card;
             int rand = Random.Range(0, 4);
-           // Debug.Log("enemy 1: " + enemyCardSet.numberCards[0].number);
-            //Debug.Log("enemy 2: " + enemyCardSet.numberCards[1].number);          
             switch (rand)
             {
                 case 0:
                     card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
-                   // Debug.Log("PLUS");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
                     break;
                 case 1:
                     card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
-                   // Debug.Log("MINUS");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
                     break;
                 case 2:
                     card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
-                   // Debug.Log("MULTIPLY");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
                     break;
                 case 3:
                     card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
-                    //Debug.Log("DIVIDE");
                     enemyCardSet.operatorCards.Add(card);
                     enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
                     break;
@@ -337,6 +334,7 @@ public class GameManager : MonoBehaviour
         // 숫자 카드가 비워져있지 않다면 수행
         if(playerCardSet.numberCards.Count != 0)
         {
+            // 모든 Object들의 TextMeshProUGUI를 불러옴
             for(int i=0; i< playerCardSet.numberCards.Count; i++)
             {
                 cardText[i] = new CardTEXT();
@@ -347,14 +345,16 @@ public class GameManager : MonoBehaviour
                 cardText[i].enemyCardText = enemyCards[i].GetComponent<TextMeshProUGUI>();
             }
 
+            // 플레이어의 카드들의 Text를 Write
             for (int i = 0; i < playerCardSet.numberCards.Count; i++)
             {
                 cardText[i].cardText.text = playerCardSet.numberCards[i].number.ToString();
-                if(i<2)
-                { cardText[i].operatorCardText.text = playerCardSet.operatorCards[i].name; }                
+                if (i < 2)
+                { cardText[i].operatorCardText.text = playerCardSet.operatorCards[i].name;  }
                 cardText[i].selectedCardText.text = "empty";                
             }
 
+            // 적의 카드 Text를 Write
             for(int i=0; i<=enemyCardSet.numberCards.Count; i++)
             {
                 if (i == 0)
@@ -440,7 +440,7 @@ public class GameManager : MonoBehaviour
         selectedCardCount = SELECTED_CARD_COUNT.FIRST;
         playerDamage = 0;
         enemyDamage = 0;
-        turnCount = 0;
+        turnCount = 1;
         switch (difficulty)
         {
             case DIFFICULTY.EASY:
@@ -709,6 +709,7 @@ public class GameManager : MonoBehaviour
                 selectedCardSet.ClearSelectedCard();
                 BattleStateClear();
                 inBattle = true;
+                turnCount = 0;
             }
             if(turnStart)
             {

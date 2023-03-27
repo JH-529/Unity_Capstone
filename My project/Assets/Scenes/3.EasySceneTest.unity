@@ -207,7 +207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11298850
 MonoBehaviour:
@@ -922,7 +922,7 @@ Transform:
   - {fileID: 427762806}
   - {fileID: 1593345950}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187253310
 GameObject:
@@ -1327,7 +1327,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261709278
 GameObject:
@@ -1419,6 +1419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 277575181}
   - component: {fileID: 277575180}
+  - component: {fileID: 277575182}
   m_Layer: 0
   m_Name: Item1Icon
   m_TagString: Untagged
@@ -1467,7 +1468,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b30bc8d0ad61acc4cabebfd8f29e1386, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1487,12 +1488,26 @@ Transform:
   m_GameObject: {fileID: 277575179}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3170, y: -870, z: -178.75095}
-  m_LocalScale: {x: 442.89053, y: 491.19708, z: 1}
+  m_LocalScale: {x: 90, y: 90, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 162524521}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &277575182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277575179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c620b988077994e9af66ad4633a2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  sprites: []
 --- !u!1 &279885773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2526,6 +2541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427762806}
   - component: {fileID: 427762805}
+  - component: {fileID: 427762807}
   m_Layer: 0
   m_Name: Item2Icon
   m_TagString: Untagged
@@ -2574,7 +2590,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3055b74055d62cd4a8ddcfd128627ca9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2594,12 +2610,26 @@ Transform:
   m_GameObject: {fileID: 427762804}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2620, y: -870, z: -178.75095}
-  m_LocalScale: {x: 442.89053, y: 491.19708, z: 1}
+  m_LocalScale: {x: 90, y: 90, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 162524521}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &427762807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427762804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c620b988077994e9af66ad4633a2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  sprites: []
 --- !u!1 &460493458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3580,7 @@ GameObject:
   - component: {fileID: 578141644}
   - component: {fileID: 578141643}
   - component: {fileID: 578141642}
+  - component: {fileID: 578141647}
   m_Layer: 5
   m_Name: Item2Button
   m_TagString: Untagged
@@ -3657,6 +3688,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 0
+      - m_Target: {fileID: 578141647}
+        m_TargetAssemblyTypeName: ShopScript, Assembly-CSharp
+        m_MethodName: BuyDefence_20
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &578141645
 MonoBehaviour:
@@ -3696,6 +3739,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578141640}
   m_CullTransparentMesh: 1
+--- !u!114 &578141647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578141640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787fcd9cb8c7cd541a1cd898e33c232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &585623865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3812,7 +3867,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &593444332
 GameObject:
@@ -3930,7 +3985,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &596241779
 GameObject:
@@ -5394,6 +5449,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755198823}
   m_CullTransparentMesh: 1
+--- !u!1 &775145594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 775145596}
+  - component: {fileID: 775145595}
+  m_Layer: 0
+  m_Name: SpriteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &775145595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775145594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348f71d15ad08d43bf5fe431772099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCards: []
+  sprite: {fileID: 0}
+  sprites: []
+  image: {fileID: 0}
+  target: {fileID: 0}
+  playerNumbers: 0000000000000000000000000000000000000000
+--- !u!4 &775145596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775145594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2419.5706, y: -1074.223, z: 123.5441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &777985544
 GameObject:
   m_ObjectHideFlags: 0
@@ -5888,6 +5993,7 @@ GameObject:
   - component: {fileID: 833190448}
   - component: {fileID: 833190447}
   - component: {fileID: 833190450}
+  - component: {fileID: 833190451}
   m_Layer: 5
   m_Name: Card3
   m_TagString: Card
@@ -5972,6 +6078,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 833190451}
+        m_TargetAssemblyTypeName: SpriteManager, Assembly-CSharp
+        m_MethodName: GetBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &833190448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6022,6 +6140,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &833190451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833190445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348f71d15ad08d43bf5fe431772099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCards: []
+  sprite: {fileID: 0}
+  sprites: []
+  image: {fileID: 0}
+  target: {fileID: 0}
+  playerNumbers: 0000000000000000000000000000000000000000
 --- !u!1 &836925220
 GameObject:
   m_ObjectHideFlags: 0
@@ -6412,7 +6548,7 @@ Transform:
   - {fileID: 677295527}
   - {fileID: 1231712899}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &893201416
 GameObject:
@@ -6513,7 +6649,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 893201418}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyMainScene
+        m_MethodName: BackMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7103,7 +7239,7 @@ RectTransform:
   - {fileID: 651473457}
   - {fileID: 2109027556}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7612,7 +7748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1056315089}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyMainScene
+        m_MethodName: BackMainScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7996,7 +8132,7 @@ RectTransform:
   - {fileID: 1404582413}
   - {fileID: 655044711}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8016,6 +8152,7 @@ GameObject:
   - component: {fileID: 1106369397}
   - component: {fileID: 1106369396}
   - component: {fileID: 1106369399}
+  - component: {fileID: 1106369400}
   m_Layer: 5
   m_Name: Card2
   m_TagString: Card
@@ -8100,6 +8237,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1106369400}
+        m_TargetAssemblyTypeName: SpriteManager, Assembly-CSharp
+        m_MethodName: GetBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1106369397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8150,6 +8299,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1106369400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106369394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348f71d15ad08d43bf5fe431772099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCards: []
+  sprite: {fileID: 0}
+  sprites: []
+  image: {fileID: 0}
+  target: {fileID: 0}
+  playerNumbers: 0000000000000000000000000000000000000000
 --- !u!1 &1120732102
 GameObject:
   m_ObjectHideFlags: 0
@@ -9517,6 +9684,7 @@ GameObject:
   - component: {fileID: 1276534639}
   - component: {fileID: 1276534638}
   - component: {fileID: 1276534641}
+  - component: {fileID: 1276534642}
   m_Layer: 5
   m_Name: Card1
   m_TagString: Card
@@ -9601,6 +9769,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1276534642}
+        m_TargetAssemblyTypeName: SpriteManager, Assembly-CSharp
+        m_MethodName: GetBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1276534639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9651,6 +9831,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1276534642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276534636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5348f71d15ad08d43bf5fe431772099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCards: []
+  sprite: {fileID: 0}
+  sprites: []
+  image: {fileID: 0}
+  target: {fileID: 0}
+  playerNumbers: 0000000000000000000000000000000000000000
 --- !u!1 &1277519329
 GameObject:
   m_ObjectHideFlags: 0
@@ -9906,7 +10104,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1324605938
 GameObject:
@@ -10451,7 +10649,7 @@ RectTransform:
   - {fileID: 105330871}
   - {fileID: 1142953107}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11241,6 +11439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1593345950}
   - component: {fileID: 1593345949}
+  - component: {fileID: 1593345951}
   m_Layer: 0
   m_Name: Item3Icon
   m_TagString: Untagged
@@ -11289,7 +11488,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bf60e5acf58066479cf7f063965ca19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11309,12 +11508,26 @@ Transform:
   m_GameObject: {fileID: 1593345948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2090, y: -870, z: -178.75095}
-  m_LocalScale: {x: 442.89053, y: 491.19708, z: 1}
+  m_LocalScale: {x: 90, y: 90, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 162524521}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1593345951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593345948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c620b988077994e9af66ad4633a2ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  sprites: []
 --- !u!1 &1594293990
 GameObject:
   m_ObjectHideFlags: 0
@@ -12088,7 +12301,7 @@ RectTransform:
   - {fileID: 668562136}
   - {fileID: 83859496}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12109,6 +12322,7 @@ GameObject:
   - component: {fileID: 1724169368}
   - component: {fileID: 1724169367}
   - component: {fileID: 1724169366}
+  - component: {fileID: 1724169371}
   m_Layer: 5
   m_Name: Item1Button
   m_TagString: Untagged
@@ -12216,6 +12430,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 0
+      - m_Target: {fileID: 1724169371}
+        m_TargetAssemblyTypeName: ShopScript, Assembly-CSharp
+        m_MethodName: BuyHeal_10
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1724169369
 MonoBehaviour:
@@ -12255,6 +12481,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724169364}
   m_CullTransparentMesh: 1
+--- !u!114 &1724169371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724169364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787fcd9cb8c7cd541a1cd898e33c232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1730884825
 GameObject:
   m_ObjectHideFlags: 0
@@ -12930,6 +13168,7 @@ GameObject:
   - component: {fileID: 1904523498}
   - component: {fileID: 1904523497}
   - component: {fileID: 1904523496}
+  - component: {fileID: 1904523501}
   m_Layer: 5
   m_Name: Item3Button
   m_TagString: Untagged
@@ -13037,6 +13276,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 0
+      - m_Target: {fileID: 1904523501}
+        m_TargetAssemblyTypeName: ShopScript, Assembly-CSharp
+        m_MethodName: BuyDefence_30
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1904523499
 MonoBehaviour:
@@ -13076,6 +13327,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904523494}
   m_CullTransparentMesh: 1
+--- !u!114 &1904523501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904523494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787fcd9cb8c7cd541a1cd898e33c232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1909985927
 GameObject:
   m_ObjectHideFlags: 0
@@ -13241,6 +13504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 400519755}
+  spriteManager: {fileID: 0}
   playerResult: {fileID: 0}
   enemyResult: {fileID: 0}
   playerDefence: {fileID: 0}

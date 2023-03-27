@@ -32,19 +32,14 @@ public class BattleScript : MonoBehaviour
 
         if (GameManager.enemyStatus.hp < 0)
         { GameManager.enemyStatus.hp = 0; }
-        EnemyAttack();
-        GameManager.turnStart = true;
 
         if (GameManager.enemyStatus.hp == 0)
         {
-            // ButtonScript.LoadEasyMainScene()작동과 동일
-            Debug.Log("승리!");
-            SceneManager.LoadScene("3.EasySceneTest");
-            GameManager.DifficultySetEasy();
-            GameManager.inGame = true;
-            GameManager.inBattle = false;
-            GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+            Victory();
         }
+
+        EnemyAttack();
+        GameManager.turnStart = true;        
     }
 
     // 방어력 증가 함수
@@ -56,17 +51,6 @@ public class BattleScript : MonoBehaviour
         EnemyAttack();
 
         GameManager.turnStart = true;
-
-        if (GameManager.enemyStatus.hp == 0)
-        {
-            // ButtonScript.LoadEasyMainScene()작동과 동일
-            Debug.Log("승리!");
-            SceneManager.LoadScene("3.EasySceneTest");
-            GameManager.DifficultySetEasy();
-            GameManager.inGame = true;
-            GameManager.inBattle = false;
-            GameManager.cameraSelect = CAMERA_TYPE.MAIN;
-        }
     }
 
     // 적의 공격 수행 함수
@@ -101,7 +85,31 @@ public class BattleScript : MonoBehaviour
             Debug.Log("패배...");
             GameManager.inBattle = false;
             SceneManager.LoadScene("0.MainScene");
-            GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+            GameManager.cameraSelect = CAMERA_TYPE.MAIN;            
+        }
+    }
+
+
+    void Victory()
+    {
+        Debug.Log("승리!");
+        GameManager.inBattle = false;
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+
+        switch (GameManager.difficulty)
+        {
+            case DIFFICULTY.EASY:
+                int eRand = Random.Range(5, 25);
+                GameManager.playerGold += eRand;
+                break;
+            case DIFFICULTY.NORMAL:
+                int nRand = Random.Range(10, 30);
+                GameManager.playerGold += nRand;
+                break;
+            case DIFFICULTY.HARD:
+                int hRand = Random.Range(15, 40);
+                GameManager.playerGold += hRand;
+                break;
         }
     }
     

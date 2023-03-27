@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class ButtonScript : MonoBehaviour
 {
@@ -30,14 +32,22 @@ public class ButtonScript : MonoBehaviour
     public void LoadEasyMainScene()
     {  
         SceneManager.LoadScene("3.EasySceneTest");
-        GameManager.DifficultySetEasy();
+        GameManager.DifficultySetEasy();        
         GameManager.inGame = true;
         GameManager.inBattle = false;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
+    public void BackMainScene()
+    {
+        GameManager.inBattle = false;
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+    }     
+
     public void LoadBattleStage()
     {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = true;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
     }
@@ -46,30 +56,8 @@ public class ButtonScript : MonoBehaviour
     {
         GameManager.inBattle = false;
         GameManager.cameraSelect = CAMERA_TYPE.SHOP;
-    }
-
-    //public void LoadEasyStage1()
-    //{
-    //    //SceneManager.LoadScene("3-1.EasyBattle-1");
-    //    GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
-    //}
-    //public void LoadEasyStage2()
-    //{
-    //    //SceneManager.LoadScene("3-2.EasyBattle-2");
-    //    GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
-    //}
-    //public void LoadEasyStage3()
-    //{
-    //    //SceneManager.LoadScene("3-3.EasyBattle-3");
-    //    GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
-    //}
-    //public void LoadEasyStage4()
-    //{
-    //    //SceneManager.LoadScene("3-4.EasyBattle-4");
-    //    GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
-    //}      
-   
-#endregion ~Easy난이도 스테이지 모음
+    }       
+#endregion
 
 #region NormalStage
     public void LoadNormalMainScene()
@@ -79,28 +67,7 @@ public class ButtonScript : MonoBehaviour
         GameManager.DifficultySetNormal();        
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
-
-    //public void LoadNormalStage1()
-    //{
-    //    SceneManager.LoadScene("5-1.NormalBattle-1");
-    //}
-    //public void LoadNormalStage2()
-    //{
-    //    SceneManager.LoadScene("5-2.NormalBattle-2");
-    //}
-    //public void LoadNormalStage3()
-    //{
-    //    SceneManager.LoadScene("5-3.NormalBattle-3");
-    //}
-    //public void LoadNormalStage4()
-    //{
-    //    SceneManager.LoadScene("5-4.NormalBattle-4");
-    //}
-    //public void LoadNormalShopScene()
-    //{
-    //    SceneManager.LoadScene("6.NormalShop");
-    //}
-    #endregion ~Normal난이도 스테이지 모음
+    #endregion
 
     #region HardStage
     public void LoadHardMainScene()
@@ -110,28 +77,7 @@ public class ButtonScript : MonoBehaviour
         GameManager.DifficultySetHard();
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
-
-    //public void LoadHardStage1()
-    //{
-    //    SceneManager.LoadScene("7-1.HardBattle-1");
-    //}
-    //public void LoadHardStage2()
-    //{
-    //    SceneManager.LoadScene("7-2.HardBattle-2");
-    //}
-    //public void LoadHardStage3()
-    //{
-    //    SceneManager.LoadScene("7-3.HardBattle-3");
-    //}
-    //public void LoadHardStage4()
-    //{
-    //    SceneManager.LoadScene("7-4.HardBattle-4");
-    //}
-    //public void LoadHardShopScene()
-    //{
-    //    SceneManager.LoadScene("8.HardShop");
-    //}
-    #endregion ~Hard난이도 스테이지 모음
+    #endregion
 
     public void LoadTestBattleScene()
     {
