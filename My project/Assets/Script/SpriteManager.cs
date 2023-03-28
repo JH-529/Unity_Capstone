@@ -41,7 +41,6 @@ public class SpriteManager : MonoBehaviour
     public void GetBtn()
     {
         GameObject tempBtn = EventSystem.current.currentSelectedGameObject;
-        Debug.Log("Click");
 
         if(tempBtn.name == "Card1")
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShopScript : MonoBehaviour
+public class ShopScript2 : MonoBehaviour
 {
     Button btn;
     public SpriteRenderer sRenderer;
@@ -13,9 +13,9 @@ public class ShopScript : MonoBehaviour
 
     void Start()
     {
-        btn = GameObject.Find("Item1Button").GetComponent<Button>();
+        btn = GameObject.Find("Item3Button").GetComponent<Button>();
 
-        sRenderer = GameObject.Find("Item1Icon").GetComponent<SpriteRenderer>();
+        sRenderer = GameObject.Find("Item3Icon").GetComponent<SpriteRenderer>();
         textObject = transform.GetChild(0).gameObject;
 
         if (sRenderer.sprite.name.Equals("Heal"))
@@ -46,18 +46,17 @@ public class ShopScript : MonoBehaviour
 
     void Update()
     {
-        if(GameManager.reinforce == true && sRenderer.sprite.name.Equals("Reinforce"))
+        if (GameManager.reinforce == true && sRenderer.sprite.name.Equals("Reinforce"))
         {
             btn.interactable = false;
         }
     }
 
-
     #region heal
     public void BuyHeal_10()
-    {        
+    {
         if (GameManager.playerGold >= 10)
-        { 
+        {
             GameManager.playerGold -= 10;
             GameManager.playerStatus.hp += 10;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -65,9 +64,9 @@ public class ShopScript : MonoBehaviour
         }
     }
     public void BuyHeal_20()
-    {        
+    {
         if (GameManager.playerGold >= 20)
-        { 
+        {
             GameManager.playerGold -= 20;
             GameManager.playerStatus.hp += 20;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -75,9 +74,9 @@ public class ShopScript : MonoBehaviour
         }
     }
     public void BuyHeal_30()
-    {        
+    {
         if (GameManager.playerGold >= 30)
-        { 
+        {
             GameManager.playerGold -= 30;
             GameManager.playerStatus.hp += 30;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -98,10 +97,10 @@ public class ShopScript : MonoBehaviour
     public void BuyDefence_20()
     {
         if (GameManager.playerGold >= 20)
-        { 
+        {
             GameManager.playerGold -= 20;
             GameManager.playerStatus.defence += 10;
-        }        
+        }
     }
     public void BuyDefence_30()
     {

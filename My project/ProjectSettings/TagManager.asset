@@ -16,6 +16,8 @@ TagManager:
   - PlayerResultText
   - EnemyResult
   - EnemyResultText
+  - BattleButton
+  - DifficultyButton
   layers:
   - Default
   - TransparentFX

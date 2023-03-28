@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CardScript : MonoBehaviour
 {
@@ -22,18 +24,24 @@ public class CardScript : MonoBehaviour
     #region 선택한 카드 순서 인지 함수
     public void SelectFirstNumberCard()
     {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.selectNumberCard = PLAYER_CARD.FIRST;
         if(GameManager.selectedCardCount == SELECTED_CARD_COUNT.SECOND)
         { GameManager.selectedCardCount = SELECTED_CARD_COUNT.THIRD; }
     }
     public void SelectSecondNumberCard()
     {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.selectNumberCard = PLAYER_CARD.SECOND;
         if (GameManager.selectedCardCount == SELECTED_CARD_COUNT.SECOND)
         { GameManager.selectedCardCount = SELECTED_CARD_COUNT.THIRD; }
     }
     public void SelectThirdNumberCard()
     {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.selectNumberCard = PLAYER_CARD.THIRD;
         if (GameManager.selectedCardCount == SELECTED_CARD_COUNT.SECOND)
         { GameManager.selectedCardCount = SELECTED_CARD_COUNT.THIRD; }

@@ -207,7 +207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &11298850
 MonoBehaviour:
@@ -464,6 +464,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188584175}
   m_CullTransparentMesh: 1
+--- !u!1 &1216299888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216299890}
+  - component: {fileID: 1216299889}
+  m_Layer: 0
+  m_Name: CameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1216299889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216299888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12564bca5745814889e3c0e0564650f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  battleCamera: {fileID: 0}
+  shopCamera: {fileID: 0}
+--- !u!4 &1216299890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216299888}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1043.1595, y: -951.1083, z: 654.9491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321365804
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +577,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1374330314
 GameObject:
@@ -839,7 +886,7 @@ RectTransform:
   - {fileID: 828165061}
   - {fileID: 1188584176}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -875,8 +922,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4b81b37143eae42a1291cf4e783eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHp: 0
-  playerGold: 0
+  cameraManager: {fileID: 0}
+  spriteManager: {fileID: 0}
+  playerResult: {fileID: 0}
+  enemyResult: {fileID: 0}
+  playerDefence: {fileID: 0}
+  enemyDefence: {fileID: 0}
+  turnText: {fileID: 0}
+  mainCanvas: {fileID: 0}
+  mainMapCanvas: {fileID: 0}
+  battleCanvas: {fileID: 0}
+  shopCanvas: {fileID: 0}
+  cardSO: {fileID: 0}
+  cards: []
+  operatorCards: []
+  selectedCards: []
+  enemyCards: []
 --- !u!4 &1945390981
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class BattleScript : MonoBehaviour
@@ -34,11 +35,17 @@ public class BattleScript : MonoBehaviour
         { GameManager.enemyStatus.hp = 0; }
 
         if (GameManager.enemyStatus.hp == 0)
-        {
-            Victory();
+        {            
+            if(GameManager.inboss)
+            { KillBoss(); }
+            else
+            { Victory(); }
         }
-
-        EnemyAttack();
+        else
+        {
+            EnemyAttack();
+        }
+        
         GameManager.turnStart = true;        
     }
 
@@ -47,7 +54,9 @@ public class BattleScript : MonoBehaviour
     public void GetDefence()
     {
         float defence = GameManager.playerDamage;
-        GameManager.playerStatus.defence = defence;
+        if(defence < 0)
+        { defence = 0; }
+        GameManager.playerStatus.defence += defence;
         EnemyAttack();
 
         GameManager.turnStart = true;
@@ -81,14 +90,10 @@ public class BattleScript : MonoBehaviour
         { GameManager.playerStatus.hp = 0; }
 
         if(GameManager.playerStatus.hp == 0)
-        { 
-            Debug.Log("패배...");
-            GameManager.inBattle = false;
-            SceneManager.LoadScene("0.MainScene");
-            GameManager.cameraSelect = CAMERA_TYPE.MAIN;            
+        {
+            Defeat();
         }
     }
-
 
     void Victory()
     {
@@ -112,5 +117,42 @@ public class BattleScript : MonoBehaviour
                 break;
         }
     }
-    
+
+    public void KillBoss()
+    {
+        Debug.Log("난이도 클리어!");
+        SceneManager.LoadScene("1.DifficultyScene");
+        GameManager.inGame = false;
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+
+        switch (GameManager.difficulty)
+        {            
+            case DIFFICULTY.EASY:
+                Debug.Log("이지 클리어!");
+                GameManager.difficultyButtonsAlive[0] = false;
+                break;
+            case DIFFICULTY.NORMAL:
+                Debug.Log("노말 클리어!");
+                GameManager.difficultyButtonsAlive[1] = false;
+                break;
+            case DIFFICULTY.HARD:
+                Debug.Log("하드 클리어!");
+                GameManager.difficultyButtonsAlive[2] = false;
+                break;
+            default:
+                Debug.Log("난이도 설정 오류");
+                break;
+        }
+    }
+
+    void Defeat()
+    {
+        Debug.Log("패배..");
+        GameManager.inBattle = false;
+        GameManager.inGame = false;
+        GameManager.newGame = true;
+        SceneManager.LoadScene("0.MainScene");
+        GameManager.playerStatus = GameManager.playerStatus.SetUnitStatus(UNIT_TYPE.PLAYER);
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+    }    
 }

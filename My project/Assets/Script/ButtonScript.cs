@@ -7,17 +7,18 @@ using UnityEngine.EventSystems;
 
 public class ButtonScript : MonoBehaviour
 {
-
+    #region 시작화면, 난이도선택, 옵션
     public void LoadMainScene()
     {
         SceneManager.LoadScene("0.MainScene");
+        GameManager.newGame = true;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void LoadDifficultyScene()
     {
         SceneManager.LoadScene("1.DifficultyScene");
-        GameManager.inGame = false;
+        GameManager.inGame = false;        
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
@@ -26,15 +27,16 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("2.OptionScene");
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
+    #endregion
 
-
-#region EasyStage        
+    #region EasyStage        
     public void LoadEasyMainScene()
     {  
         SceneManager.LoadScene("3.EasySceneTest");
         GameManager.DifficultySetEasy();        
         GameManager.inGame = true;
         GameManager.inBattle = false;
+        GameManager.newGame = false;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
@@ -49,7 +51,33 @@ public class ButtonScript : MonoBehaviour
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = true;
+        GameManager.inboss = false;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+    }
+
+    public void LoadBossStage()
+    {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
+        GameManager.inBattle = true;
+        GameManager.inboss = true;
+        GameManager.enemyStatus.maxHp *= 2;
+        GameManager.enemyStatus.hp *= 2;
+        GameManager.enemyStatus.defence *= 2;
+        GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+    }
+
+    public void LoadSpecialScene()
+    {
+        if (GameManager.playerGold < 20)
+        { Debug.Log("골드가 부족합니다"); }
+        else
+        {
+            GameManager.button = EventSystem.current.currentSelectedGameObject;
+            GameManager.button.GetComponent<Button>().interactable = false;
+            GameManager.inBattle = false;
+            GameManager.cameraSelect = CAMERA_TYPE.SPECIAL;
+        }        
     }
 
     public void LoadShopScene()
@@ -59,7 +87,7 @@ public class ButtonScript : MonoBehaviour
     }       
 #endregion
 
-#region NormalStage
+    #region NormalStage
     public void LoadNormalMainScene()
     {
         SceneManager.LoadScene("5.NormalSceneTest");
@@ -79,9 +107,6 @@ public class ButtonScript : MonoBehaviour
     }
     #endregion
 
-    public void LoadTestBattleScene()
-    {
-        SceneManager.LoadScene("9.TestBattleScene");
-    }
+    
 }
 

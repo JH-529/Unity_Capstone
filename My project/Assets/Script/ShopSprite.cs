@@ -14,7 +14,7 @@ public class ShopSprite : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>("Sprites/Shop");
 
-        int rand = Random.Range(0, 3);
+        int rand = Random.Range(0, 4);
         spriteRenderer.sprite = sprites[rand];
     }
 
