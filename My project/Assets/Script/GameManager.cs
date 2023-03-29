@@ -802,7 +802,7 @@ public class GameManager : MonoBehaviour
                 selectedCardSet.ClearSelectedCard();
                 BattleStateClear();
                 inBattle = true;
-                turnCount = 0;
+                turnCount = 1;
             }
             if(turnStart)
             {
