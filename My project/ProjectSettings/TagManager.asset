@@ -18,6 +18,8 @@ TagManager:
   - EnemyResultText
   - BattleButton
   - DifficultyButton
+  - ShopIcon
+  - Option
   layers:
   - Default
   - TransparentFX

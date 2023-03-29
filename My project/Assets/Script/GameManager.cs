@@ -260,10 +260,21 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            int prev = 0;
             for (int i = 0; i < 2; i++)
             {
                 OperatorCard card;
                 int rand = Random.Range(0, 4);
+                if(i == 0)
+                { prev = rand; }
+                else
+                {
+                    while(prev == rand)
+                    {
+                        rand = Random.Range(0, 4);
+                    }
+                }
+
                 switch (rand)
                 {
                     case 0:
