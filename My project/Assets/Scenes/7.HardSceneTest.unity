@@ -1291,6 +1291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 279885775}
   - component: {fileID: 279885774}
+  - component: {fileID: 279885776}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1339,7 +1340,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: ae297123f091bbf4e8f1835eb98fb293, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7068070d5ed9e584b8328576d158d93c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1358,13 +1359,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279885773}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1811, y: -1050, z: 200}
-  m_LocalScale: {x: 200, y: 200, z: 1}
+  m_LocalPosition: {x: 1813, y: -880, z: 200}
+  m_LocalScale: {x: 84.0995, y: 92.44041, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 871725804}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &279885776
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279885773}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a386a8d33d1d9184e9cf66d493c24924, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &310654608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,6 +2056,7 @@ MonoBehaviour:
   mainCamera: {fileID: 11298848}
   battleCamera: {fileID: 593444333}
   shopCamera: {fileID: 0}
+  specialCamera: {fileID: 0}
 --- !u!1 &424672660
 GameObject:
   m_ObjectHideFlags: 0
@@ -3636,7 +3659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 0
 --- !u!114 &624611724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4217,6 +4239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 699040084}
   - component: {fileID: 699040083}
+  - component: {fileID: 699040085}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4265,9 +4288,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 317b8365a4649ab459f6cb58ec8f9f18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa4142f7e000b8642bc34991768b84c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.5, y: 1.5}
@@ -4284,13 +4307,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699040082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3183, y: -1050, z: 200}
-  m_LocalScale: {x: 200, y: 200, z: 1}
+  m_LocalPosition: {x: 3177, y: -880, z: 200}
+  m_LocalScale: {x: 83.16274, y: 93.84159, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 871725804}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &699040085
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699040082}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a7445b9d8d87424883882927597a509, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &708170475
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,7 +6646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 0
 --- !u!114 &1024885135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9528,7 +9571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3836f992a10657340b9da0c453a2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 0
 --- !u!114 &1482901823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11025,13 +11067,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraManager: {fileID: 400519755}
+  spriteManager: {fileID: 0}
+  playerResult: {fileID: 0}
+  enemyResult: {fileID: 0}
+  playerDefence: {fileID: 0}
+  enemyDefence: {fileID: 0}
+  turnText: {fileID: 0}
   mainCanvas: {fileID: 0}
   mainMapCanvas: {fileID: 0}
   battleCanvas: {fileID: 0}
   shopCanvas: {fileID: 0}
+  specialCanvas: {fileID: 0}
+  battleButton: {fileID: 0}
   cardSO: {fileID: 11400000, guid: 4dbb24580b0294f469a93e43b6e63627, type: 2}
   numberCards: []
-  operatorCards: []
+  numberCardsText: []
+  operatorCardsText: []
+  selectedCardsText: []
+  enemyCards: []
 --- !u!4 &1945390981
 Transform:
   m_ObjectHideFlags: 0
