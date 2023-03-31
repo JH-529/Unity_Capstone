@@ -2145,6 +2145,7 @@ MonoBehaviour:
   shopCanvas: {fileID: 0}
   specialCanvas: {fileID: 0}
   battleButton: {fileID: 0}
+  AudioManager: {fileID: 0}
   cardSO: {fileID: 0}
   numberCards: []
   numberCardsText: []

@@ -44,6 +44,7 @@ public class ButtonScript : MonoBehaviour
     {
         GameManager.inBattle = false;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+        //SoundManager.bgms[0].Play();
     }     
 
     public void LoadBattleStage()
@@ -53,6 +54,7 @@ public class ButtonScript : MonoBehaviour
         GameManager.inBattle = true;
         GameManager.inboss = false;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+        //SoundManager.bgms[1].Play();
     }
 
     public void LoadBossStage()
@@ -65,6 +67,7 @@ public class ButtonScript : MonoBehaviour
         GameManager.enemyStatus.hp *= 2;
         GameManager.enemyStatus.defence *= 2;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+        //SoundManager.bgms[1].Play();
     }
 
     public void LoadSpecialScene()

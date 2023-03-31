@@ -20,6 +20,7 @@ TagManager:
   - DifficultyButton
   - ShopIcon
   - Option
+  - Music
   layers:
   - Default
   - TransparentFX

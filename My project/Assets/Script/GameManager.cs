@@ -416,17 +416,15 @@ public class GameManager : MonoBehaviour
             {
                 case PLAYER_CARD.FIRST:
                     selectedCardSet.numberCard1 = playerCardSet.numberCards[0];
-                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
                     break;
                 case PLAYER_CARD.SECOND:
                     selectedCardSet.numberCard1 = playerCardSet.numberCards[1];
-                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
                     break;
                 case PLAYER_CARD.THIRD:
                     selectedCardSet.numberCard1 = playerCardSet.numberCards[2];
-                    //WriteSelectedCardText(SELECTED_CARD_COUNT.FIRST, selectedCardSet.numberCard1.number, "");
                     break;
                 default:
+                    Debug.Log("선택 오류");
                     break;
             }
         }
@@ -436,23 +434,21 @@ public class GameManager : MonoBehaviour
         {
             case PLAYER_OPERATOR.FIRST:
                 selectedCardSet.operatorCard = playerCardSet.operatorCards[0];
-                //WriteSelectedCardText(SELECTED_CARD_COUNT.SECOND, 0, selectedCardSet.operatorCard.name);
                 break;
             case PLAYER_OPERATOR.SECOND:
                 selectedCardSet.operatorCard = playerCardSet.operatorCards[1];
-                //WriteSelectedCardText(SELECTED_CARD_COUNT.SECOND, 0, selectedCardSet.operatorCard.name);
                 break;
             default:
+                Debug.Log("선택 오류");
                 break;
         }
 
         if (selectedCardCount == SELECTED_CARD_COUNT.THIRD)
-        {
-            battleButton.SetActive(true);
+        {            
             switch (selectNumberCard)
             {
                 case PLAYER_CARD.FIRST:
-                    selectedCardSet.numberCard2 = playerCardSet.numberCards[0];                    
+                    selectedCardSet.numberCard2 = playerCardSet.numberCards[0];       
                     break;
                 case PLAYER_CARD.SECOND:
                     selectedCardSet.numberCard2 = playerCardSet.numberCards[1];
@@ -461,10 +457,34 @@ public class GameManager : MonoBehaviour
                     selectedCardSet.numberCard2 = playerCardSet.numberCards[2];
                     break;
                 default:
+                    Debug.Log("선택 오류");
                     break;
             }
+            if(divideCheck())
+            { battleButton.SetActive(false); }
+            else
+            { battleButton.SetActive(true); }
         }
     }
+
+    bool divideCheck()
+    {
+        if(selectedCardSet.operatorCard.type == OperatorCard.OPERATOR_TYPE.DIVIDE)
+        {
+            if(selectedCardSet.numberCard1.number == 0 || selectedCardSet.numberCard2.number == 0)
+            {
+                Debug.Log("0은 나누기 불가!");
+                return true;
+            }
+            if(selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
+            {
+                Debug.Log("더 큰수로 나누고 있다");
+                return true;
+            }
+        }
+        return false;
+    }
+
     void NextTurn()
     {
         playerCardSet.ClearCardSET();
