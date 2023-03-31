@@ -205,7 +205,8 @@ public class GameManager : MonoBehaviour
     public CardSO cardSO;
     public CardSET playerCardSet = new CardSET();
     public SelectedCardSET selectedCardSet = new SelectedCardSET();
-    public CardSET enemyCardSet = new CardSET();
+    public SelectedCardSET enemyCardSet = new SelectedCardSET();
+    //public CardSET enemyCardSet = new CardSET();
 
     public static GameObject[] difficultyButtons;
     public static bool[] difficultyButtonsAlive = { true, true, true };
@@ -307,19 +308,73 @@ public class GameManager : MonoBehaviour
         }       
     }
 
+    //void MakeEnemyCardSet()
+    //{
+    //    if (enemyCardSet.numberCards.Count == 0)
+    //    {
+    //        enemyCardSet.result = 0;
+    //        while (enemyCardSet.result <= 0 || enemyCardSet.result > 30)
+    //        {               
+    //            ClearEnemyCardSet();
+    //            for (int i = 0; i < 2; i++)
+    //            {
+    //                NumberCard enemyCard = new NumberCard(i, Random.Range(1, 11), null);
+    //                enemyCardSet.numberCards.Add(enemyCard);
+    //            }
+
+    //            OperatorCard card;
+    //            int rand = Random.Range(0, 4);
+    //            switch (rand)
+    //            {
+    //                case 0:
+    //                    card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
+    //                    enemyCardSet.operatorCards.Add(card);
+    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
+    //                    break;
+    //                case 1:
+    //                    card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
+    //                    enemyCardSet.operatorCards.Add(card);
+    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
+    //                    break;
+    //                case 2:
+    //                    card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+    //                    enemyCardSet.operatorCards.Add(card);
+    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
+    //                    break;
+    //                case 3:
+    //                    card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+    //                    enemyCardSet.operatorCards.Add(card);
+    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
+    //                    break;
+    //            }
+
+    //            if(enemyCardSet.result >= 30)
+    //            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }                
+    //        }            
+    //    }       
+    //}
     void MakeEnemyCardSet()
     {
-        if (enemyCardSet.numberCards.Count == 0)
+        if(enemyCardSet.numberCard1.count == 0)
         {
             enemyCardSet.result = 0;
-            while (enemyCardSet.result <= 0 || enemyCardSet.result > 30)
-            {               
-                ClearEnemyCardSet();
-                for (int i = 0; i < 2; i++)
+            while (enemyCardSet.result <= 0 || enemyCardSet.result > 20)
+            {
+                enemyCardSet.ClearSelectedCard();
+                                
+                NumberCard enemyCard1 = new NumberCard(1, Random.Range(1, 11), null);
+                NumberCard enemyCard2 = new NumberCard(2, Random.Range(1, 11), null);
+                enemyCardSet.numberCard1 = enemyCard1;
+                enemyCardSet.numberCard2 = enemyCard2;
+
+                while (enemyCardSet.numberCard1.number < enemyCardSet.numberCard2.number)
                 {
-                    NumberCard enemyCard = new NumberCard(i, Random.Range(1, 11), null);
-                    enemyCardSet.numberCards.Add(enemyCard);
+                    enemyCard1 = new NumberCard(0, Random.Range(1, 11), null);
+                    enemyCard2 = new NumberCard(1, Random.Range(1, 11), null);
+                    enemyCardSet.numberCard1 = enemyCard1;
+                    enemyCardSet.numberCard2 = enemyCard2;
                 }
+
 
                 OperatorCard card;
                 int rand = Random.Range(0, 4);
@@ -327,39 +382,39 @@ public class GameManager : MonoBehaviour
                 {
                     case 0:
                         card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
-                        enemyCardSet.operatorCards.Add(card);
-                        enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
+                        enemyCardSet.operatorCard = card;
+                        enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
                         break;
                     case 1:
                         card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
-                        enemyCardSet.operatorCards.Add(card);
-                        enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
+                        enemyCardSet.operatorCard = card;
+                        enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
                         break;
                     case 2:
                         card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
-                        enemyCardSet.operatorCards.Add(card);
-                        enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
+                        enemyCardSet.operatorCard = card;
+                        enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
                         break;
                     case 3:
                         card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
-                        enemyCardSet.operatorCards.Add(card);
-                        enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
+                        enemyCardSet.operatorCard = card;                        
+                        enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
                         break;
                 }
 
-                if(enemyCardSet.result >= 30)
-                { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }                
-            }            
-        }       
+                if (enemyCardSet.result >= 30)
+                { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+            }
+        }
     }
-    void ClearEnemyCardSet()
-    {
-        if(enemyCardSet.numberCards.Count != 0)
-        {
-            enemyCardSet.numberCards.Clear();
-            enemyCardSet.operatorCards.Clear();
-        }        
-    }
+    //void ClearEnemyCardSet()
+    //{
+    //    if(enemyCardSet.numberCards.Count != 0)
+    //    {
+    //        enemyCardSet.numberCards.Clear();
+    //        enemyCardSet.operatorCards.Clear();
+    //    }        
+    //}
         
     // Scene에 있는 Tag가 Card, SelectedCard, EnemyCard인 GameObject들을 Load
     void LoadCardGameObject()
@@ -396,14 +451,14 @@ public class GameManager : MonoBehaviour
             }
 
             // 적의 카드 Text를 Write
-            for(int i=0; i<=enemyCardSet.numberCards.Count; i++)
+            for(int i=0; i<=3; i++)
             {
                 if (i == 0)
-                { cardText[0].enemyCardText.text = enemyCardSet.numberCards[0].number.ToString(); }
+                { cardText[0].enemyCardText.text = enemyCardSet.numberCard1.number.ToString(); }
                 else
-                { cardText[1].enemyCardText.text = enemyCardSet.operatorCards[0].name; }
+                { cardText[1].enemyCardText.text = enemyCardSet.operatorCard.name; }
                 if (i == 2)
-                { cardText[2].enemyCardText.text = enemyCardSet.numberCards[1].number.ToString(); }                
+                { cardText[2].enemyCardText.text = enemyCardSet.numberCard2.number.ToString(); }                
             }
         }
     }
@@ -424,7 +479,7 @@ public class GameManager : MonoBehaviour
                     selectedCardSet.numberCard1 = playerCardSet.numberCards[2];
                     break;
                 default:
-                    Debug.Log("선택 오류");
+                    //Debug.Log("선택 오류");
                     break;
             }
         }
@@ -439,7 +494,7 @@ public class GameManager : MonoBehaviour
                 selectedCardSet.operatorCard = playerCardSet.operatorCards[1];
                 break;
             default:
-                Debug.Log("선택 오류");
+                //Debug.Log("선택 오류");
                 break;
         }
 
@@ -457,7 +512,7 @@ public class GameManager : MonoBehaviour
                     selectedCardSet.numberCard2 = playerCardSet.numberCards[2];
                     break;
                 default:
-                    Debug.Log("선택 오류");
+                    //Debug.Log("선택 오류");
                     break;
             }
             if(divideCheck())
@@ -488,7 +543,7 @@ public class GameManager : MonoBehaviour
     void NextTurn()
     {
         playerCardSet.ClearCardSET();
-        enemyCardSet.ClearCardSET();
+        enemyCardSet.ClearSelectedCard();
         selectNumberCard = PLAYER_CARD.NOT;
         selectOperatorCard = PLAYER_OPERATOR.NOT;
         selectedCardCount = SELECTED_CARD_COUNT.FIRST;
@@ -805,7 +860,7 @@ public class GameManager : MonoBehaviour
             FindTurnUI();
 
             ClearCardSet();
-            ClearEnemyCardSet();
+            enemyCardSet.ClearSelectedCard();
             selectedCardCount = SELECTED_CARD_COUNT.FIRST;
             inboss = false;
         }
@@ -845,8 +900,8 @@ public class GameManager : MonoBehaviour
             {                
                 inBattle = true;
                 cameraManager.OnBattleCamera();
-                MakeCardSet();
                 MakeEnemyCardSet();
+                MakeCardSet();                
                 OnBattleCanvas();
                 ShowHpGoldText(battleUI);
                 ShowTurnUI();
