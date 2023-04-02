@@ -12,8 +12,9 @@ public class BattleScript : MonoBehaviour
     public void PlayerAttack()
     {
         float damage = GameManager.playerDamage;
-        if(damage <= 0)
-        { damage = 0; }
+        // 데미지 음수 보정 삭제
+        //if(damage <= 0)
+        //{ damage = 0; }
 
         // 방어력이 존재할 경우 방어력 우선 감소
         // 방어가 깨지면(0미만으로 감소) 그때부터 hp 감소
@@ -95,6 +96,8 @@ public class BattleScript : MonoBehaviour
         }
     }
 
+    // TODO
+    // 노말, 하드 골드 보상, 턴 수 수치 조절 필요
     void Victory()
     {
         Debug.Log("승리!");
@@ -104,16 +107,58 @@ public class BattleScript : MonoBehaviour
         switch (GameManager.difficulty)
         {
             case DIFFICULTY.EASY:
-                int eRand = Random.Range(5, 25);
-                GameManager.playerGold += eRand;
+                if(GameManager.turnCount <= 3)
+                {
+                    int eRand = Random.Range(20, 40);
+                    GameManager.playerGold += eRand;                    
+                }
+                if (GameManager.turnCount >= 4 && GameManager.turnCount <= 7)
+                {
+                    int eRand = Random.Range(15, 35);
+                    GameManager.playerGold += eRand;
+                }
+                if (GameManager.turnCount >=  8)
+                {
+                    int eRand = Random.Range(5, 25);
+                    GameManager.playerGold += eRand;
+                }
+                Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
             case DIFFICULTY.NORMAL:
-                int nRand = Random.Range(10, 30);
-                GameManager.playerGold += nRand;
+                if (GameManager.turnCount <= 3)
+                {
+                    int eRand = Random.Range(20, 40);
+                    GameManager.playerGold += eRand;
+                }
+                if (GameManager.turnCount >= 4 && GameManager.turnCount <= 7)
+                {
+                    int eRand = Random.Range(15, 35);
+                    GameManager.playerGold += eRand;
+                }
+                if (GameManager.turnCount >= 8)
+                {
+                    int eRand = Random.Range(5, 25);
+                    GameManager.playerGold += eRand;
+                }
+                Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
             case DIFFICULTY.HARD:
-                int hRand = Random.Range(15, 40);
-                GameManager.playerGold += hRand;
+                if (GameManager.turnCount <= 3)
+                {
+                    int eRand = Random.Range(20, 40);
+                    GameManager.playerGold += eRand;
+                }
+                if (GameManager.turnCount >= 4 && GameManager.turnCount <= 7)
+                {
+                    int eRand = Random.Range(15, 35);
+                    GameManager.playerGold += eRand;
+                }
+                if (GameManager.turnCount >= 8)
+                {
+                    int eRand = Random.Range(5, 25);
+                    GameManager.playerGold += eRand;
+                }
+                Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
         }
     }

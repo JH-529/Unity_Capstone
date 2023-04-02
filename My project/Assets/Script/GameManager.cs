@@ -56,6 +56,7 @@ public class Status
     public float maxHp;
     public float hp;    
     public float defence;
+    public float shield;
 
     public Status() { unitcode = UNIT_TYPE.EMPTY; }
     public Status(UNIT_TYPE code, float maxhp, float hp, float defence)
@@ -64,6 +65,7 @@ public class Status
         this.maxHp = maxhp;
         this.hp = hp;
         this.defence = defence;
+        this.shield = 0;
     }
   
     // Object의 UnitCode에 따라 정해진 Status를 반환
@@ -95,6 +97,7 @@ public class TextUI
 {
     public TextMeshProUGUI UIhp;
     public TextMeshProUGUI UIGold;
+    public TextMeshProUGUI UIshield;
     public TextMeshProUGUI UIhpBarText_Player;
     public TextMeshProUGUI UIhpBarText_Enemy;
     public Slider playerHpBar;
@@ -171,6 +174,8 @@ public class GameManager : MonoBehaviour
     public static PLAYER_OPERATOR selectOperatorCard = PLAYER_OPERATOR.NOT;
     public static SELECTED_CARD_COUNT selectedCardCount = SELECTED_CARD_COUNT.FIRST;
     public static int playerGold = 0;
+    public static int playerLevel = 1;
+    public static int playerExp = 0;
     public static float playerDamage = 0;
     public static float enemyDamage = 0;
     public static int turnCount = 1;
@@ -201,6 +206,7 @@ public class GameManager : MonoBehaviour
     public GameObject shopCanvas;
     public GameObject specialCanvas;
     public GameObject battleButton;
+    public GameObject resultUI;
 
     public CardSO cardSO;
     public CardSET playerCardSet = new CardSET();
@@ -515,10 +521,17 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("선택 오류");
                     break;
             }
-            if(divideCheck())
-            { battleButton.SetActive(false); }
+
+            if (divideCheck() || minusCheck())
+            { 
+                battleButton.SetActive(false);
+                resultUI.SetActive(false);
+            }
             else
-            { battleButton.SetActive(true); }
+            {
+                battleButton.SetActive(true);
+                resultUI.SetActive(true);
+            }
         }
     }
 
@@ -540,6 +553,24 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    bool minusCheck()
+    {
+        // 이지 난이도만 [첫번째숫자 < 두번째숫자] 일때 다시 고르도록 함
+        if(difficulty == DIFFICULTY.EASY)
+        {
+            if (selectedCardSet.operatorCard.type == OperatorCard.OPERATOR_TYPE.MINUS)
+            {
+                if (selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
+                {
+                    Debug.Log("더 큰수를 빼려하고 있습니다!");
+                    Debug.Log("다시 고르세요!");
+                    return true;
+                }
+            }
+        }        
+        return false;
+    }
+
     void NextTurn()
     {
         playerCardSet.ClearCardSET();
@@ -549,7 +580,7 @@ public class GameManager : MonoBehaviour
         selectedCardCount = SELECTED_CARD_COUNT.FIRST;
         playerDamage = 0;
         enemyDamage = 0;
-        Debug.Log(numberCards.Length);
+       // Debug.Log(numberCards.Length);
         for (int i = 0; i < numberCards.Length; i++)
         {
             numberCards[i].GetComponent<Button>().interactable = true;
@@ -588,7 +619,15 @@ public class GameManager : MonoBehaviour
                 result = selectedCardSet.numberCard1.number + selectedCardSet.numberCard2.number;
                 break;
             case OperatorCard.OPERATOR_TYPE.MINUS:
-                result = selectedCardSet.numberCard1.number - selectedCardSet.numberCard2.number;
+                // 이지를 제외한 난이도는 무조건 [첫번째숫자 - 두번째숫자] 수행
+                if (difficulty != DIFFICULTY.EASY)
+                {
+                    result = selectedCardSet.numberCard1.number - selectedCardSet.numberCard2.number;
+                    break;
+                }
+                // 이지의 경우 [첫번째숫자]가 [두번째숫자]보다 클 경우에만 수행
+                if (selectedCardSet.numberCard1.number >= selectedCardSet.numberCard2.number)
+                { result = selectedCardSet.numberCard1.number - selectedCardSet.numberCard2.number; } 
                 break;
             case OperatorCard.OPERATOR_TYPE.MULTIPLY:
                 result = selectedCardSet.numberCard1.number * selectedCardSet.numberCard2.number;
@@ -607,14 +646,19 @@ public class GameManager : MonoBehaviour
     }
     void WriteResultText()
     {
-        if (GameObject.Find("PlayerResultText"))
-            playerResult = GameObject.Find("PlayerResultText").GetComponent<TextMeshProUGUI>();
-        if (GameObject.Find("EnemyResultText"))
-            enemyResult = GameObject.Find("EnemyResultText").GetComponent<TextMeshProUGUI>();
-
         float result = CalculateResult();
-        playerResult.text = result.ToString();
-        enemyResult.text = enemyCardSet.result.ToString();
+
+        if (GameObject.Find("PlayerResultText"))
+        {
+            playerResult = GameObject.Find("PlayerResultText").GetComponent<TextMeshProUGUI>();
+            playerResult.text = result.ToString();
+        }
+            
+        if (GameObject.Find("EnemyResultText"))
+        {
+            enemyResult = GameObject.Find("EnemyResultText").GetComponent<TextMeshProUGUI>();
+            enemyResult.text = enemyCardSet.result.ToString();
+        }         
         playerDamage = result;
         enemyDamage = enemyCardSet.result;
     }
@@ -722,37 +766,45 @@ public class GameManager : MonoBehaviour
     }
 
     // 각 함수에 해당하는 파트의 Text관련 UI 오브젝트를 인자로 받은 TextUI변수에 저장
-    void FindMainHpGoldText(TextUI ui)
+    void FindMainText(TextUI ui)
     {
         if (GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>())
             ui.UIhp = GameObject.Find("MainHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>())
             ui.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("MainShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("MainShieldText").GetComponent<TextMeshProUGUI>();
     }
-    void FindBattleHpGoldText(TextUI ui)
+    void FindBattleText(TextUI ui)
     {
         if (GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>())
             ui.UIhp = GameObject.Find("BattleHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>())
-            ui.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();        
+            ui.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("BattleShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("BattleShieldText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
             ui.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
             ui.UIhpBarText_Enemy = GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>();
     }
-    void FindShopHpGoldText(TextUI ui)
+    void FindShopText(TextUI ui)
     {
         if (GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>())
             ui.UIhp = GameObject.Find("ShopHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>())
             ui.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("ShopShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("ShopShieldText").GetComponent<TextMeshProUGUI>();
     }
-    void FindSpecialHpGoldText(TextUI ui)
+    void FindSpecialText(TextUI ui)
     {
         if (GameObject.Find("SpecialHPText").GetComponent<TextMeshProUGUI>())
             ui.UIhp = GameObject.Find("SpecialHPText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("SpecialGoldText").GetComponent<TextMeshProUGUI>())
             ui.UIGold = GameObject.Find("SpecialGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("SpecialShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("SpecialShieldText").GetComponent<TextMeshProUGUI>();
     }
     // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
     void ShowHpGoldText(TextUI ui)
@@ -761,6 +813,7 @@ public class GameManager : MonoBehaviour
         {
             ui.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
             ui.UIGold.text = playerGold + " G";
+            ui.UIshield.text = playerStatus.shield.ToString();
         }
 
         if (ui.playerHpBar != null && ui.ememyHpBar != null)
@@ -851,12 +904,14 @@ public class GameManager : MonoBehaviour
 
             battleButton = GameObject.FindGameObjectWithTag("BattleButton");
             battleButton.SetActive(false);
+            resultUI = GameObject.FindGameObjectWithTag("ResultUI");
+            resultUI.SetActive(false);
 
             // 각 장면에서 활용된 Hp, Gold 관련 UI를 Find
-            FindMainHpGoldText(mainUI);
-            FindBattleHpGoldText(battleUI);
-            FindShopHpGoldText(shopUI);
-            FindSpecialHpGoldText(specialUI);
+            FindMainText(mainUI);
+            FindBattleText(battleUI);
+            FindShopText(shopUI);
+            FindSpecialText(specialUI);
             FindTurnUI();
 
             ClearCardSet();
@@ -887,6 +942,7 @@ public class GameManager : MonoBehaviour
                 turnCount++;
                 turnStart = false;
                 battleButton.SetActive(false);
+                resultUI.SetActive(false);
             }
             // 현 Camera를 MainCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.MAIN)

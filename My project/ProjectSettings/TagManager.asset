@@ -21,6 +21,7 @@ TagManager:
   - ShopIcon
   - Option
   - Music
+  - ResultUI
   layers:
   - Default
   - TransparentFX

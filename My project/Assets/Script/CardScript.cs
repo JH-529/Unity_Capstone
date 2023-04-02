@@ -52,15 +52,17 @@ public class CardScript : MonoBehaviour
     #region 선택한 연산자 카드 순서 인지 함수
     public void SelectFirstOperatorCard()
     {
+        if(GameManager.selectedCardCount == SELECTED_CARD_COUNT.FIRST)
+        { ButtonLock(); }      
         GameManager.selectOperatorCard = PLAYER_OPERATOR.FIRST;
         GameManager.selectedCardCount = SELECTED_CARD_COUNT.SECOND;
-        ButtonLock();
     }
     public void SelectSecondOperatorCard()
     {
+        if (GameManager.selectedCardCount == SELECTED_CARD_COUNT.FIRST)
+        { ButtonLock(); }
         GameManager.selectOperatorCard = PLAYER_OPERATOR.SECOND;
-        GameManager.selectedCardCount = SELECTED_CARD_COUNT.SECOND;
-        ButtonLock();
+        GameManager.selectedCardCount = SELECTED_CARD_COUNT.SECOND;        
     }
     #endregion
 

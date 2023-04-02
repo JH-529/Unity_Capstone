@@ -54,6 +54,8 @@ public class ButtonScript : MonoBehaviour
         GameManager.inBattle = true;
         GameManager.inboss = false;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+        GameManager.playerStatus.defence += GameManager.playerStatus.shield;
+        GameManager.playerStatus.shield = 0;
         //SoundManager.bgms[1].Play();
     }
 
@@ -67,6 +69,8 @@ public class ButtonScript : MonoBehaviour
         GameManager.enemyStatus.hp *= 2;
         GameManager.enemyStatus.defence *= 2;
         GameManager.cameraSelect = CAMERA_TYPE.BATTLE;
+        GameManager.playerStatus.defence += GameManager.playerStatus.shield;
+        GameManager.playerStatus.shield = 0;
         //SoundManager.bgms[1].Play();
     }
 

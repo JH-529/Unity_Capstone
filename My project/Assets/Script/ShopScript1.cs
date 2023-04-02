@@ -26,13 +26,13 @@ public class ShopScript1 : MonoBehaviour
         }
         if (sRenderer.sprite.name.Equals("WeakShield"))
         {
-            btn.onClick.AddListener(BuyDefence_10);
+            btn.onClick.AddListener(BuyShield_10);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
         }
         if (sRenderer.sprite.name.Equals("Shield"))
         {
-            btn.onClick.AddListener(BuyDefence_20);
+            btn.onClick.AddListener(BuyShield_20);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "20G";
         }
@@ -86,28 +86,28 @@ public class ShopScript1 : MonoBehaviour
     #endregion
 
     #region shield
-    public void BuyDefence_10()
+    public void BuyShield_10()
     {
         if (GameManager.playerGold >= 10)
         {
             GameManager.playerGold -= 10;
-            GameManager.playerStatus.defence += 5;
+            GameManager.playerStatus.shield += 5;
         }
     }
-    public void BuyDefence_20()
+    public void BuyShield_20()
     {
         if (GameManager.playerGold >= 20)
         {
             GameManager.playerGold -= 20;
-            GameManager.playerStatus.defence += 10;
+            GameManager.playerStatus.shield += 10;
         }
     }
-    public void BuyDefence_30()
+    public void BuyShield_30()
     {
         if (GameManager.playerGold >= 30)
         {
             GameManager.playerGold -= 30;
-            GameManager.playerStatus.defence += 15;
+            GameManager.playerStatus.shield += 15;
         }
     }
     #endregion
