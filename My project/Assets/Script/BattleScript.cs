@@ -11,7 +11,7 @@ public class BattleScript : MonoBehaviour
     // 적 처치시 승리처리 포함
     public void PlayerAttack()
     {
-        float damage = GameManager.playerDamage;
+        float damage = GameManager.playerDamage + GameManager.GetPlayerPower();
         // 데미지 음수 보정 삭제
         //if(damage <= 0)
         //{ damage = 0; }
@@ -102,6 +102,7 @@ public class BattleScript : MonoBehaviour
     {
         Debug.Log("승리!");
         GameManager.inBattle = false;
+        GameManager.getVictory = true;
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
 
         switch (GameManager.difficulty)
@@ -110,17 +111,20 @@ public class BattleScript : MonoBehaviour
                 if(GameManager.turnCount <= 3)
                 {
                     int eRand = Random.Range(20, 40);
-                    GameManager.playerGold += eRand;                    
+                    GameManager.playerGold += eRand;
+                    GetExp(15);
                 }
                 if (GameManager.turnCount >= 4 && GameManager.turnCount <= 7)
                 {
                     int eRand = Random.Range(15, 35);
                     GameManager.playerGold += eRand;
+                    GetExp(10);
                 }
                 if (GameManager.turnCount >=  8)
                 {
                     int eRand = Random.Range(5, 25);
                     GameManager.playerGold += eRand;
+                    GetExp(5);
                 }
                 Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
@@ -162,7 +166,6 @@ public class BattleScript : MonoBehaviour
                 break;
         }
     }
-
     public void KillBoss()
     {
         Debug.Log("난이도 클리어!");
@@ -189,7 +192,6 @@ public class BattleScript : MonoBehaviour
                 break;
         }
     }
-
     void Defeat()
     {
         Debug.Log("패배..");
@@ -200,4 +202,11 @@ public class BattleScript : MonoBehaviour
         GameManager.playerStatus = GameManager.playerStatus.SetUnitStatus(UNIT_TYPE.PLAYER);
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }    
+
+    public void GetExp(int exp)
+    {
+        GameManager.playerExp += exp;
+        Debug.Log(exp + " 경험치 획득!");
+        //GameManager.getVictory = true; // 레벨업 테스트용
+    }
 }

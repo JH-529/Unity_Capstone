@@ -87,6 +87,14 @@ public class ButtonScript : MonoBehaviour
         }        
     }
 
+    public void LoadRestScene()
+    {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = false;
+        GameManager.inBattle = false;
+        GameManager.cameraSelect = CAMERA_TYPE.REST;
+    }
+
     public void LoadShopScene()
     {
         GameManager.inBattle = false;

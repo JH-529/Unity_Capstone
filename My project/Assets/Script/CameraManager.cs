@@ -8,6 +8,7 @@ public class CameraManager : MonoBehaviour
     public Camera battleCamera;
     public Camera shopCamera;
     public Camera specialCamera;
+    public Camera restCamera;
 
     // 메인 카메라 ON
     public void OnMainCamera()
@@ -16,6 +17,7 @@ public class CameraManager : MonoBehaviour
         battleCamera.enabled = false;
         shopCamera.enabled = false;
         specialCamera.enabled = false;
+        restCamera.enabled = false;
     }
 
     // 전투화면 카메라 ON
@@ -25,6 +27,7 @@ public class CameraManager : MonoBehaviour
         battleCamera.enabled = true;
         shopCamera.enabled = false;
         specialCamera.enabled = false;
+        restCamera.enabled = false;
     }
 
     // 상점화면 카메라 ON
@@ -34,6 +37,7 @@ public class CameraManager : MonoBehaviour
         battleCamera.enabled = false;
         shopCamera.enabled = true;
         specialCamera.enabled = false;
+        restCamera.enabled = false;
     }
 
     public void OnSpecialCamera()
@@ -42,17 +46,16 @@ public class CameraManager : MonoBehaviour
         battleCamera.enabled = false;
         shopCamera.enabled = false;
         specialCamera.enabled = true;
+        restCamera.enabled = false;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnRestCamera()
     {
-        
+        mainCamera.enabled = false;
+        battleCamera.enabled = false;
+        shopCamera.enabled = false;
+        specialCamera.enabled = false;
+        restCamera.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

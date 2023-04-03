@@ -27,6 +27,7 @@ public enum CAMERA_TYPE
     BATTLE,
     SHOP,
     SPECIAL,
+    REST
 }
 public enum PLAYER_CARD
 {
@@ -88,7 +89,6 @@ public class Status
                 status = new Status(unitcode, 70, 70, 10);
                 break;
         }
-
         return status;
     }
 }
@@ -98,9 +98,11 @@ public class TextUI
     public TextMeshProUGUI UIhp;
     public TextMeshProUGUI UIGold;
     public TextMeshProUGUI UIshield;
+    public TextMeshProUGUI UIlevel;
     public TextMeshProUGUI UIhpBarText_Player;
     public TextMeshProUGUI UIhpBarText_Enemy;
     public Slider playerHpBar;
+    public Slider playerExpBar;
     public Slider ememyHpBar;
 }
 
@@ -175,7 +177,12 @@ public class GameManager : MonoBehaviour
     public static SELECTED_CARD_COUNT selectedCardCount = SELECTED_CARD_COUNT.FIRST;
     public static int playerGold = 0;
     public static int playerLevel = 1;
+    public static int playerPower = 1;
     public static int playerExp = 0;
+    public int[] level = new int[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    public static int[] power = new int[]{ 0, 2, 4, 7, 10 };
+    public int[] exp = new int[] { 5, 10, 15, 20, 25, 30, 35, 40, 45 };
+
     public static float playerDamage = 0;
     public static float enemyDamage = 0;
     public static int turnCount = 1;
@@ -186,6 +193,7 @@ public class GameManager : MonoBehaviour
 
     public static bool inGame = false;
     public static bool inBattle = false;
+    public static bool getVictory = false;
     public static bool newGame = true;
     public CameraManager cameraManager;
     public SpriteManager spriteManager;
@@ -194,6 +202,7 @@ public class GameManager : MonoBehaviour
     public TextUI battleUI = new TextUI();
     public TextUI shopUI = new TextUI();
     public TextUI specialUI = new TextUI();
+    public TextUI restUI = new TextUI();
     public TextMeshProUGUI playerResult;
     public TextMeshProUGUI enemyResult;
     public TextMeshProUGUI playerDefence;
@@ -205,6 +214,7 @@ public class GameManager : MonoBehaviour
     public GameObject battleCanvas;
     public GameObject shopCanvas;
     public GameObject specialCanvas;
+    public GameObject restCanvas;
     public GameObject battleButton;
     public GameObject resultUI;
 
@@ -244,6 +254,148 @@ public class GameManager : MonoBehaviour
     public static void DifficultySetEasy() { difficulty = DIFFICULTY.EASY; }
     public static void DifficultySetNormal() { difficulty = DIFFICULTY.NORMAL; }
     public static void DifficultySetHard() { difficulty = DIFFICULTY.HARD; }
+
+    // 레벨업 할 경우 true 반환
+    bool LevelUp()
+    {
+        switch(playerLevel)
+        {
+            case 1:
+                if (playerExp >= exp[0])
+                {
+                    playerLevel++;
+                    playerExp -= exp[0];
+                    playerPower++;
+                    if (playerPower > 5)
+                    { playerPower = 5; }
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 2:
+                if (playerExp >= exp[1])
+                {
+                    playerLevel++;
+                    playerExp -= exp[1];
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 3:
+                if (playerExp >= exp[2])
+                {
+                    playerLevel++;
+                    playerExp -= exp[2];
+                    playerPower++;
+                    if (playerPower > 5)
+                    { playerPower = 5; }
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 4:
+                if (playerExp >= exp[3])
+                {
+                    playerLevel++;
+                    playerExp -= exp[3];
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 5:
+                if (playerExp >= exp[4])
+                {
+                    playerLevel++;
+                    playerExp -= exp[4];
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 6:
+                if (playerExp >= exp[5])
+                {
+                    playerLevel++;
+                    playerExp -= exp[5];
+                    playerPower++;
+                    if (playerPower > 5)
+                    { playerPower = 5; }
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 7:
+                if (playerExp >= exp[6])
+                {
+                    playerLevel++;
+                    playerExp -= exp[6];
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 8:
+                if (playerExp >= exp[7])
+                {
+                    playerLevel++;
+                    playerExp -= exp[7];
+                    MaxHpUp(3);
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 9:
+                if (playerExp >= exp[8])
+                {
+                    playerLevel++;
+                    playerExp -= exp[8];
+                    playerPower++;
+                    if(playerPower > 5)
+                    { playerPower = 5; }
+                    MaxHpUp(3);
+                    Debug.Log("만렙!");
+                    Debug.Log("레벨업! 현재파워: " + playerPower);
+                    return true;
+                }
+                break;
+            case 10:
+                Debug.Log("당신은 만렙이다!");
+                break;
+            default:
+                Debug.Log("레벨 오류");
+                break;
+        }
+        return false;
+    }
+    void MaxHpUp(float plusHp)
+    {
+        playerStatus.maxHp += plusHp;
+        playerStatus.hp += plusHp;
+        if(playerStatus.hp > playerStatus.maxHp)
+        { playerStatus.hp = playerStatus.maxHp; }
+    }
+    public static int GetPlayerPower()
+    {
+        switch(playerPower)
+        {
+            case 1:
+                return power[0];
+            case 2:
+                return power[1];
+            case 3:
+                return power[2];
+            case 4:
+                return power[3];
+            case 5:
+                return power[4];
+        }
+        return 0;
+    }
 
     // 테스트용 CardSet생성 함수(숫자3개, 기호2개), CardSet에 대한 Clear수행 함수
     void MakeCardSet()
@@ -313,52 +465,7 @@ public class GameManager : MonoBehaviour
             playerCardSet.operatorCards.Clear();
         }       
     }
-
-    //void MakeEnemyCardSet()
-    //{
-    //    if (enemyCardSet.numberCards.Count == 0)
-    //    {
-    //        enemyCardSet.result = 0;
-    //        while (enemyCardSet.result <= 0 || enemyCardSet.result > 30)
-    //        {               
-    //            ClearEnemyCardSet();
-    //            for (int i = 0; i < 2; i++)
-    //            {
-    //                NumberCard enemyCard = new NumberCard(i, Random.Range(1, 11), null);
-    //                enemyCardSet.numberCards.Add(enemyCard);
-    //            }
-
-    //            OperatorCard card;
-    //            int rand = Random.Range(0, 4);
-    //            switch (rand)
-    //            {
-    //                case 0:
-    //                    card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
-    //                    enemyCardSet.operatorCards.Add(card);
-    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number + enemyCardSet.numberCards[1].number;
-    //                    break;
-    //                case 1:
-    //                    card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
-    //                    enemyCardSet.operatorCards.Add(card);
-    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number - enemyCardSet.numberCards[1].number;
-    //                    break;
-    //                case 2:
-    //                    card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
-    //                    enemyCardSet.operatorCards.Add(card);
-    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number * enemyCardSet.numberCards[1].number;
-    //                    break;
-    //                case 3:
-    //                    card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
-    //                    enemyCardSet.operatorCards.Add(card);
-    //                    enemyCardSet.result = enemyCardSet.numberCards[0].number / enemyCardSet.numberCards[1].number;
-    //                    break;
-    //            }
-
-    //            if(enemyCardSet.result >= 30)
-    //            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }                
-    //        }            
-    //    }       
-    //}
+        
     void MakeEnemyCardSet()
     {
         if(enemyCardSet.numberCard1.count == 0)
@@ -413,15 +520,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    //void ClearEnemyCardSet()
-    //{
-    //    if(enemyCardSet.numberCards.Count != 0)
-    //    {
-    //        enemyCardSet.numberCards.Clear();
-    //        enemyCardSet.operatorCards.Clear();
-    //    }        
-    //}
-        
+           
     // Scene에 있는 Tag가 Card, SelectedCard, EnemyCard인 GameObject들을 Load
     void LoadCardGameObject()
     {
@@ -534,7 +633,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     bool divideCheck()
     {
         if(selectedCardSet.operatorCard.type == OperatorCard.OPERATOR_TYPE.DIVIDE)
@@ -552,7 +650,6 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
-
     bool minusCheck()
     {
         // 이지 난이도만 [첫번째숫자 < 두번째숫자] 일때 다시 고르도록 함
@@ -714,6 +811,8 @@ public class GameManager : MonoBehaviour
             shopCanvas = GameObject.Find("Canvas(Shop)");
         if (GameObject.Find("Canvas(Special)"))
             specialCanvas = GameObject.Find("Canvas(Special)");
+        if (GameObject.Find("Canvas(Rest)"))
+            restCanvas = GameObject.Find("Canvas(Rest)");
     }
     void LoadCamera()
     {
@@ -725,6 +824,8 @@ public class GameManager : MonoBehaviour
             cameraManager.shopCamera = GameObject.Find("ShopCamera").GetComponent<Camera>();
         if (GameObject.Find("SpecialCamera"))
             cameraManager.specialCamera = GameObject.Find("SpecialCamera").GetComponent<Camera>();
+        if (GameObject.Find("RestCamera"))
+            cameraManager.restCamera = GameObject.Find("RestCamera").GetComponent<Camera>();
     }
 
     // 함수 이름에 해당하는 Canvas를 활성화, 이외의 Canvas는 off
@@ -736,6 +837,7 @@ public class GameManager : MonoBehaviour
         battleCanvas.SetActive(false);
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(false);
+        restCanvas.SetActive(false);
     }
     void OnBattleCanvas()
     {
@@ -745,6 +847,7 @@ public class GameManager : MonoBehaviour
         battleCanvas.SetActive(true);
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(false);
+        restCanvas.SetActive(false);
     }
     void OnShopCanvas()
     {
@@ -754,6 +857,7 @@ public class GameManager : MonoBehaviour
         battleCanvas.SetActive(false);
         shopCanvas.SetActive(true);
         specialCanvas.SetActive(false);
+        restCanvas.SetActive(false);
     }
     void OnSpecialCanvas()
     {
@@ -763,6 +867,17 @@ public class GameManager : MonoBehaviour
         battleCanvas.SetActive(false);
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(true);
+        restCanvas.SetActive(false);
+    }
+    void OnRestCanvas()
+    {
+        mainCanvas.SetActive(false);
+        if (mainMapCanvas)
+            mainMapCanvas.SetActive(false);
+        battleCanvas.SetActive(false);
+        shopCanvas.SetActive(false);
+        specialCanvas.SetActive(false);
+        restCanvas.SetActive(true);
     }
 
     // 각 함수에 해당하는 파트의 Text관련 UI 오브젝트를 인자로 받은 TextUI변수에 저장
@@ -774,6 +889,8 @@ public class GameManager : MonoBehaviour
             ui.UIGold = GameObject.Find("MainGoldText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("MainShieldText").GetComponent<TextMeshProUGUI>())
             ui.UIshield = GameObject.Find("MainShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("MainLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("MainLevelText").GetComponent<TextMeshProUGUI>();
     }
     void FindBattleText(TextUI ui)
     {
@@ -783,6 +900,8 @@ public class GameManager : MonoBehaviour
             ui.UIGold = GameObject.Find("BattleGoldText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("BattleShieldText").GetComponent<TextMeshProUGUI>())
             ui.UIshield = GameObject.Find("BattleShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("BattleLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("BattleLevelText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>())
             ui.UIhpBarText_Player = GameObject.Find("Player_Hp_Text").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("Enemy_Hp_Text").GetComponent<TextMeshProUGUI>())
@@ -796,6 +915,8 @@ public class GameManager : MonoBehaviour
             ui.UIGold = GameObject.Find("ShopGoldText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("ShopShieldText").GetComponent<TextMeshProUGUI>())
             ui.UIshield = GameObject.Find("ShopShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("ShopLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("ShopLevelText").GetComponent<TextMeshProUGUI>();
     }
     void FindSpecialText(TextUI ui)
     {
@@ -805,6 +926,19 @@ public class GameManager : MonoBehaviour
             ui.UIGold = GameObject.Find("SpecialGoldText").GetComponent<TextMeshProUGUI>();
         if (GameObject.Find("SpecialShieldText").GetComponent<TextMeshProUGUI>())
             ui.UIshield = GameObject.Find("SpecialShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("SpecialLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("SpecialLevelText").GetComponent<TextMeshProUGUI>();
+    }
+    void FindRestText(TextUI ui)
+    {
+        if (GameObject.Find("RestHPText").GetComponent<TextMeshProUGUI>())
+            ui.UIhp = GameObject.Find("RestHPText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("RestGoldText").GetComponent<TextMeshProUGUI>())
+            ui.UIGold = GameObject.Find("RestGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("RestShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("RestShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("RestLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("RestLevelText").GetComponent<TextMeshProUGUI>();
     }
     // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
     void ShowHpGoldText(TextUI ui)
@@ -814,12 +948,18 @@ public class GameManager : MonoBehaviour
             ui.UIhp.text = playerStatus.hp + " / " + playerStatus.maxHp;
             ui.UIGold.text = playerGold + " G";
             ui.UIshield.text = playerStatus.shield.ToString();
+            ui.UIlevel.text = playerLevel.ToString();
         }
 
         if (ui.playerHpBar != null && ui.ememyHpBar != null)
         {
             ui.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
             ui.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+        }
+
+        if (ui.playerExpBar != null)
+        {
+            ui.playerExpBar.value = (float)playerExp / (float)exp[playerLevel - 1];
         }
 
         if (ui.UIhpBarText_Player != null && ui.UIhpBarText_Enemy != null)
@@ -855,7 +995,7 @@ public class GameManager : MonoBehaviour
         LoadCanvas();
         LoadCamera();
 
-        Debug.Log(SceneManager.GetActiveScene().name);
+        //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name.Equals("1.DifficultyScene"))
         {            
             difficultyButtons = GameObject.FindGameObjectsWithTag("DifficultyButton");
@@ -877,7 +1017,10 @@ public class GameManager : MonoBehaviour
         if (inGame)
         {            
             battleUI.playerHpBar = GameObject.Find("Player_Hp_Slider").GetComponent<Slider>();
+            battleUI.playerExpBar = GameObject.Find("Player_Exp_Slider_B").GetComponent<Slider>();
+            mainUI.playerExpBar = GameObject.Find("Player_Exp_Slider_M").GetComponent<Slider>();
             battleUI.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
+            mainUI.playerExpBar.value = (float)playerExp / (float)exp[playerLevel - 1];
 
             // 현재 설정된 난이도에 따른 enemy의 Status수치 부여
             // 이후 Enemy의 HP bar 매칭
@@ -912,6 +1055,7 @@ public class GameManager : MonoBehaviour
             FindBattleText(battleUI);
             FindShopText(shopUI);
             FindSpecialText(specialUI);
+            FindRestText(restUI);
             FindTurnUI();
 
             ClearCardSet();
@@ -928,13 +1072,21 @@ public class GameManager : MonoBehaviour
         {
             if(!inBattle)
             {
-                Debug.Log("초기화");
+                //Debug.Log("초기화");
                 selectedCardSet.ClearSelectedCard();
                 BattleStateClear();
                 inBattle = true;
                 turnCount = 1;
             }
-            if(turnStart)
+            if (getVictory)
+            {
+                //Debug.Log("경치: " + battleUI.playerExpBar.value);
+                while (LevelUp())
+                { //Debug.Log(playerLevel + "레벨 " + playerExp + "경험치");
+                 }
+                getVictory = false;
+            }
+            if (turnStart)
             {
                 Debug.Log("다음턴");
                 selectedCardSet.ClearSelectedCard();
@@ -966,7 +1118,7 @@ public class GameManager : MonoBehaviour
                 CardSelectFunction();
                 WriteSelectedCardText(selectedCardSet.numberCard1, selectedCardSet.operatorCard, selectedCardSet.numberCard2);
                 WriteResultText();
-                WriteDefenceText();
+                WriteDefenceText();           
             }
             // 현 Camera를 ShopCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.SHOP)
@@ -981,6 +1133,12 @@ public class GameManager : MonoBehaviour
                 cameraManager.OnSpecialCamera();
                 OnSpecialCanvas();
                 ShowHpGoldText(specialUI);
+            }
+            if (cameraSelect == CAMERA_TYPE.REST)
+            {
+                cameraManager.OnRestCamera();
+                OnRestCanvas();
+                ShowHpGoldText(restUI);
             }
         }       
     }
