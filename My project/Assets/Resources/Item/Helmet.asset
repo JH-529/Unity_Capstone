@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Helmet
   itemImage: {fileID: 21300000, guid: 0f3b5c40f25a56f4ea5289b266840da4, type: 3}
   attack: 0
-  defence: 2
+  defence: 1

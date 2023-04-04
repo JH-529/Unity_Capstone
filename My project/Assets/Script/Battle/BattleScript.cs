@@ -6,16 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class BattleScript : MonoBehaviour
 {
+    public Inventory inventory;
+    [SerializeField]
+    private List<Item> items;
+    [SerializeField]
+    private float bonusDamage = 0;
+    private float bonusDefence = 0;
+
+    void Start()
+    {
+        items = inventory.items;
+    }
 
     // 플레이어의 공격 수행 함수
     // 플레이어 공격 종료 후 EnemyAttack() 자동 진행
     // 적 처치시 승리처리 포함
     public void PlayerAttack()
     {
-        float damage = GameManager.playerDamage + GameManager.GetPlayerPower();
-        // 데미지 음수 보정 삭제
-        //if(damage <= 0)
-        //{ damage = 0; }
+        // 아이템의 추가 데미지 적용
+        for (int i = 0; i < items.Count; i++)
+        {
+            bonusDamage += items[i].attack;
+            Debug.Log("공격력 " + items[i].attack + " 추가");
+        }
+
+        float damage = GameManager.playerDamage + GameManager.GetPlayerPower();        
+        damage += bonusDamage;
+        bonusDamage = 0;
 
         // 방어력이 존재할 경우 방어력 우선 감소
         // 방어가 깨지면(0미만으로 감소) 그때부터 hp 감소
@@ -68,13 +85,22 @@ public class BattleScript : MonoBehaviour
     // 적의 공격으로 플레이어 사망시 처리하는 기능 포함
     public void EnemyAttack()
     {
+        // 아이템의 추가 방어도 적용
+        for (int i = 0; i < items.Count; i++)
+        {
+            bonusDefence += items[i].defence;
+            Debug.Log("방어력 " + items[i].defence + " 추가");
+        }
+
         float damage = GameManager.enemyDamage;
-        if(damage <= 0)
+        damage -= bonusDefence;
+        if (damage <= 0)
         { damage = 0; }
+        bonusDefence = 0;
 
         // 방어력이 존재할 경우 방어력 우선 감소
         // 방어가 깨지면(0미만으로 감소) 그때부터 hp 감소
-        if(GameManager.playerStatus.defence > 0)
+        if (GameManager.playerStatus.defence > 0)
         {
             GameManager.playerStatus.defence -= damage;
             if(GameManager.playerStatus.defence < 0)
@@ -84,7 +110,6 @@ public class BattleScript : MonoBehaviour
                 GameManager.playerStatus.defence = 0;
             }
         }
-
         else
         { GameManager.playerStatus.hp -= damage; }
         

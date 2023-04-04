@@ -11,14 +11,11 @@ public class InventoryOnOff : MonoBehaviour
     {
         if(!inventory.activeSelf)
         {
-            Debug.Log("살려라");
             inventory.SetActive(true);
         }
         else
         {
-            Debug.Log("죽여라");
             inventory.SetActive(false); 
         }
     }
-
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public enum ITEM_TYPE
@@ -22,7 +23,7 @@ public class ShopScript : MonoBehaviour
     Button btn;
     public SpriteRenderer sRenderer;
     public GameObject textObject;
-    public TextMeshProUGUI textMesh;
+    public TextMeshProUGUI textMesh;    
 
     void Start()
     {
@@ -99,8 +100,10 @@ public class ShopScript : MonoBehaviour
             GameManager.playerStatus.hp += 10;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
             { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
-        }
+            btn.interactable = false;
+        }        
     }
+
     public void BuyHeal_20()
     {
         if (GameManager.playerGold >= 20)
@@ -109,6 +112,7 @@ public class ShopScript : MonoBehaviour
             GameManager.playerStatus.hp += 20;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
             { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
+            btn.interactable = false;
         }
     }
     public void BuyHeal_30()
@@ -119,6 +123,7 @@ public class ShopScript : MonoBehaviour
             GameManager.playerStatus.hp += 30;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
             { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
+            btn.interactable = false;
         }
     }
     #endregion
@@ -130,6 +135,7 @@ public class ShopScript : MonoBehaviour
         {
             GameManager.playerGold -= 10;
             GameManager.playerStatus.shield += 5;
+            btn.interactable = false;
         }
     }
     public void BuyShield_20()
@@ -138,6 +144,7 @@ public class ShopScript : MonoBehaviour
         {
             GameManager.playerGold -= 20;
             GameManager.playerStatus.shield += 10;
+            btn.interactable = false;
         }
     }
     public void BuyShield_30()
@@ -146,6 +153,7 @@ public class ShopScript : MonoBehaviour
         {
             GameManager.playerGold -= 30;
             GameManager.playerStatus.shield += 15;
+            btn.interactable = false;
         }
     }
     #endregion
@@ -165,9 +173,9 @@ public class ShopScript : MonoBehaviour
         {
             Debug.Log("헬멧 구입");
             GameManager.playerGold -= 10;
-            GameManager.playerStatus.hp += 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
+            btn.interactable = false;
         }
     }
 
@@ -177,9 +185,9 @@ public class ShopScript : MonoBehaviour
         {
             Debug.Log("아머 구입");
             GameManager.playerGold -= 10;
-            GameManager.playerStatus.hp += 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
+            btn.interactable = false;
         }
     }
 
@@ -189,9 +197,9 @@ public class ShopScript : MonoBehaviour
         {
             Debug.Log("나이프 구입");
             GameManager.playerGold -= 10;
-            GameManager.playerStatus.hp += 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
+            btn.interactable = false;
         }
     }
 }

@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Armor
   itemImage: {fileID: 21300000, guid: 1905f623a78af714eac3d82448d8d2ee, type: 3}
   attack: 0
-  defence: 4
+  defence: 2

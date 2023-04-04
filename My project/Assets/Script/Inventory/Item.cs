@@ -7,7 +7,7 @@ public class Item : ScriptableObject
     public Sprite itemImage;
 
     [SerializeField]
-    private int attack;
+    public int attack;
     [SerializeField]
-    private int defence;
+    public int defence;
 }

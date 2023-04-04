@@ -23,6 +23,7 @@ TagManager:
   - Music
   - ResultUI
   - RestOption
+  - Inventory
   layers:
   - Default
   - TransparentFX

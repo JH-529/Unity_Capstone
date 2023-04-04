@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
     public static SELECTED_CARD_COUNT selectedCardCount = SELECTED_CARD_COUNT.FIRST;
     public static int playerGold = 0;
     public static int playerLevel = 1;
-    public static int playerPower = 1;
+    public static int playerPower = 0;
     public static int playerExp = 0;
     public int[] level = new int[]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     public static int[] power = new int[]{ 0, 2, 4, 7, 10 };
@@ -204,6 +204,7 @@ public class GameManager : MonoBehaviour
     public TextUI specialUI = new TextUI();
     public TextUI restUI = new TextUI();
     public TextMeshProUGUI playerResult;
+    public TextMeshProUGUI playerBonus;
     public TextMeshProUGUI enemyResult;
     public TextMeshProUGUI playerDefence;
     public TextMeshProUGUI enemyDefence;    
@@ -225,6 +226,7 @@ public class GameManager : MonoBehaviour
     //public CardSET enemyCardSet = new CardSET();
 
     public static GameObject[] difficultyButtons;
+    public static GameObject[] inventorys;
     public static bool[] difficultyButtonsAlive = { true, true, true };
     public GameObject[] numberCards;
     public GameObject[] numberCardsText;    
@@ -750,7 +752,12 @@ public class GameManager : MonoBehaviour
             playerResult = GameObject.Find("PlayerResultText").GetComponent<TextMeshProUGUI>();
             playerResult.text = result.ToString();
         }
-            
+        if (GameObject.Find("PlayerBonusText"))
+        {
+            playerBonus = GameObject.Find("PlayerBonusText").GetComponent<TextMeshProUGUI>();
+            playerBonus.text = playerPower.ToString();
+        }
+
         if (GameObject.Find("EnemyResultText"))
         {
             enemyResult = GameObject.Find("EnemyResultText").GetComponent<TextMeshProUGUI>();
@@ -826,6 +833,14 @@ public class GameManager : MonoBehaviour
             cameraManager.specialCamera = GameObject.Find("SpecialCamera").GetComponent<Camera>();
         if (GameObject.Find("RestCamera"))
             cameraManager.restCamera = GameObject.Find("RestCamera").GetComponent<Camera>();
+    }
+    public static void OffInventory()
+    {
+        inventorys = GameObject.FindGameObjectsWithTag("Inventory");
+        for(int i=0; i<inventorys.Length; i++)
+        {
+            inventorys[i].SetActive(false);
+        }
     }
 
     // 함수 이름에 해당하는 Canvas를 활성화, 이외의 Canvas는 off

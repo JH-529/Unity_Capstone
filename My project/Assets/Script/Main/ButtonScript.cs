@@ -42,6 +42,7 @@ public class ButtonScript : MonoBehaviour
 
     public void BackMainScene()
     {
+        GameManager.OffInventory();
         GameManager.inBattle = false;
         GameManager.inGame = true;
         GameManager.newGame = false;
@@ -51,6 +52,7 @@ public class ButtonScript : MonoBehaviour
 
     public void LoadBattleStage()
     {
+        GameManager.OffInventory();
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = true;
