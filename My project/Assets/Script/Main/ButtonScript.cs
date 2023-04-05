@@ -111,6 +111,8 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene("5.NormalSceneTest");
         GameManager.inGame = true;
+        GameManager.inBattle = false;
+        GameManager.newGame = false;
         GameManager.DifficultySetNormal();        
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
@@ -121,6 +123,8 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene("7.HardSceneTest");
         GameManager.inGame = true;
+        GameManager.inBattle = false;
+        GameManager.newGame = false;
         GameManager.DifficultySetHard();
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
