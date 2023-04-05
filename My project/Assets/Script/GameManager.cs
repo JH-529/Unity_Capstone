@@ -672,18 +672,13 @@ public class GameManager : MonoBehaviour
 
     void NextTurn()
     {
-        playerCardSet.ClearCardSET();
-        enemyCardSet.ClearSelectedCard();
         selectNumberCard = PLAYER_CARD.NOT;
         selectOperatorCard = PLAYER_OPERATOR.NOT;
         selectedCardCount = SELECTED_CARD_COUNT.FIRST;
         playerDamage = 0;
         enemyDamage = 0;
        // Debug.Log(numberCards.Length);
-        for (int i = 0; i < numberCards.Length; i++)
-        {
-            numberCards[i].GetComponent<Button>().interactable = true;
-        }
+        
     }
     void BattleStateClear()
     {
@@ -968,13 +963,13 @@ public class GameManager : MonoBehaviour
 
         if (ui.playerHpBar != null && ui.ememyHpBar != null)
         {
-            ui.playerHpBar.value = playerStatus.hp / playerStatus.maxHp;
-            ui.ememyHpBar.value = enemyStatus.hp / enemyStatus.maxHp;
+            ui.playerHpBar.value = Mathf.Lerp(ui.playerHpBar.value, playerStatus.hp / playerStatus.maxHp, Time.deltaTime * 10);
+            ui.ememyHpBar.value = Mathf.Lerp(ui.ememyHpBar.value, enemyStatus.hp / enemyStatus.maxHp, Time.deltaTime * 10);
         }
 
         if (ui.playerExpBar != null)
-        {
-            ui.playerExpBar.value = (float)playerExp / (float)exp[playerLevel - 1];
+        {            
+            ui.playerExpBar.value = Mathf.Lerp(ui.playerExpBar.value, (float)playerExp / (float)exp[playerLevel - 1], Time.deltaTime * 10);
         }
 
         if (ui.UIhpBarText_Player != null && ui.UIhpBarText_Enemy != null)
@@ -994,6 +989,20 @@ public class GameManager : MonoBehaviour
         {
             turnText.text = turnCount + " Turn";
         }
+    }
+
+    void BattleClear()
+    {
+        for (int i = 0; i < numberCards.Length; i++)
+        {
+            numberCards[i].GetComponent<Button>().interactable = true;
+        }
+        playerCardSet.ClearCardSET();
+        enemyCardSet.ClearSelectedCard();
+        selectedCardSet.ClearSelectedCard();
+        turnStart = false;
+        battleButton.SetActive(false);
+        resultUI.SetActive(false);
     }
 
     #region Life Cycle Function
@@ -1100,23 +1109,21 @@ public class GameManager : MonoBehaviour
                 { //Debug.Log(playerLevel + "레벨 " + playerExp + "경험치");
                  }
                 getVictory = false;
+                BattleClear();
             }
             if (turnStart)
             {
-                Debug.Log("다음턴");
-                selectedCardSet.ClearSelectedCard();
-                NextTurn();
+                //Debug.Log("다음턴");
                 turnCount++;
-                turnStart = false;
-                battleButton.SetActive(false);
-                resultUI.SetActive(false);
+                BattleClear();
+                NextTurn();
             }
             // 현 Camera를 MainCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.MAIN)
             {
                 cameraManager.OnMainCamera();
                 OnMainCanvas();
-                ShowHpGoldText(mainUI);
+                ShowHpGoldText(mainUI);                
             }
             // 현 Camera를 BattleCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.BATTLE)

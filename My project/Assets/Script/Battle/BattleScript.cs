@@ -56,16 +56,15 @@ public class BattleScript : MonoBehaviour
         if (GameManager.enemyStatus.hp == 0)
         {            
             if(GameManager.inboss)
-            { KillBoss(); }
+            { Invoke("KillBoss", 0.5f); }
             else
-            { Victory(); }
+            { Invoke("Victory", 0.5f); }
         }
         else
         {
-            EnemyAttack();
-        }
+            Invoke("EnemyAttack", 0.5f);
+        }      
         
-        GameManager.turnStart = true;        
     }
 
     // 방어력 증가 함수
@@ -76,9 +75,9 @@ public class BattleScript : MonoBehaviour
         if(defence < 0)
         { defence = 0; }
         GameManager.playerStatus.defence += defence;
-        EnemyAttack();
+        Invoke("EnemyAttack", 0.5f);
 
-        GameManager.turnStart = true;
+        //GameManager.turnStart = true;
     }
 
     // 적의 공격 수행 함수
@@ -118,8 +117,15 @@ public class BattleScript : MonoBehaviour
 
         if(GameManager.playerStatus.hp == 0)
         {
-            Defeat();
+            Invoke("Defeat", 0.7f);
         }
+
+        Invoke("NexTurn", 0.7f);
+    }
+
+    void NexTurn()
+    {
+        GameManager.turnStart = true;
     }
 
     // TODO
@@ -233,6 +239,6 @@ public class BattleScript : MonoBehaviour
     {
         GameManager.playerExp += exp;
         Debug.Log(exp + " 경험치 획득!");
-        //GameManager.getVictory = true; // 레벨업 테스트용
+        GameManager.getVictory = true; // 레벨업 테스트용
     }
 }
