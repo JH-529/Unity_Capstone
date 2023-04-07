@@ -13,9 +13,18 @@ public class BattleScript : MonoBehaviour
     private float bonusDamage = 0;
     private float bonusDefence = 0;
 
+    public void KillYou()
+    {
+        GameManager.playerDamage = 1000;
+        PlayerAttack();
+    }
+
     void Start()
     {
-        items = inventory.items;
+        if(inventory.items != null)
+        {
+            items = inventory.items;
+        }        
     }
 
     // 플레이어의 공격 수행 함수
@@ -133,9 +142,9 @@ public class BattleScript : MonoBehaviour
     void Victory()
     {
         Debug.Log("승리!");
-        GameManager.inBattle = false;
+        //GameManager.inBattle = false;
         GameManager.getVictory = true;
-        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+        //GameManager.cameraSelect = CAMERA_TYPE.MAIN;
 
         switch (GameManager.difficulty)
         {
@@ -196,7 +205,7 @@ public class BattleScript : MonoBehaviour
                 }
                 Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
-        }
+        }       
     }
     public void KillBoss()
     {

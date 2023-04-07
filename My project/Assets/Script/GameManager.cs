@@ -187,12 +187,13 @@ public class GameManager : MonoBehaviour
     public static float enemyDamage = 0;
     public static int turnCount = 1;
     public static bool turnStart = false;
-    public static bool reinforce = false;
-    public static bool inboss = false;
+    public static bool reinforce = false;   
+    public static bool nowLevelUp = false;
     public static GameObject button;    
 
     public static bool inGame = false;
     public static bool inBattle = false;
+    public static bool inboss = false;
     public static bool getVictory = false;
     public static bool newGame = true;
     public CameraManager cameraManager;
@@ -218,6 +219,9 @@ public class GameManager : MonoBehaviour
     public GameObject restCanvas;
     public GameObject battleButton;
     public GameObject resultUI;
+    public GameObject levelPopUp;
+
+
 
     public CardSO cardSO;
     public CardSET playerCardSet = new CardSET();
@@ -257,6 +261,18 @@ public class GameManager : MonoBehaviour
     public static void DifficultySetNormal() { difficulty = DIFFICULTY.NORMAL; }
     public static void DifficultySetHard() { difficulty = DIFFICULTY.HARD; }
 
+    //void LoadPopUp()
+    //{
+    //    levelUpPopUp = GameObject.Find("LevelPopUP");
+    //    levelUpText = GameObject.Find("LevelUpText").GetComponent<TextMeshProUGUI>();
+    //}
+    //void LevelUpPopUp()
+    //{
+    //    levelUpPopUp.SetActive(true);
+    //    levelUpText.text = "레벨업!\n" + "이제 " + playerLevel + " 레벨!";
+    //    Time.timeScale = 0;
+    //}
+
     // 레벨업 할 경우 true 반환
     bool LevelUp()
     {
@@ -265,6 +281,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 if (playerExp >= exp[0])
                 {
+                    nowLevelUp = true;
                     playerLevel++;
                     playerExp -= exp[0];
                     playerPower++;
@@ -278,7 +295,8 @@ public class GameManager : MonoBehaviour
             case 2:
                 if (playerExp >= exp[1])
                 {
-                    playerLevel++;
+                    nowLevelUp = true;
+                    playerLevel++;                    
                     playerExp -= exp[1];
                     MaxHpUp(3);
                     Debug.Log("레벨업! 현재파워: " + playerPower);
@@ -289,6 +307,7 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[2])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[2];
                     playerPower++;
                     if (playerPower > 5)
@@ -530,7 +549,7 @@ public class GameManager : MonoBehaviour
         numberCardsText = GameObject.FindGameObjectsWithTag("CardText");
         operatorCardsText = GameObject.FindGameObjectsWithTag("OperatorCardText");
         selectedCardsText = GameObject.FindGameObjectsWithTag("SelectedCardText");
-        enemyCards = GameObject.FindGameObjectsWithTag("EnemyCardText");
+        enemyCards = GameObject.FindGameObjectsWithTag("EnemyCardText");        
     }
     void WriteCardText()
     {
@@ -828,6 +847,10 @@ public class GameManager : MonoBehaviour
             cameraManager.specialCamera = GameObject.Find("SpecialCamera").GetComponent<Camera>();
         if (GameObject.Find("RestCamera"))
             cameraManager.restCamera = GameObject.Find("RestCamera").GetComponent<Camera>();
+
+        //Test
+        //if (GameObject.Find("LevelPopUp"))
+        //    levelPopUp = GameObject.Find("LevelPopUp");
     }
     public static void OffInventory()
     {
@@ -987,7 +1010,7 @@ public class GameManager : MonoBehaviour
     {
         if(turnText)
         {
-            turnText.text = turnCount + " Turn";
+            turnText.text = turnCount + " 턴";
         }
     }
 
@@ -1113,7 +1136,7 @@ public class GameManager : MonoBehaviour
             }
             if (turnStart)
             {
-                //Debug.Log("다음턴");
+                Debug.Log("다음턴");
                 turnCount++;
                 BattleClear();
                 NextTurn();
@@ -1135,7 +1158,7 @@ public class GameManager : MonoBehaviour
                 OnBattleCanvas();
                 ShowHpGoldText(battleUI);
                 ShowTurnUI();
-                LoadCardGameObject();               
+                LoadCardGameObject();
                 WriteCardText();
                 CardSelectFunction();
                 WriteSelectedCardText(selectedCardSet.numberCard1, selectedCardSet.operatorCard, selectedCardSet.numberCard2);

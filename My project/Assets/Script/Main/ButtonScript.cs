@@ -132,6 +132,14 @@ public class ButtonScript : MonoBehaviour
     }
     #endregion
 
-    
+    #region 그 외 기능
+    public void LevelPopUpOff()
+    {
+        GameManager.nowLevelUp = false;    
+        GameManager.inBattle = false;
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+        Time.timeScale = 1;
+    }
+    #endregion
 }
 
