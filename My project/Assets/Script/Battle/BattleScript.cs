@@ -144,6 +144,7 @@ public class BattleScript : MonoBehaviour
         Debug.Log("½Â¸®!");
         //GameManager.inBattle = false;
         GameManager.getVictory = true;
+        GameManager.canRest = true;
         //GameManager.cameraSelect = CAMERA_TYPE.MAIN;
 
         switch (GameManager.difficulty)

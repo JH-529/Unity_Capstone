@@ -98,7 +98,16 @@ public class ButtonScript : MonoBehaviour
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = false;
+        GameManager.canRest = false;
         GameManager.cameraSelect = CAMERA_TYPE.REST;
+    }
+
+    public void LoadSecretRoomScene()
+    {
+        GameManager.button = EventSystem.current.currentSelectedGameObject;
+        GameManager.button.GetComponent<Button>().interactable = true;
+        GameManager.inBattle = false;
+        GameManager.cameraSelect = CAMERA_TYPE.SECRET;
     }
 
     public void LoadShopScene()

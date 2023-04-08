@@ -12,7 +12,7 @@ public class QuestionScript : MonoBehaviour
 
     void Start()
     {         
-        qRenderer = GameObject.Find("Question").GetComponent<SpriteRenderer>();
+        //qRenderer = GameObject.Find("Question").GetComponent<SpriteRenderer>();
 
         if (qRenderer.sprite.name.Equals("Question1"))
         {

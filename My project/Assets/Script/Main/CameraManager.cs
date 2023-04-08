@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
     public Camera shopCamera;
     public Camera specialCamera;
     public Camera restCamera;
+    public Camera secretRoomCamera;
 
     // 메인 카메라 ON
     public void OnMainCamera()
@@ -58,4 +59,13 @@ public class CameraManager : MonoBehaviour
         restCamera.enabled = true;
     }
 
+    public void OnSecretRoomCamera()
+    {
+        mainCamera.enabled = false;
+        battleCamera.enabled = false;
+        shopCamera.enabled = false;
+        specialCamera.enabled = false;
+        restCamera.enabled = false;
+        secretRoomCamera.enabled = true;
+    }
 }

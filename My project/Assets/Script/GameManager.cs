@@ -27,7 +27,8 @@ public enum CAMERA_TYPE
     BATTLE,
     SHOP,
     SPECIAL,
-    REST
+    REST,
+    SECRET,
 }
 public enum PLAYER_CARD
 {
@@ -189,6 +190,7 @@ public class GameManager : MonoBehaviour
     public static bool turnStart = false;
     public static bool reinforce = false;   
     public static bool nowLevelUp = false;
+    public static bool canRest = false;
     public static GameObject button;    
 
     public static bool inGame = false;
@@ -204,6 +206,7 @@ public class GameManager : MonoBehaviour
     public TextUI shopUI = new TextUI();
     public TextUI specialUI = new TextUI();
     public TextUI restUI = new TextUI();
+    public TextUI secretUI = new TextUI();
     public TextMeshProUGUI playerResult;
     public TextMeshProUGUI playerBonus;
     public TextMeshProUGUI enemyResult;
@@ -217,10 +220,11 @@ public class GameManager : MonoBehaviour
     public GameObject shopCanvas;
     public GameObject specialCanvas;
     public GameObject restCanvas;
+    public GameObject secretCanvas;
     public GameObject battleButton;
+    public GameObject restButton;
     public GameObject resultUI;
     public GameObject levelPopUp;
-
 
 
     public CardSO cardSO;
@@ -834,6 +838,8 @@ public class GameManager : MonoBehaviour
             specialCanvas = GameObject.Find("Canvas(Special)");
         if (GameObject.Find("Canvas(Rest)"))
             restCanvas = GameObject.Find("Canvas(Rest)");
+        if (GameObject.Find("Canvas(SecretRoom)"))
+            secretCanvas = GameObject.Find("Canvas(SecretRoom)");
     }
     void LoadCamera()
     {
@@ -847,7 +853,8 @@ public class GameManager : MonoBehaviour
             cameraManager.specialCamera = GameObject.Find("SpecialCamera").GetComponent<Camera>();
         if (GameObject.Find("RestCamera"))
             cameraManager.restCamera = GameObject.Find("RestCamera").GetComponent<Camera>();
-
+        if (GameObject.Find("SecretRoomCamera"))
+            cameraManager.secretRoomCamera = GameObject.Find("SecretRoomCamera").GetComponent<Camera>();
         //Test
         //if (GameObject.Find("LevelPopUp"))
         //    levelPopUp = GameObject.Find("LevelPopUp");
@@ -871,6 +878,7 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(false);
         restCanvas.SetActive(false);
+        secretCanvas.SetActive(false);
     }
     void OnBattleCanvas()
     {
@@ -881,6 +889,7 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(false);
         restCanvas.SetActive(false);
+        secretCanvas.SetActive(false);
     }
     void OnShopCanvas()
     {
@@ -891,6 +900,7 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(true);
         specialCanvas.SetActive(false);
         restCanvas.SetActive(false);
+        secretCanvas.SetActive(false);
     }
     void OnSpecialCanvas()
     {
@@ -901,6 +911,7 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(true);
         restCanvas.SetActive(false);
+        secretCanvas.SetActive(false);
     }
     void OnRestCanvas()
     {
@@ -911,6 +922,18 @@ public class GameManager : MonoBehaviour
         shopCanvas.SetActive(false);
         specialCanvas.SetActive(false);
         restCanvas.SetActive(true);
+        secretCanvas.SetActive(false);
+    }
+    void OnSecretRoomCanvas()
+    {
+        mainCanvas.SetActive(false);
+        if (mainMapCanvas)
+            mainMapCanvas.SetActive(false);
+        battleCanvas.SetActive(false);
+        shopCanvas.SetActive(false);
+        specialCanvas.SetActive(false);
+        restCanvas.SetActive(false);
+        secretCanvas.SetActive(true);
     }
 
     // 각 함수에 해당하는 파트의 Text관련 UI 오브젝트를 인자로 받은 TextUI변수에 저장
@@ -973,6 +996,18 @@ public class GameManager : MonoBehaviour
         if (GameObject.Find("RestLevelText").GetComponent<TextMeshProUGUI>())
             ui.UIlevel = GameObject.Find("RestLevelText").GetComponent<TextMeshProUGUI>();
     }
+    void FindSecretText(TextUI ui)
+    {
+        if (GameObject.Find("SecretHPText").GetComponent<TextMeshProUGUI>())
+            ui.UIhp = GameObject.Find("SecretHPText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("SecretGoldText").GetComponent<TextMeshProUGUI>())
+            ui.UIGold = GameObject.Find("SecretGoldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("SecretShieldText").GetComponent<TextMeshProUGUI>())
+            ui.UIshield = GameObject.Find("SecretShieldText").GetComponent<TextMeshProUGUI>();
+        if (GameObject.Find("SecretLevelText").GetComponent<TextMeshProUGUI>())
+            ui.UIlevel = GameObject.Find("SecretLevelText").GetComponent<TextMeshProUGUI>();
+    }
+
     // 인자로 받은 TextUI에 현재의 Hp, Gold, Slider정보를 출력
     void ShowHpGoldText(TextUI ui)
     {
@@ -1094,6 +1129,8 @@ public class GameManager : MonoBehaviour
 
             battleButton = GameObject.FindGameObjectWithTag("BattleButton");
             battleButton.SetActive(false);
+            restButton = GameObject.Find("RestButton");
+            restButton.GetComponent<Button>().interactable = false;
             resultUI = GameObject.FindGameObjectWithTag("ResultUI");
             resultUI.SetActive(false);
 
@@ -1103,6 +1140,7 @@ public class GameManager : MonoBehaviour
             FindShopText(shopUI);
             FindSpecialText(specialUI);
             FindRestText(restUI);
+            FindSecretText(secretUI);
             FindTurnUI();
 
             ClearCardSet();
@@ -1146,7 +1184,14 @@ public class GameManager : MonoBehaviour
             {
                 cameraManager.OnMainCamera();
                 OnMainCanvas();
-                ShowHpGoldText(mainUI);                
+                ShowHpGoldText(mainUI);
+                if(canRest)
+                { 
+                    if(restButton)
+                    {
+                        restButton.GetComponent<Button>().interactable = true;
+                    }                    
+                }
             }
             // 현 Camera를 BattleCamera로 세팅
             if (cameraSelect == CAMERA_TYPE.BATTLE)
@@ -1184,6 +1229,12 @@ public class GameManager : MonoBehaviour
                 cameraManager.OnRestCamera();
                 OnRestCanvas();
                 ShowHpGoldText(restUI);
+            }
+            if (cameraSelect == CAMERA_TYPE.SECRET)
+            {
+                cameraManager.OnSecretRoomCamera();
+                OnSecretRoomCanvas();
+                ShowHpGoldText(secretUI);
             }
         }       
     }
