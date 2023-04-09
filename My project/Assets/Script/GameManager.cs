@@ -191,6 +191,7 @@ public class GameManager : MonoBehaviour
     public static bool reinforce = false;   
     public static bool nowLevelUp = false;
     public static bool canRest = false;
+    public static bool getKey = false;
     public static GameObject button;    
 
     public static bool inGame = false;

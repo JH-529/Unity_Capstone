@@ -48,4 +48,36 @@ public class Inventory : MonoBehaviour
             Debug.Log("슬롯이 가득 참!");
         }
     }
+
+    public void DeleteRandomItem()
+    {
+        if(items.Count > 0)
+        {            
+            int rand = Random.Range(0, items.Count);
+            Debug.Log("임의의 " + items[rand].itemName + " 제거!");
+            items.RemoveAt(rand);
+            FreshSlot();
+            
+        }
+        else
+        {
+            Debug.Log("인벤토리에 아이템이 없음!");
+        }
+    }
+
+    public void DeleteItem(string name)
+    { 
+        for(int i=0; i<items.Count; i++)
+        {
+            Debug.Log(i.ToString() + "번째: " + items[i].itemName);
+
+            if (items[i].itemName.Equals(name))
+            {
+                items.RemoveAt(i);
+                FreshSlot();
+                Debug.Log(name + " 제거!");
+            }
+        }
+    }
+
 }

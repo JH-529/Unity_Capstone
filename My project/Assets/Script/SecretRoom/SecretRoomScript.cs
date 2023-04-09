@@ -13,50 +13,70 @@ public class SecretRoomScript : MonoBehaviour
     [SerializeField] GameObject secretButton;
     [SerializeField] TextMeshProUGUI secretButtonText;
 
+    [Header("메인 인벤토리")]
+    public Inventory mainInventory;
+    [Header("배틀 인벤토리")]
+    public Inventory battleInventory;
+    public Item specialArmor;
 
     #region 좋은일
     public void Heal()
     {
+        Debug.Log("Get Heal");
         GameManager.playerStatus.hp += hpValue[rand];
         if(GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
         {
             GameManager.playerStatus.hp = GameManager.playerStatus.maxHp;
         }
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void BonusGold()
-    {        
+    {
+        Debug.Log("Get BonusGold");
         GameManager.playerGold += goldValue[rand];
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void SpecialItem()
     {
-        Debug.Log("SpecialItem");
-
+        Debug.Log("Get SpecialItem");
+        mainInventory.AddItem(specialArmor);
+        battleInventory.AddItem(specialArmor);
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
     #endregion
 
     #region 나쁜일
     public void Damaged()
-    {     
+    {
+        Debug.Log("Get Damaged");
         GameManager.playerStatus.hp -= hpValue[rand];
         if (GameManager.playerStatus.hp <= 0)
         {
             // 사망 처리
             Debug.Log("You Dead. Fool");            
         }
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void LoseGold()
     {
-      
+        Debug.Log("Lose Gold");
         GameManager.playerGold -= goldValue[rand];
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
     public void StealItem()
     {
-        Debug.Log("StealItem");
+        Debug.Log("Get Item Stolen");
+        if(mainInventory != null)
+        {
+            mainInventory.DeleteRandomItem();
+            battleInventory.DeleteRandomItem();
+        }
 
+        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
     #endregion
 
@@ -64,6 +84,8 @@ public class SecretRoomScript : MonoBehaviour
     void Start()
     {
         eventRand = Random.Range(0, 6);
+        mainInventory.DeleteItem("SecretKey");
+        battleInventory.DeleteItem("SecretKey");
 
         switch (eventRand)
         {
@@ -80,6 +102,7 @@ public class SecretRoomScript : MonoBehaviour
                 secretButton.GetComponent<Button>().onClick.AddListener(BonusGold);
                 break;
             case 2:
+                secretButtonText.text = "You Can Get Item!\n";
                 secretButton.GetComponent<Button>().onClick.AddListener(SpecialItem);
                 break;
             case 3:
@@ -95,6 +118,7 @@ public class SecretRoomScript : MonoBehaviour
                 secretButton.GetComponent<Button>().onClick.AddListener(LoseGold);
                 break;
             case 5:
+                secretButtonText.text = "You got your Item stolen!\n";
                 secretButton.GetComponent<Button>().onClick.AddListener(StealItem);
                 break;
             default:

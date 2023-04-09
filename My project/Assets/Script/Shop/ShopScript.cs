@@ -10,6 +10,7 @@ public enum ITEM_TYPE
     HELMET,
     ARMOR,
     KNIFE,
+    SECRET_KEY,
 }
 
 public class ShopScript : MonoBehaviour
@@ -20,33 +21,39 @@ public class ShopScript : MonoBehaviour
     public Inventory battleInventory;
     public List<Item> items;
 
-    Button btn;
+    [SerializeField] GameObject itemIcon;
+    [SerializeField] Button btn;
+    //[SerializeField] int itemCount;
     public SpriteRenderer sRenderer;
+
     public GameObject textObject;
     public TextMeshProUGUI textMesh;    
 
     void Start()
     {
-        btn = GameObject.Find("Item1Button").GetComponent<Button>();
-
-        sRenderer = GameObject.Find("Item1Icon").GetComponent<SpriteRenderer>();
+        sRenderer = itemIcon.GetComponent<SpriteRenderer>();
         textObject = transform.GetChild(0).gameObject;
+
+        Debug.Log(sRenderer.sprite.name);
 
         #region Heal & Shield
         if (sRenderer.sprite.name.Equals("Heal"))
         {
+            Debug.Log("heal");
             btn.onClick.AddListener(BuyHeal_10);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
         }
         if (sRenderer.sprite.name.Equals("WeakShield"))
         {
+            Debug.Log("weakShield");
             btn.onClick.AddListener(BuyShield_10);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
         }
         if (sRenderer.sprite.name.Equals("Shield"))
         {
+            Debug.Log("shield");
             btn.onClick.AddListener(BuyShield_20);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "20G";
@@ -56,31 +63,42 @@ public class ShopScript : MonoBehaviour
         #region Item
         if (sRenderer.sprite.name.Equals("Helmet"))
         {
+            Debug.Log("helmet");
             btn.onClick.AddListener(BuyHelmet);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
         }
         if (sRenderer.sprite.name.Equals("Armor"))
         {
+            Debug.Log("armor");
             btn.onClick.AddListener(BuyArmor);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
         }
         if (sRenderer.sprite.name.Equals("Knife"))
         {
+            Debug.Log("knife");
             btn.onClick.AddListener(BuyKnife);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "10G";
+        }
+        if (sRenderer.sprite.name.Equals("SecretKey"))
+        {
+            Debug.Log("SecretKey");
+            btn.onClick.AddListener(BuySecretKey);
+            textMesh = textObject.GetComponent<TextMeshProUGUI>();
+            textMesh.text = "30G";
         }
         #endregion
 
         if (sRenderer.sprite.name.Equals("Reinforce"))
         {
+            Debug.Log("reinforce");
             btn.onClick.AddListener(Reinforce);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "30G";
-        }
-        
+        }     
+
     }
 
     void Update()
@@ -96,6 +114,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
+            Debug.Log("체력 +10");
             GameManager.playerGold -= 10;
             GameManager.playerStatus.hp += 10;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -133,6 +152,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
+            Debug.Log("방어력 +5");
             GameManager.playerGold -= 10;
             GameManager.playerStatus.shield += 5;
             btn.interactable = false;
@@ -142,6 +162,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 20)
         {
+            Debug.Log("방어력 +10");
             GameManager.playerGold -= 20;
             GameManager.playerStatus.shield += 10;
             btn.interactable = false;
@@ -162,6 +183,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 30)
         {
+            Debug.Log("플레이어 강화");
             GameManager.playerGold -= 30;
             GameManager.reinforce = true;
         }
@@ -199,6 +221,19 @@ public class ShopScript : MonoBehaviour
             GameManager.playerGold -= 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
+            btn.interactable = false;
+        }
+    }
+
+    public void BuySecretKey()
+    {
+        if (GameManager.playerGold >= 30)
+        {
+            Debug.Log("열쇠 구입");
+            GameManager.playerGold -= 30;
+            GameManager.getKey = true;
+            mainInventory.AddItem(items[(int)ITEM_TYPE.SECRET_KEY]);
+            battleInventory.AddItem(items[(int)ITEM_TYPE.SECRET_KEY]);
             btn.interactable = false;
         }
     }

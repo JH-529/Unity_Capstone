@@ -7,6 +7,11 @@ using UnityEngine.EventSystems;
 
 public class ButtonScript : MonoBehaviour
 {
+    [Header("메인 인벤토리")]
+    public Inventory mainInventory;
+    [Header("배틀 인벤토리")]
+    public Inventory battleInventory;
+
     #region 시작화면, 난이도선택, 옵션
     public void LoadMainScene()
     {
@@ -107,6 +112,10 @@ public class ButtonScript : MonoBehaviour
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = true;
         GameManager.inBattle = false;
+        GameManager.getKey = false;
+        Debug.Log("열쇠를 지워라");
+        mainInventory.DeleteItem("SecretKey");
+        battleInventory.DeleteItem("SecretKey");
         GameManager.cameraSelect = CAMERA_TYPE.SECRET;
     }
 

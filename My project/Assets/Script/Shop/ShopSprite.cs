@@ -30,14 +30,15 @@ public class ShopSprite : MonoBehaviour
         for (int i = 0; i < icons.Length; i++)
         {
             SpriteRenderer sRenderer = GetSprite(icons[i]);
-                        
+            
             // Debug.Log(i + 1 + "번째 아이콘: " + sRenderer.sprite.name + "생성된 아이콘: " + sprites[rand].name);
             // 랜덤으로 골라온 Icon과 동일한 Icon이 적용된 상점 Icon이 있다면 다시 rand 생성
             if (sRenderer.sprite.name == sprites[rand].name)
             {
+                InfiniteLoopDetector.Run();
                 // Debug.Log("비교됨");
                 i = -1;
-                rand = Random.Range(0, 4);
+                rand = Random.Range(0, sprites.Length);
                 continue;
             }            
         }
