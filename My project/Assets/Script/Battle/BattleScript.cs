@@ -12,6 +12,7 @@ public class BattleScript : MonoBehaviour
     [SerializeField]
     private float bonusDamage = 0;
     private float bonusDefence = 0;
+    public static bool killBoss = false;
 
     public void KillYou()
     {
@@ -36,7 +37,7 @@ public class BattleScript : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             bonusDamage += items[i].attack;
-            Debug.Log("공격력 " + items[i].attack + " 추가");
+            //Debug.Log("공격력 " + items[i].attack + " 추가");
         }
 
         float damage = GameManager.playerDamage + GameManager.GetPlayerPower();        
@@ -64,10 +65,10 @@ public class BattleScript : MonoBehaviour
 
         if (GameManager.enemyStatus.hp == 0)
         {            
-            if(GameManager.inboss)
-            { Invoke("KillBoss", 0.5f); }
-            else
+            if(!GameManager.inboss)
             { Invoke("Victory", 0.5f); }
+            else
+            { Invoke("KillBoss", 0.5f); }
         }
         else
         {
@@ -97,7 +98,7 @@ public class BattleScript : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
         {
             bonusDefence += items[i].defence;
-            Debug.Log("방어력 " + items[i].defence + " 추가");
+           // Debug.Log("방어력 " + items[i].defence + " 추가");
         }
 
         float damage = GameManager.enemyDamage;
@@ -141,12 +142,12 @@ public class BattleScript : MonoBehaviour
     // 노말, 하드 골드 보상, 턴 수 수치 조절 필요
     void Victory()
     {
-        Debug.Log("승리!");
-        //GameManager.inBattle = false;
+        //Debug.Log("승리!");
+        GameManager.inBattle = false;
         GameManager.getVictory = true;
         GameManager.canRest = true;
-        //GameManager.cameraSelect = CAMERA_TYPE.MAIN;
-
+       
+        // 전투 승리 보상
         switch (GameManager.difficulty)
         {
             case DIFFICULTY.EASY:
@@ -168,7 +169,7 @@ public class BattleScript : MonoBehaviour
                     GameManager.playerGold += eRand;
                     GetExp(5);
                 }
-                Debug.Log(GameManager.turnCount + "턴 소요");
+                //Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
             case DIFFICULTY.NORMAL:
                 if (GameManager.turnCount <= 3)
@@ -186,7 +187,7 @@ public class BattleScript : MonoBehaviour
                     int eRand = Random.Range(5, 25);
                     GameManager.playerGold += eRand;
                 }
-                Debug.Log(GameManager.turnCount + "턴 소요");
+               // Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
             case DIFFICULTY.HARD:
                 if (GameManager.turnCount <= 3)
@@ -204,16 +205,18 @@ public class BattleScript : MonoBehaviour
                     int eRand = Random.Range(5, 25);
                     GameManager.playerGold += eRand;
                 }
-                Debug.Log(GameManager.turnCount + "턴 소요");
+                //Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
-        }       
+        }
+
     }
     public void KillBoss()
     {
-        Debug.Log("난이도 클리어!");
-        SceneManager.LoadScene("1.DifficultyScene");
+        Debug.Log("난이도 클리어!");        
         GameManager.inGame = false;
-        GameManager.cameraSelect = CAMERA_TYPE.MAIN;
+        killBoss = true;
+        //SceneManager.LoadScene("1.DifficultyScene");
+        //GameManager.cameraSelect = CAMERA_TYPE.MAIN;
 
         switch (GameManager.difficulty)
         {            

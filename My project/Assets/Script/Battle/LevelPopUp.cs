@@ -25,7 +25,13 @@ public class LevelPopUp : MonoBehaviour
             levelPopUp.SetActive(true);
             levelText.text = "레벨업!\n" + "이제" + GameManager.playerLevel + " 레벨";
             Time.timeScale =0;
-        }        
+        }
 
+        if (BattleScript.killBoss == true)
+        {
+            levelPopUp.SetActive(true);
+            levelText.text = "게임 클리어!";
+            Time.timeScale = 0;
+        }
     }
 }

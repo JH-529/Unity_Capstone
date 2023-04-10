@@ -286,25 +286,23 @@ public class GameManager : MonoBehaviour
             case 1:
                 if (playerExp >= exp[0])
                 {
-                    nowLevelUp = true;
                     playerLevel++;
+                    nowLevelUp = true;                    
                     playerExp -= exp[0];
                     playerPower++;
                     if (playerPower > 5)
                     { playerPower = 5; }
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
             case 2:
                 if (playerExp >= exp[1])
                 {
-                    nowLevelUp = true;
-                    playerLevel++;                    
+                    playerLevel++;
+                    nowLevelUp = true;                                      
                     playerExp -= exp[1];
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -318,7 +316,6 @@ public class GameManager : MonoBehaviour
                     if (playerPower > 5)
                     { playerPower = 5; }
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -326,9 +323,9 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[3])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[3];
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -336,9 +333,9 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[4])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[4];
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -346,12 +343,12 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[5])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[5];
                     playerPower++;
                     if (playerPower > 5)
                     { playerPower = 5; }
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -359,9 +356,9 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[6])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[6];
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -369,9 +366,9 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[7])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[7];
                     MaxHpUp(3);
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -379,13 +376,12 @@ public class GameManager : MonoBehaviour
                 if (playerExp >= exp[8])
                 {
                     playerLevel++;
+                    nowLevelUp = true;
                     playerExp -= exp[8];
                     playerPower++;
                     if(playerPower > 5)
                     { playerPower = 5; }
                     MaxHpUp(3);
-                    Debug.Log("만렙!");
-                    Debug.Log("레벨업! 현재파워: " + playerPower);
                     return true;
                 }
                 break;
@@ -701,8 +697,7 @@ public class GameManager : MonoBehaviour
         selectedCardCount = SELECTED_CARD_COUNT.FIRST;
         playerDamage = 0;
         enemyDamage = 0;
-       // Debug.Log(numberCards.Length);
-        
+       // Debug.Log(numberCards.Length);        
     }
     void BattleStateClear()
     {
@@ -1062,6 +1057,7 @@ public class GameManager : MonoBehaviour
         turnStart = false;
         battleButton.SetActive(false);
         resultUI.SetActive(false);
+        Debug.Log("Battle Clear");
     }
 
     #region Life Cycle Function
@@ -1158,24 +1154,24 @@ public class GameManager : MonoBehaviour
         {
             if(!inBattle)
             {
-                //Debug.Log("초기화");
                 selectedCardSet.ClearSelectedCard();
                 BattleStateClear();
                 inBattle = true;
                 turnCount = 1;
             }
             if (getVictory)
-            {
-                //Debug.Log("경치: " + battleUI.playerExpBar.value);
+            {                
                 while (LevelUp())
-                { //Debug.Log(playerLevel + "레벨 " + playerExp + "경험치");
-                 }
-                getVictory = false;
+                {  }
                 BattleClear();
+                getVictory = false;
+                if (nowLevelUp == false)
+                {
+                    cameraSelect = CAMERA_TYPE.MAIN;
+                }
             }
             if (turnStart)
-            {
-                Debug.Log("다음턴");
+            {                
                 turnCount++;
                 BattleClear();
                 NextTurn();
