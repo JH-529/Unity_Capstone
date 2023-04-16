@@ -192,6 +192,7 @@ public class GameManager : MonoBehaviour
     public static bool nowLevelUp = false;
     public static bool canRest = false;
     public static bool getKey = false;
+    public static bool canOperation = true;
     public static GameObject button;    
 
     public static bool inGame = false;
@@ -225,8 +226,6 @@ public class GameManager : MonoBehaviour
     public GameObject battleButton;
     public GameObject restButton;
     public GameObject resultUI;
-    public GameObject levelPopUp;
-
 
     public CardSO cardSO;
     public CardSET playerCardSet = new CardSET();
@@ -661,12 +660,16 @@ public class GameManager : MonoBehaviour
         {
             if(selectedCardSet.numberCard1.number == 0 || selectedCardSet.numberCard2.number == 0)
             {
-                Debug.Log("0은 나누기 불가!");
+                canOperation = false;
+                MakeCardSet();
+                //Debug.Log("0은 나누기 불가!");                
                 return true;
             }
             if(selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
             {
-                Debug.Log("더 큰수로 나누고 있다");
+                canOperation = false;
+                MakeCardSet();
+                //Debug.Log("더 큰수로 나누고 있다");
                 return true;
             }
         }
@@ -681,8 +684,10 @@ public class GameManager : MonoBehaviour
             {
                 if (selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
                 {
-                    Debug.Log("더 큰수를 빼려하고 있습니다!");
-                    Debug.Log("다시 고르세요!");
+                    canOperation = false;
+                    MakeCardSet();
+                    //Debug.Log("더 큰수를 빼려하고 있습니다!");
+                    //Debug.Log("다시 고르세요!");
                     return true;
                 }
             }
@@ -1075,7 +1080,7 @@ public class GameManager : MonoBehaviour
         LoadCamera();
 
         //Debug.Log(SceneManager.GetActiveScene().name);
-        if (SceneManager.GetActiveScene().name.Equals("1.DifficultyScene"))
+        if (SceneManager.GetActiveScene().name.Equals("1.StoryScene"))
         {            
             difficultyButtons = GameObject.FindGameObjectsWithTag("DifficultyButton");
             for(int i=0; i< difficultyButtonsAlive.Length; i++)
@@ -1196,7 +1201,7 @@ public class GameManager : MonoBehaviour
                 inBattle = true;
                 cameraManager.OnBattleCamera();
                 MakeEnemyCardSet();
-                MakeCardSet();                
+                MakeCardSet();
                 OnBattleCanvas();
                 ShowHpGoldText(battleUI);
                 ShowTurnUI();

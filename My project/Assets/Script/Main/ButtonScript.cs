@@ -20,10 +20,10 @@ public class ButtonScript : MonoBehaviour
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
 
-    public void LoadDifficultyScene()
+    public void LoadStoryScene()
     {
-        LoadingSceneController.LoadScene("1.DifficultyScene");
-        //SceneManager.LoadScene("1.DifficultyScene");
+        LoadingSceneController.LoadScene("1.StoryScene");
+        //SceneManager.LoadScene("1.StoryScene");
         GameManager.inGame = false;        
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
@@ -36,10 +36,10 @@ public class ButtonScript : MonoBehaviour
     #endregion
 
     #region EasyStage        
-    public void LoadEasyMainScene()
+    public void LoadMainStageScene()
     {
-        LoadingSceneController.LoadScene("3.EasySceneTest");
-        //SceneManager.LoadScene("3.EasySceneTest");
+        LoadingSceneController.LoadScene("3.MainStage");
+        //SceneManager.LoadScene("3.MainStage");
         GameManager.DifficultySetEasy();        
         GameManager.inGame = true;
         GameManager.inBattle = false;

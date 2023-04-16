@@ -7,12 +7,13 @@ using TMPro;
 public class LevelPopUp : MonoBehaviour
 {
     public GameObject levelPopUp;
+    public GameObject reSelectPopUp;
     [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI reSelectText;
 
     // Start is called before the first frame update
     void Start()
     {
-        //levelPopUp = GameObject.Find("LevelPopUp");
         levelText = GameObject.Find("LevelUpText").GetComponent<TextMeshProUGUI>();
         levelPopUp.SetActive(false);
     }
@@ -32,6 +33,15 @@ public class LevelPopUp : MonoBehaviour
             levelPopUp.SetActive(true);
             levelText.text = "게임 클리어!";
             Time.timeScale = 0;
+        }
+
+        if(GameManager.canOperation == false)
+        {
+            Vector3 position = reSelectPopUp.transform.localPosition;
+            position.x = 0;
+            position.y = -200;
+            reSelectPopUp.transform.localPosition = position;
+            GameManager.canOperation = true;
         }
     }
 }

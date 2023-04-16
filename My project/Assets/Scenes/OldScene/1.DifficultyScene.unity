@@ -279,7 +279,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: -100}
+  m_AnchoredPosition: {x: 400, y: -100}
   m_SizeDelta: {x: 500, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &53738507
@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!114 &53738508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +342,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 53738507}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadEasyMainScene
+        m_MethodName: LoadMainStageScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -556,6 +558,8 @@ MonoBehaviour:
   battleCamera: {fileID: 0}
   shopCamera: {fileID: 0}
   specialCamera: {fileID: 0}
+  restCamera: {fileID: 0}
+  secretRoomCamera: {fileID: 0}
 --- !u!4 &136310464
 Transform:
   m_ObjectHideFlags: 0
@@ -1014,7 +1018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -138.55164, y: 390}
+  m_AnchoredPosition: {x: -138.55, y: 460}
   m_SizeDelta: {x: 277.1032, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766948889
@@ -1029,6 +1033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!114 &766948890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -150}
+  m_AnchoredPosition: {x: 68, y: -109}
   m_SizeDelta: {x: 500, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &811670691
@@ -1253,6 +1259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!114 &811670692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,6 +1355,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811670689}
   m_CullTransparentMesh: 1
+--- !u!1 &1017474825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1017474826}
+  m_Layer: 0
+  m_Name: StoryBook
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1017474826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017474825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 439.61163, y: -68.923645, z: 992.18976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1321365804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,8 +1479,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374330314}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 210}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1665,7 +1704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -100}
+  m_AnchoredPosition: {x: -400, y: -100}
   m_SizeDelta: {x: 500, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514966481
@@ -1774,6 +1813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!1 &1535391409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!1 &1655219807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,9 +2175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4b81b37143eae42a1291cf4e783eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  exp: 050000000a0000000f00000014000000190000001e00000023000000280000002d000000
   cameraManager: {fileID: 0}
   spriteManager: {fileID: 0}
   playerResult: {fileID: 0}
+  playerBonus: {fileID: 0}
   enemyResult: {fileID: 0}
   playerDefence: {fileID: 0}
   enemyDefence: {fileID: 0}
@@ -2144,8 +2190,11 @@ MonoBehaviour:
   battleCanvas: {fileID: 0}
   shopCanvas: {fileID: 0}
   specialCanvas: {fileID: 0}
+  restCanvas: {fileID: 0}
+  secretCanvas: {fileID: 0}
   battleButton: {fileID: 0}
-  AudioManager: {fileID: 0}
+  restButton: {fileID: 0}
+  resultUI: {fileID: 0}
   cardSO: {fileID: 0}
   numberCards: []
   numberCardsText: []

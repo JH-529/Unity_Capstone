@@ -216,7 +216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11298846}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0a48d0db8580b347949c5594e0b1352, type: 3}
   m_Name: 
@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!114 &53738508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +342,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 53738507}
         m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: LoadDifficultyScene
+        m_MethodName: LoadStoryScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -684,6 +686,8 @@ MonoBehaviour:
   battleCamera: {fileID: 0}
   shopCamera: {fileID: 0}
   specialCamera: {fileID: 0}
+  restCamera: {fileID: 0}
+  secretRoomCamera: {fileID: 0}
 --- !u!4 &593737083
 Transform:
   m_ObjectHideFlags: 0
@@ -1630,6 +1634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!1 &1655219807
 GameObject:
   m_ObjectHideFlags: 0

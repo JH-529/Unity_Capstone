@@ -212,7 +212,7 @@ public class BattleScript : MonoBehaviour
     }
     public void KillBoss()
     {
-        Debug.Log("난이도 클리어!");        
+       // Debug.Log("게임 클리어!");        
         GameManager.inGame = false;
         killBoss = true;
         //SceneManager.LoadScene("1.DifficultyScene");
