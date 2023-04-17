@@ -33,6 +33,8 @@ public class BattleScript : MonoBehaviour
     // 적 처치시 승리처리 포함
     public void PlayerAttack()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
+
         // 아이템의 추가 데미지 적용
         for (int i = 0; i < items.Count; i++)
         {
@@ -81,6 +83,8 @@ public class BattleScript : MonoBehaviour
     // 방어력 증가 후 EnemyAttack() 자동 진행
     public void GetDefence()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Defence);
+
         float defence = GameManager.playerDamage;
         if(defence < 0)
         { defence = 0; }
@@ -94,6 +98,8 @@ public class BattleScript : MonoBehaviour
     // 적의 공격으로 플레이어 사망시 처리하는 기능 포함
     public void EnemyAttack()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
+
         // 아이템의 추가 방어도 적용
         for (int i = 0; i < items.Count; i++)
         {
@@ -142,6 +148,8 @@ public class BattleScript : MonoBehaviour
     // 노말, 하드 골드 보상, 턴 수 수치 조절 필요
     void Victory()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
+
         //Debug.Log("승리!");
         GameManager.inBattle = false;
         GameManager.getVictory = true;
@@ -212,7 +220,9 @@ public class BattleScript : MonoBehaviour
     }
     public void KillBoss()
     {
-       // Debug.Log("게임 클리어!");        
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
+
+        // Debug.Log("게임 클리어!");        
         GameManager.inGame = false;
         killBoss = true;
         //SceneManager.LoadScene("1.DifficultyScene");
@@ -239,6 +249,8 @@ public class BattleScript : MonoBehaviour
     }
     void Defeat()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Defeat);
+
         Debug.Log("패배..");
         GameManager.inBattle = false;
         GameManager.inGame = false;

@@ -13,6 +13,8 @@ public class RestScript : MonoBehaviour
     // 특정 비율만큼 체력을 회복
     public void GetRest()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyHeal);
+
         GameManager.playerStatus.hp += (int)heal;
         if(GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
         { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
@@ -24,6 +26,8 @@ public class RestScript : MonoBehaviour
     // 플레이어의 파워를 1 상승
     public void PlayerPowerUp()
     {
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyReinforce);
+
         GameManager.playerPower++;
         Debug.Log("현재 플레이어 파워: " + GameManager.playerPower);
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;

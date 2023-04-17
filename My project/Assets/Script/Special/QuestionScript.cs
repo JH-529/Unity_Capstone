@@ -44,8 +44,10 @@ public class QuestionScript : MonoBehaviour
     }
     
     public void Right()
-    {
+    {        
         Debug.Log("정답!");
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Right);
+
         GameManager.playerStatus.hp += 10;
         GameManager.playerGold += 30;
         if(GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -53,8 +55,10 @@ public class QuestionScript : MonoBehaviour
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
     public void Wrong()
-    {
+    {        
         Debug.Log("오답!!");
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Wrong);
+
         GameManager.playerGold -= 20;
         if(GameManager.playerGold < 0)
         { GameManager.playerGold = 0; }

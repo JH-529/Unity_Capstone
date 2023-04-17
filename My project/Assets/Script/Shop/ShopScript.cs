@@ -115,6 +115,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 10)
         {
             Debug.Log("체력 +10");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyHeal);
             GameManager.playerGold -= 10;
             GameManager.playerStatus.hp += 10;
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -123,28 +124,28 @@ public class ShopScript : MonoBehaviour
         }        
     }
 
-    public void BuyHeal_20()
-    {
-        if (GameManager.playerGold >= 20)
-        {
-            GameManager.playerGold -= 20;
-            GameManager.playerStatus.hp += 20;
-            if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
-            { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
-            btn.interactable = false;
-        }
-    }
-    public void BuyHeal_30()
-    {
-        if (GameManager.playerGold >= 30)
-        {
-            GameManager.playerGold -= 30;
-            GameManager.playerStatus.hp += 30;
-            if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
-            { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
-            btn.interactable = false;
-        }
-    }
+    //public void BuyHeal_20()
+    //{
+    //    if (GameManager.playerGold >= 20)
+    //    {
+    //        GameManager.playerGold -= 20;
+    //        GameManager.playerStatus.hp += 20;
+    //        if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
+    //        { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
+    //        btn.interactable = false;
+    //    }
+    //}
+    //public void BuyHeal_30()
+    //{
+    //    if (GameManager.playerGold >= 30)
+    //    {
+    //        GameManager.playerGold -= 30;
+    //        GameManager.playerStatus.hp += 30;
+    //        if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
+    //        { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
+    //        btn.interactable = false;
+    //    }
+    //}
     #endregion
 
     #region shield
@@ -153,6 +154,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 10)
         {
             Debug.Log("방어력 +5");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyDefence);
             GameManager.playerGold -= 10;
             GameManager.playerStatus.shield += 5;
             btn.interactable = false;
@@ -163,20 +165,21 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 20)
         {
             Debug.Log("방어력 +10");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyDefence);
             GameManager.playerGold -= 20;
             GameManager.playerStatus.shield += 10;
             btn.interactable = false;
         }
     }
-    public void BuyShield_30()
-    {
-        if (GameManager.playerGold >= 30)
-        {
-            GameManager.playerGold -= 30;
-            GameManager.playerStatus.shield += 15;
-            btn.interactable = false;
-        }
-    }
+    //public void BuyShield_30()
+    //{
+    //    if (GameManager.playerGold >= 30)
+    //    {
+    //        GameManager.playerGold -= 30;
+    //        GameManager.playerStatus.shield += 15;
+    //        btn.interactable = false;
+    //    }
+    //}
     #endregion
 
     public void Reinforce()
@@ -184,6 +187,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 30)
         {
             Debug.Log("플레이어 강화");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyReinforce);
             GameManager.playerGold -= 30;
             GameManager.reinforce = true;
         }
@@ -194,6 +198,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 10)
         {
             Debug.Log("헬멧 구입");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
@@ -206,6 +211,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 10)
         {
             Debug.Log("아머 구입");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
@@ -218,6 +224,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 10)
         {
             Debug.Log("나이프 구입");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
             mainInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
@@ -230,6 +237,7 @@ public class ShopScript : MonoBehaviour
         if (GameManager.playerGold >= 30)
         {
             Debug.Log("열쇠 구입");
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.GetSpecialItem);
             GameManager.playerGold -= 30;
             GameManager.getKey = true;
             mainInventory.AddItem(items[(int)ITEM_TYPE.SECRET_KEY]);

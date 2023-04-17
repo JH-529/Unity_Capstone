@@ -285,6 +285,7 @@ public class GameManager : MonoBehaviour
             case 1:
                 if (playerExp >= exp[0])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;                    
                     playerExp -= exp[0];
@@ -298,6 +299,7 @@ public class GameManager : MonoBehaviour
             case 2:
                 if (playerExp >= exp[1])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;                                      
                     playerExp -= exp[1];
@@ -308,6 +310,7 @@ public class GameManager : MonoBehaviour
             case 3:
                 if (playerExp >= exp[2])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[2];
@@ -321,6 +324,7 @@ public class GameManager : MonoBehaviour
             case 4:
                 if (playerExp >= exp[3])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[3];
@@ -331,6 +335,7 @@ public class GameManager : MonoBehaviour
             case 5:
                 if (playerExp >= exp[4])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[4];
@@ -341,6 +346,7 @@ public class GameManager : MonoBehaviour
             case 6:
                 if (playerExp >= exp[5])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[5];
@@ -354,6 +360,7 @@ public class GameManager : MonoBehaviour
             case 7:
                 if (playerExp >= exp[6])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[6];
@@ -364,6 +371,7 @@ public class GameManager : MonoBehaviour
             case 8:
                 if (playerExp >= exp[7])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[7];
@@ -374,6 +382,7 @@ public class GameManager : MonoBehaviour
             case 9:
                 if (playerExp >= exp[8])
                 {
+                    AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
                     playerLevel++;
                     nowLevelUp = true;
                     playerExp -= exp[8];
@@ -1078,6 +1087,7 @@ public class GameManager : MonoBehaviour
         // Canvas, Cameraµé Load
         LoadCanvas();
         LoadCamera();
+        AudioManager.instance.PlayBgm(true);
 
         //Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name.Equals("1.StoryScene"))
