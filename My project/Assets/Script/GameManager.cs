@@ -467,19 +467,19 @@ public class GameManager : MonoBehaviour
                 switch (rand)
                 {
                     case 0:
-                        card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                        card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
                         playerCardSet.operatorCards.Add(card);
                         break;
                     case 1:
-                        card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                        card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
                         playerCardSet.operatorCards.Add(card);
                         break;
                     case 2:
-                        card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                        card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
                         playerCardSet.operatorCards.Add(card);
                         break;
                     case 3:
-                        card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                        card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
                         playerCardSet.operatorCards.Add(card);
                         break;
                 }
@@ -524,22 +524,22 @@ public class GameManager : MonoBehaviour
                 switch (rand)
                 {
                     case 0:
-                        card = new OperatorCard("PLUS", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                        card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
                         enemyCardSet.operatorCard = card;
                         enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
                         break;
                     case 1:
-                        card = new OperatorCard("MINUS", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                        card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
                         enemyCardSet.operatorCard = card;
                         enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
                         break;
                     case 2:
-                        card = new OperatorCard("MULTIPLY", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                        card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
                         enemyCardSet.operatorCard = card;
                         enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
                         break;
                     case 3:
-                        card = new OperatorCard("DIVIDE", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                        card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
                         enemyCardSet.operatorCard = card;                        
                         enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
                         break;
@@ -1042,8 +1042,8 @@ public class GameManager : MonoBehaviour
 
         if (ui.UIhpBarText_Player != null && ui.UIhpBarText_Enemy != null)
         {
-            ui.UIhpBarText_Player.text = playerStatus.hp + " / " + playerStatus.maxHp;
-            ui.UIhpBarText_Enemy.text = enemyStatus.hp + " / " + enemyStatus.maxHp;
+            ui.UIhpBarText_Player.text = playerStatus.hp + " / \n" + playerStatus.maxHp;
+            ui.UIhpBarText_Enemy.text = enemyStatus.hp + " / \n" + enemyStatus.maxHp;
         }
     }
     void FindTurnUI()

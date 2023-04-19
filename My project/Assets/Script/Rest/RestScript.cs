@@ -46,7 +46,7 @@ public class RestScript : MonoBehaviour
         ratio = 0.01f * (float)healQuantity;
         heal = GameManager.playerStatus.maxHp * ratio;
         
-        restText.text = healQuantity.ToString() + "% 만큼 체력 회복 (회복량: " + (int)heal + ")";
+        restText.text = healQuantity.ToString() + "% 만큼 체력 회복 \n(회복량: " + (int)heal + ")";
     }
 
     // Update is called once per frame

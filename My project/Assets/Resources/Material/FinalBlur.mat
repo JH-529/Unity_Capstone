@@ -33,5 +33,5 @@ Material:
     - _blurSizeXY: 1
     - _intensity: 0
     m_Colors:
-    - _Color: {r: 1, g: 0.23113209, b: 0.23822555, a: 1}
+    - _Color: {r: 0.3679245, g: 0.09857599, b: 0.101324506, a: 1}
   m_BuildTextureStacks: []
