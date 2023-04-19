@@ -356,17 +356,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117464599}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1188584176}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 180, y: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 70, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117464601
@@ -389,7 +389,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 566684578, guid: c28430404792f3144824e8f060d9c43d, type: 3}
+  m_Sprite: {fileID: -2119400186, guid: c6c3a83aa6047854d918e57447a42b17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1068,7 +1068,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188584175}
-  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1076,7 +1076,7 @@ RectTransform:
   - {fileID: 117464600}
   m_Father: {fileID: 1655219811}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 180, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 30, y: -150}
@@ -1094,6 +1094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac88a202240cd9b448ea62543f6c91c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainInventory: {fileID: 0}
+  battleInventory: {fileID: 0}
 --- !u!114 &1188584178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1123,9 +1125,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -1927097347, guid: 7529d2f71bf410f48bfe6370753c5d28, type: 3}
-    m_PressedSprite: {fileID: -1927097347, guid: 7529d2f71bf410f48bfe6370753c5d28, type: 3}
-    m_SelectedSprite: {fileID: -1927097347, guid: 7529d2f71bf410f48bfe6370753c5d28, type: 3}
+    m_HighlightedSprite: {fileID: -608054685, guid: c6c3a83aa6047854d918e57447a42b17, type: 3}
+    m_PressedSprite: {fileID: -608054685, guid: c6c3a83aa6047854d918e57447a42b17, type: 3}
+    m_SelectedSprite: {fileID: -608054685, guid: c6c3a83aa6047854d918e57447a42b17, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1170,7 +1172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 418405043, guid: 7529d2f71bf410f48bfe6370753c5d28, type: 3}
+  m_Sprite: {fileID: 1869253033, guid: c6c3a83aa6047854d918e57447a42b17, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1221,6 +1223,8 @@ MonoBehaviour:
   battleCamera: {fileID: 0}
   shopCamera: {fileID: 0}
   specialCamera: {fileID: 0}
+  restCamera: {fileID: 0}
+  secretRoomCamera: {fileID: 0}
 --- !u!4 &1216299890
 Transform:
   m_ObjectHideFlags: 0
@@ -1778,9 +1782,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b4b81b37143eae42a1291cf4e783eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  exp: 050000000a0000000f00000014000000190000001e00000023000000280000002d000000
   cameraManager: {fileID: 0}
   spriteManager: {fileID: 0}
   playerResult: {fileID: 0}
+  playerBonus: {fileID: 0}
   enemyResult: {fileID: 0}
   playerDefence: {fileID: 0}
   enemyDefence: {fileID: 0}
@@ -1790,8 +1797,11 @@ MonoBehaviour:
   battleCanvas: {fileID: 0}
   shopCanvas: {fileID: 0}
   specialCanvas: {fileID: 0}
+  restCanvas: {fileID: 0}
+  secretCanvas: {fileID: 0}
   battleButton: {fileID: 0}
-  AudioManager: {fileID: 0}
+  restButton: {fileID: 0}
+  resultUI: {fileID: 0}
   cardSO: {fileID: 0}
   numberCards: []
   numberCardsText: []
