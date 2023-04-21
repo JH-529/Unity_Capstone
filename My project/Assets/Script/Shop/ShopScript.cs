@@ -21,9 +21,10 @@ public class ShopScript : MonoBehaviour
     public Inventory battleInventory;
     public List<Item> items;
 
-    [SerializeField] GameObject itemIcon;
+    [SerializeField] GameObject itemIcon;    
     [SerializeField] GameObject popUp;
     [SerializeField] TextMeshProUGUI popUpText;
+    [SerializeField] Image buttonImage;
     [SerializeField] Button btn;
     [SerializeField] string itemName;
     
@@ -126,6 +127,7 @@ public class ShopScript : MonoBehaviour
             if (GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
             { GameManager.playerStatus.hp = GameManager.playerStatus.maxHp; }
             btn.interactable = false;
+            buttonImage.enabled = true;
         }        
     }
     #endregion
@@ -141,6 +143,7 @@ public class ShopScript : MonoBehaviour
             GameManager.playerGold -= 10;
             GameManager.playerStatus.shield += 5;
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }
     public void BuyShield_20()
@@ -153,6 +156,7 @@ public class ShopScript : MonoBehaviour
             GameManager.playerGold -= 20;
             GameManager.playerStatus.shield += 10;
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }   
     #endregion
@@ -166,6 +170,7 @@ public class ShopScript : MonoBehaviour
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyReinforce);
             GameManager.playerGold -= 30;
             GameManager.reinforce = true;
+            buttonImage.enabled = true;
         }
     }
 
@@ -180,6 +185,7 @@ public class ShopScript : MonoBehaviour
             mainInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.HELMET]);
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }
 
@@ -194,6 +200,7 @@ public class ShopScript : MonoBehaviour
             mainInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.ARMOR]);
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }
 
@@ -208,6 +215,7 @@ public class ShopScript : MonoBehaviour
             mainInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.KNIFE]);
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }
 
@@ -223,6 +231,7 @@ public class ShopScript : MonoBehaviour
             mainInventory.AddItem(items[(int)ITEM_TYPE.SECRET_KEY]);
             battleInventory.AddItem(items[(int)ITEM_TYPE.SECRET_KEY]);
             btn.interactable = false;
+            buttonImage.enabled = true;
         }
     }
 
