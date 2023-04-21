@@ -13,6 +13,8 @@ public class BattleScript : MonoBehaviour
     private float bonusDamage = 0;
     private float bonusDefence = 0;
     public static bool killBoss = false;
+    [SerializeField] Button attackButton;
+    [SerializeField] Button defenceButton;
 
     public void KillYou()
     {
@@ -34,6 +36,8 @@ public class BattleScript : MonoBehaviour
     public void PlayerAttack()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
+        attackButton.interactable = false;
+        defenceButton.interactable = false;
 
         // 아이템의 추가 데미지 적용
         for (int i = 0; i < items.Count; i++)
@@ -84,6 +88,8 @@ public class BattleScript : MonoBehaviour
     public void GetDefence()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Defence);
+        attackButton.interactable = false;
+        defenceButton.interactable = false;
 
         float defence = GameManager.playerDamage;
         if(defence < 0)
@@ -136,12 +142,14 @@ public class BattleScript : MonoBehaviour
             Invoke("Defeat", 0.7f);
         }
 
-        Invoke("NexTurn", 0.7f);
+        Invoke("NextTurn", 0.7f);
     }
 
-    void NexTurn()
+    void NextTurn()
     {
         GameManager.turnStart = true;
+        attackButton.interactable = true;
+        defenceButton.interactable = true;
     }
 
     // TODO
@@ -149,6 +157,8 @@ public class BattleScript : MonoBehaviour
     void Victory()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
+        attackButton.interactable = true;
+        defenceButton.interactable = true;
 
         //Debug.Log("승리!");
         GameManager.inBattle = false;

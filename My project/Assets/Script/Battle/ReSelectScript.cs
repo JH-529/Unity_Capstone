@@ -20,7 +20,7 @@ public class ReSelectScript : MonoBehaviour
 
     public void TranslationX(float value)
     {
-        Debug.Log("하이");
+        //Debug.Log("하이");
         Vector3 position = button.transform.localPosition;
         position.x = value;
         button.transform.localPosition = position;

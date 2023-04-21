@@ -17,15 +17,28 @@ public class BookScript : MonoBehaviour
         
     }
 
-    public void BookTrunOver()
-    {
-        if(StoryScript.imageCount < 4)
+    public void MovePrev()
+    {       
+        if (StoryScript.imageCount > 0)
+        {
+            StoryScript.imageCount--;
+
+            if (StoryScript.imageCount == 0)
+            {
+                StoryScript.imageCount = 0;
+            }
+        }        
+    }
+
+    public void MoveNext()
+    {           
+        if (StoryScript.imageCount < StoryScript.bookPage)
         {
             StoryScript.imageCount++;
-        }
-        if(StoryScript.imageCount == 4)
-        {
-            StoryScript.imageCount = 0;            
-        }
+            if (StoryScript.imageCount == StoryScript.bookPage)
+            {
+                StoryScript.imageCount = StoryScript.bookPage - 1;
+            }
+        }        
     }
 }

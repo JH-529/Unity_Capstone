@@ -11,12 +11,14 @@ public class StoryScript : MonoBehaviour
 
     [SerializeField] GameObject button;
     public static int imageCount = 0;
+    public static int bookPage = 0;
 
     // Start is called before the first frame update
     void Awake()
     {
         paintings = Resources.LoadAll<Sprite>("Book/Painting");
         narratons = Resources.LoadAll<Sprite>("Book/Narration");
+        bookPage = paintings.Length;
     }
 
     void Start()
