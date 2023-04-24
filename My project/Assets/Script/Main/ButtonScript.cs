@@ -69,13 +69,14 @@ public class ButtonScript : MonoBehaviour
         GameManager.playerStatus.shield = 0;
         //SoundManager.bgms[1].Play();
     }
-
+       
     public void LoadBossStage()
     {
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = true;
         GameManager.inboss = true;
+        GameManager.difficulty = DIFFICULTY.HARD;
         GameManager.enemyStatus.maxHp *= 2;
         GameManager.enemyStatus.hp *= 2;
         GameManager.enemyStatus.defence *= 2;

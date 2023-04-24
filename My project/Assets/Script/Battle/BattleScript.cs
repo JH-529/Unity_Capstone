@@ -16,11 +16,7 @@ public class BattleScript : MonoBehaviour
     [SerializeField] Button attackButton;
     [SerializeField] Button defenceButton;
 
-    public void KillYou()
-    {
-        GameManager.playerDamage = 1000;
-        PlayerAttack();
-    }
+    
 
     void Start()
     {
@@ -36,8 +32,8 @@ public class BattleScript : MonoBehaviour
     public void PlayerAttack()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
-        attackButton.interactable = false;
-        defenceButton.interactable = false;
+        //attackButton.interactable = false;
+        //defenceButton.interactable = false;
 
         // 아이템의 추가 데미지 적용
         for (int i = 0; i < items.Count; i++)
@@ -157,8 +153,8 @@ public class BattleScript : MonoBehaviour
     void Victory()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
-        attackButton.interactable = true;
-        defenceButton.interactable = true;
+        //attackButton.interactable = true;
+        //defenceButton.interactable = true;
 
         //Debug.Log("승리!");
         GameManager.inBattle = false;
@@ -194,16 +190,19 @@ public class BattleScript : MonoBehaviour
                 {
                     int eRand = Random.Range(20, 40);
                     GameManager.playerGold += eRand;
+                    GetExp(20);
                 }
                 if (GameManager.turnCount >= 4 && GameManager.turnCount <= 7)
                 {
                     int eRand = Random.Range(15, 35);
                     GameManager.playerGold += eRand;
+                    GetExp(15);
                 }
                 if (GameManager.turnCount >= 8)
                 {
                     int eRand = Random.Range(5, 25);
                     GameManager.playerGold += eRand;
+                    GetExp(10);
                 }
                // Debug.Log(GameManager.turnCount + "턴 소요");
                 break;
@@ -275,5 +274,11 @@ public class BattleScript : MonoBehaviour
         GameManager.playerExp += exp;
         Debug.Log(exp + " 경험치 획득!");
         GameManager.getVictory = true; // 레벨업 테스트용
+    }
+
+    public void KillYou()
+    {
+        GameManager.playerDamage = 1000;
+        PlayerAttack();
     }
 }

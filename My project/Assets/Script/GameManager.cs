@@ -84,7 +84,7 @@ public class Status
                 status = new Status(unitcode, 30, 30, 5);
                 break;
             case UNIT_TYPE.enemy_normal:     
-                status = new Status(unitcode, 50, 50, 7);
+                status = new Status(unitcode, 45, 45, 7);
                 break;
             case UNIT_TYPE.enemy_hard:
                 status = new Status(unitcode, 70, 70, 10);
@@ -497,56 +497,170 @@ public class GameManager : MonoBehaviour
     }
         
     void MakeEnemyCardSet()
-    {
-        if(enemyCardSet.numberCard1.count == 0)
+    {      
+        if (enemyCardSet.numberCard1.count == 0)
         {
-            enemyCardSet.result = 0;
-            while (enemyCardSet.result <= 0 || enemyCardSet.result > 20)
+            switch (difficulty)
             {
-                enemyCardSet.ClearSelectedCard();
-                                
-                NumberCard enemyCard1 = new NumberCard(1, Random.Range(1, 11), null);
-                NumberCard enemyCard2 = new NumberCard(2, Random.Range(1, 11), null);
-                enemyCardSet.numberCard1 = enemyCard1;
-                enemyCardSet.numberCard2 = enemyCard2;
+                case DIFFICULTY.EASY:
+                    Debug.Log("이지");
+                    if (enemyCardSet.numberCard1.count == 0)
+                    {
+                        enemyCardSet.result = 0;
+                        while (enemyCardSet.result <= 0 || enemyCardSet.result > 25)
+                        {
+                            enemyCardSet.ClearSelectedCard();
 
-                while (enemyCardSet.numberCard1.number < enemyCardSet.numberCard2.number)
-                {
-                    enemyCard1 = new NumberCard(0, Random.Range(1, 11), null);
-                    enemyCard2 = new NumberCard(1, Random.Range(1, 11), null);
-                    enemyCardSet.numberCard1 = enemyCard1;
-                    enemyCardSet.numberCard2 = enemyCard2;
-                }
+                            NumberCard enemyCard1 = new NumberCard(1, Random.Range(1, 11), null);
+                            NumberCard enemyCard2 = new NumberCard(2, Random.Range(1, 11), null);
+                            enemyCardSet.numberCard1 = enemyCard1;
+                            enemyCardSet.numberCard2 = enemyCard2;
 
+                            while (enemyCardSet.numberCard1.number < enemyCardSet.numberCard2.number)
+                            {
+                                enemyCard1 = new NumberCard(0, Random.Range(1, 11), null);
+                                enemyCard2 = new NumberCard(1, Random.Range(1, 11), null);
+                                enemyCardSet.numberCard1 = enemyCard1;
+                                enemyCardSet.numberCard2 = enemyCard2;
+                            }
 
-                OperatorCard card;
-                int rand = Random.Range(0, 4);
-                switch (rand)
-                {
-                    case 0:
-                        card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
-                        enemyCardSet.operatorCard = card;
-                        enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
-                        break;
-                    case 1:
-                        card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
-                        enemyCardSet.operatorCard = card;
-                        enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
-                        break;
-                    case 2:
-                        card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
-                        enemyCardSet.operatorCard = card;
-                        enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
-                        break;
-                    case 3:
-                        card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
-                        enemyCardSet.operatorCard = card;                        
-                        enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
-                        break;
-                }
+                            OperatorCard card;
+                            int rand = Random.Range(0, 4);
+                            switch (rand)
+                            {
+                                case 0:
+                                    card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
+                                    break;
+                                case 1:
+                                    card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
+                                    break;
+                                case 2:
+                                    card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
+                                    break;
+                                case 3:
+                                    card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
+                                    break;
+                            }
 
-                if (enemyCardSet.result >= 30)
-                { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                            if (enemyCardSet.result >= 25)
+                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                        }
+                    }
+                    break;
+                case DIFFICULTY.NORMAL:
+                    Debug.Log("노말");
+                    if (enemyCardSet.numberCard1.count == 0)
+                    {
+                        enemyCardSet.result = 0;
+                        while (enemyCardSet.result < 5 || enemyCardSet.result > 30)
+                        {
+                            enemyCardSet.ClearSelectedCard();
+
+                            NumberCard enemyCard1 = new NumberCard(1, Random.Range(1, 11), null);
+                            NumberCard enemyCard2 = new NumberCard(2, Random.Range(1, 11), null);
+                            enemyCardSet.numberCard1 = enemyCard1;
+                            enemyCardSet.numberCard2 = enemyCard2;
+
+                            while (enemyCardSet.numberCard1.number < enemyCardSet.numberCard2.number)
+                            {
+                                enemyCard1 = new NumberCard(0, Random.Range(1, 11), null);
+                                enemyCard2 = new NumberCard(1, Random.Range(1, 11), null);
+                                enemyCardSet.numberCard1 = enemyCard1;
+                                enemyCardSet.numberCard2 = enemyCard2;
+                            }
+
+                            OperatorCard card;
+                            int rand = Random.Range(0, 4);
+                            switch (rand)
+                            {
+                                case 0:
+                                    card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
+                                    break;
+                                case 1:
+                                    card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
+                                    break;
+                                case 2:
+                                    card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
+                                    break;
+                                case 3:
+                                    card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
+                                    break;
+                            }
+
+                            if (enemyCardSet.result >= 40 || enemyCardSet.result < 10)
+                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                        }
+                    }
+                    break;
+                case DIFFICULTY.HARD:
+                    Debug.Log("하드");
+                    if (enemyCardSet.numberCard1.count == 0)
+                    {
+                        enemyCardSet.result = 0;
+                        while (enemyCardSet.result < 10 || enemyCardSet.result > 40)
+                        {
+                            enemyCardSet.ClearSelectedCard();
+
+                            NumberCard enemyCard1 = new NumberCard(1, Random.Range(1, 11), null);
+                            NumberCard enemyCard2 = new NumberCard(2, Random.Range(1, 11), null);
+                            enemyCardSet.numberCard1 = enemyCard1;
+                            enemyCardSet.numberCard2 = enemyCard2;
+
+                            while (enemyCardSet.numberCard1.number < enemyCardSet.numberCard2.number)
+                            {
+                                enemyCard1 = new NumberCard(0, Random.Range(1, 11), null);
+                                enemyCard2 = new NumberCard(1, Random.Range(1, 11), null);
+                                enemyCardSet.numberCard1 = enemyCard1;
+                                enemyCardSet.numberCard2 = enemyCard2;
+                            }
+
+                            OperatorCard card;
+                            int rand = Random.Range(0, 4);
+                            switch (rand)
+                            {
+                                case 0:
+                                    card = new OperatorCard("+", OperatorCard.OPERATOR_TYPE.PLUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number + enemyCardSet.numberCard2.number;
+                                    break;
+                                case 1:
+                                    card = new OperatorCard("-", OperatorCard.OPERATOR_TYPE.MINUS, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number - enemyCardSet.numberCard2.number;
+                                    break;
+                                case 2:
+                                    card = new OperatorCard("X", OperatorCard.OPERATOR_TYPE.MULTIPLY, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number * enemyCardSet.numberCard2.number;
+                                    break;
+                                case 3:
+                                    card = new OperatorCard("%", OperatorCard.OPERATOR_TYPE.DIVIDE, null);
+                                    enemyCardSet.operatorCard = card;
+                                    enemyCardSet.result = enemyCardSet.numberCard1.number / enemyCardSet.numberCard2.number;
+                                    break;
+                            }
+
+                            if (enemyCardSet.result >= 40 || enemyCardSet.result < 10)
+                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -686,21 +800,17 @@ public class GameManager : MonoBehaviour
     }
     bool minusCheck()
     {
-        // 이지 난이도만 [첫번째숫자 < 두번째숫자] 일때 다시 고르도록 함
-        if(difficulty == DIFFICULTY.EASY)
+        if (selectedCardSet.operatorCard.type == OperatorCard.OPERATOR_TYPE.MINUS)
         {
-            if (selectedCardSet.operatorCard.type == OperatorCard.OPERATOR_TYPE.MINUS)
+            if (selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
             {
-                if (selectedCardSet.numberCard1.number < selectedCardSet.numberCard2.number)
-                {
-                    canOperation = false;
-                    MakeCardSet();
-                    //Debug.Log("더 큰수를 빼려하고 있습니다!");
-                    //Debug.Log("다시 고르세요!");
-                    return true;
-                }
+                canOperation = false;
+                MakeCardSet();
+                //Debug.Log("더 큰수를 빼려하고 있습니다!");
+                //Debug.Log("다시 고르세요!");
+                return true;
             }
-        }        
+        }
         return false;
     }
 
@@ -724,10 +834,12 @@ public class GameManager : MonoBehaviour
         switch (difficulty)
         {
             case DIFFICULTY.EASY:
-                    enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
+                Debug.Log("이지");
+                enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
                 break;
             case DIFFICULTY.NORMAL:
-                    enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
+                Debug.Log("노말");
+                enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
                 break;
             case DIFFICULTY.HARD:
                     enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_hard);

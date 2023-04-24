@@ -26,4 +26,12 @@ public class ReSelectScript : MonoBehaviour
         button.transform.localPosition = position;
         GameManager.turnStart = true;
     }
+
+    public void TranslationY(float value)
+    {
+        //Debug.Log("гоюл");
+        Vector3 position = button.transform.localPosition;
+        position.y = value;
+        button.transform.localPosition = position;
+    }
 }
