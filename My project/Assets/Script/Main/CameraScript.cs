@@ -7,6 +7,7 @@ public class CameraScript : MonoBehaviour
     Vector2 clickPoint;
     float keySpeed = 1000.0f;
     float dragSpeed = 1500.0f;
+    public static bool inMap = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.cameraSelect == CAMERA_TYPE.MAIN)
+        if((GameManager.cameraSelect == CAMERA_TYPE.MAIN) && !inMap)
         {
             if (Input.GetKey("w") || Input.GetKey(KeyCode.UpArrow))
             {
@@ -62,7 +63,8 @@ public class CameraScript : MonoBehaviour
 
                 transform.Translate(move);                
             }
-        }        
+        } 
+       
     }
 
 }

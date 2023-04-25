@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LoadingSceneController : MonoBehaviour
 {
     static string nextScene;
 
     [SerializeField] Image progressBar;
+    [SerializeField] TextMeshProUGUI tipText;
+    [SerializeField] int tipIndex = 0;
+    public string[] tips;
+
 
     public static void LoadScene(string sceneName)
     {
@@ -25,6 +30,10 @@ public class LoadingSceneController : MonoBehaviour
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
         op.allowSceneActivation = false;
+
+        tipIndex = Random.Range(0, tips.Length);
+        tipText.text = tips[tipIndex];
+        Debug.Log("이번 숫자는.. " + tipIndex + "!!");
 
         float timer = 0f;
         while(!op.isDone)
