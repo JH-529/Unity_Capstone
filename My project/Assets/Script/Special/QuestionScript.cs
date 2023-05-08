@@ -16,28 +16,28 @@ public class QuestionScript : MonoBehaviour
 
         if (qRenderer.sprite.name.Equals("Question1"))
         {
-            Debug.Log(qRenderer.sprite.name);
+            //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer1");
             OptionSetting(sprites);
         }
 
         if (qRenderer.sprite.name.Equals("Question2"))
         {
-            Debug.Log(qRenderer.sprite.name);
+            //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer2");
             OptionSetting(sprites);
         }
 
         if (qRenderer.sprite.name.Equals("Question3"))
         {
-            Debug.Log(qRenderer.sprite.name);
+            //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer3");
             OptionSetting(sprites);
         }
 
         if (qRenderer.sprite.name.Equals("Question4"))
         {
-            Debug.Log(qRenderer.sprite.name);
+            //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer4");
             OptionSetting(sprites);
         }
@@ -45,7 +45,7 @@ public class QuestionScript : MonoBehaviour
     
     public void Right()
     {        
-        Debug.Log("정답!");
+        //Debug.Log("정답!");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Right);
 
         GameManager.playerStatus.hp += 10;
@@ -56,7 +56,7 @@ public class QuestionScript : MonoBehaviour
     }
     public void Wrong()
     {        
-        Debug.Log("오답!!");
+        //Debug.Log("오답!!");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Wrong);
 
         GameManager.playerGold -= 20;
@@ -114,7 +114,7 @@ public class QuestionScript : MonoBehaviour
             string spriteName = sprites[i].name;
             spriteName = spriteName.Substring(0, 5);
 
-            Debug.Log(spriteName);
+            //Debug.Log(spriteName);
             if (spriteName.Equals("Wrong"))
             {
                 rSprites[spriteCount] = sprites[i];

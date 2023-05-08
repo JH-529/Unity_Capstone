@@ -394,10 +394,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case 10:
-                Debug.Log("당신은 만렙이다!");
+                //Debug.Log("당신은 만렙이다!");
                 break;
             default:
-                Debug.Log("레벨 오류");
+                //Debug.Log("레벨 오류");
                 break;
         }
         return false;
@@ -503,7 +503,7 @@ public class GameManager : MonoBehaviour
             switch (difficulty)
             {
                 case DIFFICULTY.EASY:
-                    Debug.Log("이지");
+                    //Debug.Log("이지");
                     if (enemyCardSet.numberCard1.count == 0)
                     {
                         enemyCardSet.result = 0;
@@ -551,12 +551,14 @@ public class GameManager : MonoBehaviour
                             }
 
                             if (enemyCardSet.result >= 25)
-                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                            { 
+                                //Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); 
+                            }
                         }
                     }
                     break;
                 case DIFFICULTY.NORMAL:
-                    Debug.Log("노말");
+                    //Debug.Log("노말");
                     if (enemyCardSet.numberCard1.count == 0)
                     {
                         enemyCardSet.result = 0;
@@ -604,12 +606,14 @@ public class GameManager : MonoBehaviour
                             }
 
                             if (enemyCardSet.result >= 40 || enemyCardSet.result < 10)
-                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                            { 
+                                //Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result);
+                            }
                         }
                     }
                     break;
                 case DIFFICULTY.HARD:
-                    Debug.Log("하드");
+                    //Debug.Log("하드");
                     if (enemyCardSet.numberCard1.count == 0)
                     {
                         enemyCardSet.result = 0;
@@ -657,7 +661,9 @@ public class GameManager : MonoBehaviour
                             }
 
                             if (enemyCardSet.result >= 40 || enemyCardSet.result < 10)
-                            { Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); }
+                            { 
+                                //Debug.Log("적 카드 생성. 현재: " + enemyCardSet.result); 
+                            }
                         }
                     }
                     break;
@@ -834,11 +840,11 @@ public class GameManager : MonoBehaviour
         switch (difficulty)
         {
             case DIFFICULTY.EASY:
-                Debug.Log("이지");
+                //Debug.Log("이지");
                 enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_easy);
                 break;
             case DIFFICULTY.NORMAL:
-                Debug.Log("노말");
+                //Debug.Log("노말");
                 enemyStatus = enemyStatus.SetUnitStatus(UNIT_TYPE.enemy_normal);
                 break;
             case DIFFICULTY.HARD:
@@ -1183,7 +1189,7 @@ public class GameManager : MonoBehaviour
         turnStart = false;
         battleButton.SetActive(false);
         resultUI.SetActive(false);
-        Debug.Log("Battle Clear");
+       // Debug.Log("Battle Clear");
     }
 
     #region Life Cycle Function

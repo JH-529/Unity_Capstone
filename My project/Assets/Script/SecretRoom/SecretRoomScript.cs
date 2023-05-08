@@ -22,7 +22,7 @@ public class SecretRoomScript : MonoBehaviour
     #region 좋은일
     public void Heal()
     {
-        Debug.Log("Get Heal");
+       // Debug.Log("Get Heal");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Right);
         GameManager.playerStatus.hp += hpValue[rand];
         if(GameManager.playerStatus.hp > GameManager.playerStatus.maxHp)
@@ -34,7 +34,7 @@ public class SecretRoomScript : MonoBehaviour
 
     public void BonusGold()
     {
-        Debug.Log("Get BonusGold");
+        //Debug.Log("Get BonusGold");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Right);
         GameManager.playerGold += goldValue[rand];
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
@@ -42,7 +42,7 @@ public class SecretRoomScript : MonoBehaviour
 
     public void SpecialItem()
     {
-        Debug.Log("Get SpecialItem");
+        //Debug.Log("Get SpecialItem");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.GetSpecialItem);
         mainInventory.AddItem(specialArmor);
         battleInventory.AddItem(specialArmor);
@@ -53,7 +53,7 @@ public class SecretRoomScript : MonoBehaviour
     #region 나쁜일
     public void Damaged()
     {
-        Debug.Log("Get Damaged");
+        //Debug.Log("Get Damaged");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Wrong);
         GameManager.playerStatus.hp -= hpValue[rand];
         if (GameManager.playerStatus.hp <= 0)
@@ -66,7 +66,7 @@ public class SecretRoomScript : MonoBehaviour
 
     public void LoseGold()
     {
-        Debug.Log("Lose Gold");
+        //Debug.Log("Lose Gold");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Wrong);
         GameManager.playerGold -= goldValue[rand];
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
@@ -74,7 +74,7 @@ public class SecretRoomScript : MonoBehaviour
 
     public void StealItem()
     {
-        Debug.Log("Get Item Stolen");
+        //Debug.Log("Get Item Stolen");
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Wrong);
         if (mainInventory != null)
         {
@@ -96,13 +96,13 @@ public class SecretRoomScript : MonoBehaviour
         switch (eventRand)
         {
             case 0:
-                Debug.Log("Heal");
+                //Debug.Log("Heal");
                 rand = Random.Range(0, 4);
                 secretButtonText.text = "You Can Get Heal!\n" + "수치: " + hpValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(Heal);
                 break;
             case 1:
-                Debug.Log("BonusGold");
+                //Debug.Log("BonusGold");
                 rand = Random.Range(0, 4);
                 secretButtonText.text = "You Can Get Gold!\n" + "수치: " + goldValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(BonusGold);
@@ -112,13 +112,13 @@ public class SecretRoomScript : MonoBehaviour
                 secretButton.GetComponent<Button>().onClick.AddListener(SpecialItem);
                 break;
             case 3:
-                Debug.Log("Damaged");
+                //Debug.Log("Damaged");
                 rand = Random.Range(0, 4);
                 secretButtonText.text = "You meet robbery!\n" + "수치: " + hpValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(Damaged);
                 break;
             case 4:
-                Debug.Log("LoseGold");
+                //Debug.Log("LoseGold");
                 rand = Random.Range(0, 4);
                 secretButtonText.text = "you got your gold stolen!\n" + "수치: " + goldValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(LoseGold);
@@ -128,7 +128,7 @@ public class SecretRoomScript : MonoBehaviour
                 secretButton.GetComponent<Button>().onClick.AddListener(StealItem);
                 break;
             default:
-                Debug.Log("비밀방 오류!");
+                //Debug.Log("비밀방 오류!");
                 break;
         }
 

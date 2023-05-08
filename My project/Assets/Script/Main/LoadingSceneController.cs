@@ -33,7 +33,7 @@ public class LoadingSceneController : MonoBehaviour
 
         tipIndex = Random.Range(0, tips.Length);
         tipText.text = tips[tipIndex];
-        Debug.Log("이번 숫자는.. " + tipIndex + "!!");
+        //Debug.Log("이번 숫자는.. " + tipIndex + "!!");
 
         float timer = 0f;
         while(!op.isDone)

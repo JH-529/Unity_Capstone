@@ -7,12 +7,12 @@ public class BattleInScript : MonoBehaviour
     public void SetEasy()
     {
         GameManager.DifficultySetEasy();
-        Debug.Log("Set Easy");
+        //Debug.Log("Set Easy");
     }
 
     public void SetNormal()
     {
         GameManager.DifficultySetNormal();
-        Debug.Log("Set Normal");
+        //Debug.Log("Set Normal");
     }
 }

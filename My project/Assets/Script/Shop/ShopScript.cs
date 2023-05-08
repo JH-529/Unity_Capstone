@@ -39,26 +39,26 @@ public class ShopScript : MonoBehaviour
         sRenderer = itemIcon.GetComponent<SpriteRenderer>();
         textObject = transform.GetChild(0).gameObject;
 
-        Debug.Log(sRenderer.sprite.name);
+        //Debug.Log(sRenderer.sprite.name);
 
         #region Heal & Shield
         if (sRenderer.sprite.name.Equals("Heal"))
         {
-            Debug.Log("heal");
+            //Debug.Log("heal");
             btn.onClick.AddListener(BuyHeal_10);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "힐\n10G";            
         }
         if (sRenderer.sprite.name.Equals("WeakShield"))
         {
-            Debug.Log("weakShield");
+            //Debug.Log("weakShield");
             btn.onClick.AddListener(BuyShield_10);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "약방패\n10G";            
         }
         if (sRenderer.sprite.name.Equals("Shield"))
         {
-            Debug.Log("shield");
+            //Debug.Log("shield");
             btn.onClick.AddListener(BuyShield_20);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "강방패\n20G";
@@ -68,28 +68,28 @@ public class ShopScript : MonoBehaviour
         #region Item
         if (sRenderer.sprite.name.Equals("Helmet"))
         {
-            Debug.Log("helmet");
+            //Debug.Log("helmet");
             btn.onClick.AddListener(BuyHelmet);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "투구\n10G";
         }
         if (sRenderer.sprite.name.Equals("Armor"))
         {
-            Debug.Log("armor");
+            //Debug.Log("armor");
             btn.onClick.AddListener(BuyArmor);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "갑옷\n10G";
         }
         if (sRenderer.sprite.name.Equals("Knife"))
         {
-            Debug.Log("knife");
+            //Debug.Log("knife");
             btn.onClick.AddListener(BuyKnife);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "검\n10G";
         }
         if (sRenderer.sprite.name.Equals("SecretKey"))
         {
-            Debug.Log("SecretKey");
+            //Debug.Log("SecretKey");
             btn.onClick.AddListener(BuySecretKey);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "비밀키\n30G";
@@ -98,7 +98,7 @@ public class ShopScript : MonoBehaviour
 
         if (sRenderer.sprite.name.Equals("Reinforce"))
         {
-            Debug.Log("reinforce");
+            //Debug.Log("reinforce");
             btn.onClick.AddListener(Reinforce);
             textMesh = textObject.GetComponent<TextMeshProUGUI>();
             textMesh.text = "강화\n30G";
@@ -119,7 +119,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
-            Debug.Log("체력 +10");
+            //Debug.Log("체력 +10");
             popUpText.text = "힐 구매!\n 체력 10 회복!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyHeal);
             GameManager.playerGold -= 10;
@@ -137,7 +137,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
-            Debug.Log("방어력 +5");
+            //Debug.Log("방어력 +5");
             popUpText.text = "약방패 구매!\n 방어력 5 획득!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyDefence);
             GameManager.playerGold -= 10;
@@ -150,7 +150,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 20)
         {
-            Debug.Log("방어력 +10");
+            //Debug.Log("방어력 +10");
             popUpText.text = "강방패 구매!\n 방어력 10 획득!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyDefence);
             GameManager.playerGold -= 20;
@@ -165,7 +165,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 30)
         {
-            Debug.Log("플레이어 강화");
+           // Debug.Log("플레이어 강화");
             popUpText.text = "플레이어 카드 강화!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyReinforce);
             GameManager.playerGold -= 30;
@@ -178,7 +178,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
-            Debug.Log("헬멧 구입");
+            //Debug.Log("헬멧 구입");
             popUpText.text = "헬멧 구매!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
@@ -193,7 +193,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
-            Debug.Log("아머 구입");
+            //Debug.Log("아머 구입");
             popUpText.text = "갑옷 구매!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
@@ -208,7 +208,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 10)
         {
-            Debug.Log("나이프 구입");
+            //Debug.Log("나이프 구입");
             popUpText.text = "검 구매!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.BuyEquip);
             GameManager.playerGold -= 10;
@@ -223,7 +223,7 @@ public class ShopScript : MonoBehaviour
     {
         if (GameManager.playerGold >= 30)
         {
-            Debug.Log("열쇠 구입");
+            //Debug.Log("열쇠 구입");
             popUpText.text = "비밀방 열쇠 구매!";
             AudioManager.instance.PlaySfx(AudioManager.Sfx.GetSpecialItem);
             GameManager.playerGold -= 30;

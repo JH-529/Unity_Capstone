@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAni : MonoBehaviour
 {
-    public Animator anim;
+    public Animator testAnim;
 
     // Update is called once per frame
     void Awake()
@@ -13,31 +13,31 @@ public class PlayerAni : MonoBehaviour
 
     public void AtkAnimation()
     {
-        anim.SetBool("Attack", true);
+        testAnim.SetBool("Attack", true);
     }
 
     public void AtkAnimationStop()
     {
-        anim.SetBool("Attack", false);
+        testAnim.SetBool("Attack", false);
     }
 
     public void BlockAnimation()
     {
-        anim.SetBool("Block", true);
+        testAnim.SetBool("Block", true);
     }
 
     public void BlockAnimationStop()
     {
-        anim.SetBool("Block", false);
+        testAnim.SetBool("Block", false);
     }
 
     public void DieAnimation()
     {
-        anim.SetBool("Die", true);
+        testAnim.SetBool("Die", true);
     }
 
     public void DieAnimationStop()
     {
-        anim.SetBool("Die", false);
+        testAnim.SetBool("Die", false);
     }
 }
