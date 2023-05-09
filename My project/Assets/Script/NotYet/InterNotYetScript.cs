@@ -6,7 +6,7 @@ using TMPro;
 
 public class InterNotYetScript : MonoBehaviour
 {
-    [SerializeField] int interLevel;
+    [SerializeField] int interLevel;  
     [SerializeField] GameObject notYet;
     [SerializeField] GameObject popUp;
     [SerializeField] TextMeshProUGUI popText;    
@@ -24,6 +24,8 @@ public class InterNotYetScript : MonoBehaviour
         {
             notYet.SetActive(false);
         }
+
+       
     }
 
     public void NotYetPopUpOn()
@@ -35,4 +37,6 @@ public class InterNotYetScript : MonoBehaviour
 
         popText.text = "다음 지역으로 가려면 레벨 " + interLevel + "는 되어야해!";
     }
+
+   
 }

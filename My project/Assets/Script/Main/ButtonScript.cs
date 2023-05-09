@@ -91,7 +91,7 @@ public class ButtonScript : MonoBehaviour
         if (GameManager.playerGold < 20)
         { Debug.Log("골드가 부족합니다"); }
         else
-        {
+        {   
             GameManager.button = EventSystem.current.currentSelectedGameObject;
             GameManager.button.GetComponent<Button>().interactable = false;
             GameManager.inBattle = false;
@@ -150,7 +150,7 @@ public class ButtonScript : MonoBehaviour
         GameManager.cameraSelect = CAMERA_TYPE.MAIN;
     }
     #endregion
-
+        
     #region 그 외 기능
     public void LevelPopUpOff()
     {

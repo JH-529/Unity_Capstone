@@ -23,7 +23,7 @@ public class BattleScript : MonoBehaviour
 
     bool AnimationEnd(string aniName)
     {
-        Debug.Log(aniName + "체크");
+        //Debug.Log(aniName + "체크");
         return playerAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
     }
 
@@ -41,14 +41,14 @@ public class BattleScript : MonoBehaviour
         {
             playerAnim.SetBool("Attack", false);
             isAttack = false;
-            Debug.Log("공격 끝");
+            //Debug.Log("공격 끝");
         }
 
         if (isBlock && AnimationEnd("Block"))
         {
             playerAnim.SetBool("Block", false);
             isBlock = false;
-            Debug.Log("방어 끝");
+            //Debug.Log("방어 끝");
         }
     }    
 
@@ -61,8 +61,8 @@ public class BattleScript : MonoBehaviour
         isAttack = true;
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);             
 
-        //attackButton.interactable = false;
-        //defenceButton.interactable = false;
+        attackButton.interactable = false;
+        defenceButton.interactable = false;
 
         // 아이템의 추가 데미지 적용
         for (int i = 0; i < items.Count; i++)
@@ -187,8 +187,8 @@ public class BattleScript : MonoBehaviour
     void Victory()
     {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
-        //attackButton.interactable = true;
-        //defenceButton.interactable = true;
+        attackButton.interactable = true;
+        defenceButton.interactable = true;
 
         //Debug.Log("승리!");
         GameManager.inBattle = false;
@@ -274,19 +274,19 @@ public class BattleScript : MonoBehaviour
         switch (GameManager.difficulty)
         {            
             case DIFFICULTY.EASY:
-                Debug.Log("이지 클리어!");
+                //Debug.Log("이지 클리어!");
                 GameManager.difficultyButtonsAlive[0] = false;
                 break;
             case DIFFICULTY.NORMAL:
-                Debug.Log("노말 클리어!");
+                //Debug.Log("노말 클리어!");
                 GameManager.difficultyButtonsAlive[1] = false;
                 break;
             case DIFFICULTY.HARD:
-                Debug.Log("하드 클리어!");
+                //Debug.Log("하드 클리어!");
                 GameManager.difficultyButtonsAlive[2] = false;
                 break;
             default:
-                Debug.Log("난이도 설정 오류");
+                //Debug.Log("난이도 설정 오류");
                 break;
         }
     }
@@ -295,7 +295,7 @@ public class BattleScript : MonoBehaviour
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Defeat);
         playerAnim.SetBool("Die", true);
 
-        Debug.Log("패배..");
+        //Debug.Log("패배..");
         GameManager.inBattle = false;
         GameManager.inGame = false;
         GameManager.newGame = true;
@@ -307,16 +307,18 @@ public class BattleScript : MonoBehaviour
     public void GetExp(int exp)
     {
         GameManager.playerExp += exp;
-        Debug.Log(exp + " 경험치 획득!");
+        //Debug.Log(exp + " 경험치 획득!");
         GameManager.getVictory = true; // 레벨업 테스트용
 
         if(isAttack)
         {
             playerAnim.SetBool("Attack", false);
+            isAttack = false;
         }
         if (isBlock)
         {
             playerAnim.SetBool("Block", false);
+            isBlock = false;
         }
 
     }

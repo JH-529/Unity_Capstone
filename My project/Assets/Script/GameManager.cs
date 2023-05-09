@@ -225,6 +225,7 @@ public class GameManager : MonoBehaviour
     public GameObject secretCanvas;
     public GameObject battleButton;
     public GameObject restButton;
+    public GameObject restButton2;
     public GameObject resultUI;
 
     public CardSO cardSO;
@@ -1260,7 +1261,9 @@ public class GameManager : MonoBehaviour
             battleButton = GameObject.FindGameObjectWithTag("BattleButton");
             battleButton.SetActive(false);
             restButton = GameObject.Find("RestButton");
+            restButton2 = GameObject.Find("RestButton2");
             restButton.GetComponent<Button>().interactable = false;
+            restButton2.GetComponent<Button>().interactable = false;
             resultUI = GameObject.FindGameObjectWithTag("ResultUI");
             resultUI.SetActive(false);
 
@@ -1320,7 +1323,11 @@ public class GameManager : MonoBehaviour
                     if(restButton)
                     {
                         restButton.GetComponent<Button>().interactable = true;
-                    }                    
+                    }
+                    if (restButton2)
+                    {
+                        restButton2.GetComponent<Button>().interactable = true;
+                    }
                 }
             }
             // 현 Camera를 BattleCamera로 세팅
