@@ -14,17 +14,25 @@ public class BattleScript : MonoBehaviour
     private float bonusDefence = 0;
     public static bool killBoss = false;
 
-    bool isAttack = false;
+    bool isAttack = false;    
     bool isBlock = false;
+    bool enemyAttack = false;
     [SerializeField] Button attackButton;
     [SerializeField] Button defenceButton;
 
     [SerializeField] Animator playerAnim;
+    [SerializeField] Animator enemyAnim;
 
     bool AnimationEnd(string aniName)
     {
         //Debug.Log(aniName + "체크");
         return playerAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && playerAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
+    }
+
+    bool EnemyAnimationEnd(string aniName)
+    {
+        //Debug.Log(aniName + "체크");
+        return enemyAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && enemyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
     }
 
     void Start()
@@ -42,13 +50,26 @@ public class BattleScript : MonoBehaviour
             playerAnim.SetBool("Attack", false);
             isAttack = false;
             //Debug.Log("공격 끝");
-        }
+        }        
 
         if (isBlock && AnimationEnd("Block"))
         {
             playerAnim.SetBool("Block", false);
             isBlock = false;
             //Debug.Log("방어 끝");
+        }
+             
+        if (enemyAttack && EnemyAnimationEnd("Attack"))
+        {
+            enemyAnim.SetBool("Attack", false);
+            enemyAttack = false;
+            //Debug.Log("공격 끝");
+        }
+
+        if (GameManager.inBattle && GameManager.turnCount == 1)
+        {
+            enemyAnim.SetBool("Die", false);
+            Debug.Log("ㅋㅋ");
         }
     }    
 
@@ -92,14 +113,18 @@ public class BattleScript : MonoBehaviour
         { GameManager.enemyStatus.hp -= damage; }
 
         if (GameManager.enemyStatus.hp < 0)
-        { GameManager.enemyStatus.hp = 0; }
+        {
+            enemyAnim.SetBool("DIe", true);
+            GameManager.enemyStatus.hp = 0;
+            Debug.Log("ㄹㅇ");
+        }
 
         if (GameManager.enemyStatus.hp == 0)
         {            
-            if(!GameManager.inboss)
-            { Invoke("Victory", 0.8f); }
+            if (!GameManager.inboss)
+            { Invoke("Victory", 1.4f); }
             else
-            { Invoke("KillBoss", 0.8f); }
+            { Invoke("KillBoss", 1.4f); }
         }
         else
         {
@@ -132,6 +157,9 @@ public class BattleScript : MonoBehaviour
     // 적의 공격으로 플레이어 사망시 처리하는 기능 포함
     public void EnemyAttack()
     {
+        enemyAnim.SetBool("Attack", true);
+        enemyAttack = true;
+
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
         //playerAnim.SetBool("Attack", false);
         //playerAnim.SetBool("Block", false);
@@ -185,7 +213,7 @@ public class BattleScript : MonoBehaviour
     // TODO
     // 노말, 하드 골드 보상, 턴 수 수치 조절 필요
     void Victory()
-    {
+    {       
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
         attackButton.interactable = true;
         defenceButton.interactable = true;

@@ -10390,6 +10390,7 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   defenceButton: {fileID: 0}
   playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!114 &676855961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10847,7 +10848,7 @@ Animator:
   m_GameObject: {fileID: 699040082}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9af666515cb227e418c071b4a6a1fdfc, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0bcb07ab6fefac4686d51300a61936f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -15227,6 +15228,7 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   defenceButton: {fileID: 0}
   playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!114 &908451807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19512,6 +19514,7 @@ MonoBehaviour:
   attackButton: {fileID: 1184656039}
   defenceButton: {fileID: 1348433258}
   playerAnim: {fileID: 279885776}
+  enemyAnim: {fileID: 699040085}
 --- !u!114 &1184656037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21398,7 +21401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1277519330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22550,6 +22553,7 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   defenceButton: {fileID: 0}
   playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!114 &1345468576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22731,6 +22735,7 @@ MonoBehaviour:
   attackButton: {fileID: 1184656039}
   defenceButton: {fileID: 1348433258}
   playerAnim: {fileID: 279885776}
+  enemyAnim: {fileID: 699040085}
 --- !u!114 &1348433256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33883,6 +33888,7 @@ MonoBehaviour:
   attackButton: {fileID: 0}
   defenceButton: {fileID: 0}
   playerAnim: {fileID: 0}
+  enemyAnim: {fileID: 0}
 --- !u!114 &2026847663
 MonoBehaviour:
   m_ObjectHideFlags: 0
