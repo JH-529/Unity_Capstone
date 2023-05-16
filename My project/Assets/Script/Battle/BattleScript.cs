@@ -66,11 +66,11 @@ public class BattleScript : MonoBehaviour
             //Debug.Log("공격 끝");
         }
 
-        if (GameManager.inBattle && GameManager.turnCount == 1)
-        {
-            enemyAnim.SetBool("Die", false);
-            Debug.Log("ㅋㅋ");
-        }
+        //if (GameManager.inBattle && GameManager.turnCount == 1)
+        //{
+        //    //enemyAnim.SetBool("Die", false);
+        //    Debug.Log("ㅋㅋ");
+        //}
     }    
 
     // 플레이어의 공격 수행 함수
