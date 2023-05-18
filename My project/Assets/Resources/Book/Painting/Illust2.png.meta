@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c28430404792f3144824e8f060d9c43d
+guid: 624c564a93a796a479435cfe1c60608c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -101,105 +101,9 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: BattleSceneIcon_0
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 515
-        width: 185
-        height: 188
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb2e64ee8f8b7f84baa5fca36b296b02
-      internalID: 566684578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BattleSceneIcon_5
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 103
-        width: 213
-        height: 209
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 10eca2ef848fbe14cbda18fa5fcd450d
-      internalID: 446938988
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BattleSceneIcon_6
-      rect:
-        serializedVersion: 2
-        x: 478
-        y: 101
-        width: 211
-        height: 209
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b660e653ad2db8488ad63fa66486195
-      internalID: -670716203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BattleSceneIcon_7
-      rect:
-        serializedVersion: 2
-        x: 440
-        y: 457
-        width: 287
-        height: 266
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 1}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2ab020d09e7db84bbcbbd668ad27e00
-      internalID: 32071694
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -210,15 +114,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      BattleSceneIcon_0: 566684578
-      BattleSceneIcon_1: 1738549796
-      BattleSceneIcon_2: 617497750
-      BattleSceneIcon_3: 1257568578
-      BattleSceneIcon_4: -1825186408
-      BattleSceneIcon_5: 446938988
-      BattleSceneIcon_6: -670716203
-      BattleSceneIcon_7: 32071694
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
