@@ -14,5 +14,6 @@ public class QuestionSprite : MonoBehaviour
 
         int rand = Random.Range(0, sprites.Length);
         spriteRenderer.sprite = sprites[rand];
+        InfiniteLoopDetector.Run();
     }
 }

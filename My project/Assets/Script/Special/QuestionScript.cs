@@ -14,33 +14,84 @@ public class QuestionScript : MonoBehaviour
     {         
         //qRenderer = GameObject.Find("Question").GetComponent<SpriteRenderer>();
 
-        if (qRenderer.sprite.name.Equals("Question1"))
+        if (qRenderer.sprite.name.Equals("QuizResource_0"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer0");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_1"))
         {
             //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer1");
             OptionSetting(sprites);
         }
 
-        if (qRenderer.sprite.name.Equals("Question2"))
+        if (qRenderer.sprite.name.Equals("QuizResource_2"))
         {
             //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer2");
             OptionSetting(sprites);
         }
 
-        if (qRenderer.sprite.name.Equals("Question3"))
+        if (qRenderer.sprite.name.Equals("QuizResource_3"))
         {
             //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer3");
             OptionSetting(sprites);
         }
 
-        if (qRenderer.sprite.name.Equals("Question4"))
+        if (qRenderer.sprite.name.Equals("QuizResource_4"))
         {
             //Debug.Log(qRenderer.sprite.name);
             sprites = Resources.LoadAll<Sprite>("Sprites/Answer4");
             OptionSetting(sprites);
         }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_5"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer5");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_6"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer6");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_7"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer7");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_8"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer8");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_9"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer9");
+            OptionSetting(sprites);
+        }
+
+        if (qRenderer.sprite.name.Equals("QuizResource_10"))
+        {
+            //Debug.Log(qRenderer.sprite.name);
+            sprites = Resources.LoadAll<Sprite>("Sprites/Answer10");
+            OptionSetting(sprites);
+        }
+
+        InfiniteLoopDetector.Run();
     }
     
     public void Right()
@@ -67,6 +118,7 @@ public class QuestionScript : MonoBehaviour
 
     public void OptionSetting(Sprite[] sprites)
     {
+        InfiniteLoopDetector.Run();
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Option");
         Button[] buttons = new Button[sprites.Length];
 
@@ -121,7 +173,7 @@ public class QuestionScript : MonoBehaviour
                 spriteCount++;
             }
         }
-
+        InfiniteLoopDetector.Run();
         return rSprites;
     }
 }
