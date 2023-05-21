@@ -98,33 +98,33 @@ public class SecretRoomScript : MonoBehaviour
             case 0:
                 //Debug.Log("Heal");
                 rand = Random.Range(0, 4);
-                secretButtonText.text = "You Can Get Heal!\n" + "수치: " + hpValue[rand].ToString();
+                secretButtonText.text = "체력을 회복하자!\n" + "수치: " + hpValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(Heal);
                 break;
             case 1:
                 //Debug.Log("BonusGold");
                 rand = Random.Range(0, 4);
-                secretButtonText.text = "You Can Get Gold!\n" + "수치: " + goldValue[rand].ToString();
+                secretButtonText.text = "골드를 얻었다!\n" + "수치: " + goldValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(BonusGold);
                 break;
             case 2:
-                secretButtonText.text = "You Can Get Item!\n";
+                secretButtonText.text = "특별한 아이템이...!\n";
                 secretButton.GetComponent<Button>().onClick.AddListener(SpecialItem);
                 break;
             case 3:
                 //Debug.Log("Damaged");
                 rand = Random.Range(0, 4);
-                secretButtonText.text = "You meet robbery!\n" + "수치: " + hpValue[rand].ToString();
+                secretButtonText.text = "으악! 강도다!\n" + "수치: " + hpValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(Damaged);
                 break;
             case 4:
                 //Debug.Log("LoseGold");
                 rand = Random.Range(0, 4);
-                secretButtonText.text = "you got your gold stolen!\n" + "수치: " + goldValue[rand].ToString();
+                secretButtonText.text = "골드를 빼앗겼어!!!\n" + "수치: " + goldValue[rand].ToString();
                 secretButton.GetComponent<Button>().onClick.AddListener(LoseGold);
                 break;
             case 5:
-                secretButtonText.text = "You got your Item stolen!\n";
+                secretButtonText.text = "아니 내 아이템이!!!\n";
                 secretButton.GetComponent<Button>().onClick.AddListener(StealItem);
                 break;
             default:
