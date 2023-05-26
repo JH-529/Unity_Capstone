@@ -72,6 +72,7 @@ public class ButtonScript : MonoBehaviour
        
     public void LoadBossStage()
     {
+        Debug.Log("보스전 입장");
         GameManager.button = EventSystem.current.currentSelectedGameObject;
         GameManager.button.GetComponent<Button>().interactable = false;
         GameManager.inBattle = true;

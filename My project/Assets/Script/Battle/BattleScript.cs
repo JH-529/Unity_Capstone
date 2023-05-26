@@ -17,11 +17,13 @@ public class BattleScript : MonoBehaviour
     bool isAttack = false;    
     bool isBlock = false;
     bool enemyAttack = false;
+    bool bossAttack = false;
     [SerializeField] Button attackButton;
     [SerializeField] Button defenceButton;
 
     [SerializeField] Animator playerAnim;
     [SerializeField] Animator enemyAnim;
+    [SerializeField] Animator bossAnim;
 
     bool AnimationEnd(string aniName)
     {
@@ -35,16 +37,23 @@ public class BattleScript : MonoBehaviour
         return enemyAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && enemyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
     }
 
+    bool BossAnimationEnd(string aniName)
+    {
+        //Debug.Log(aniName + "체크");
+        return bossAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && bossAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
+    }
+
     void Start()
     {
-        if(inventory.items != null)
+        if (inventory.items != null)
         {
             items = inventory.items;
-        }        
+        }
     }
 
     void Update()
     {
+
         if (isAttack && AnimationEnd("Attack"))
         {
             playerAnim.SetBool("Attack", false);
@@ -65,6 +74,13 @@ public class BattleScript : MonoBehaviour
             enemyAttack = false;
             //Debug.Log("공격 끝");
         }
+
+        if (bossAttack && BossAnimationEnd("Attack"))
+        {
+            bossAnim.SetBool("Attack", false);
+            bossAttack = false;
+            //Debug.Log("공격 끝");
+        }       
 
         //if (GameManager.inBattle && GameManager.turnCount == 1)
         //{
@@ -159,6 +175,12 @@ public class BattleScript : MonoBehaviour
     {
         enemyAnim.SetBool("Attack", true);
         enemyAttack = true;
+
+        if(GameManager.inboss)
+        {
+            bossAnim.SetBool("Attack", true);
+            bossAttack = true;
+        }
 
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
         //playerAnim.SetBool("Attack", false);
