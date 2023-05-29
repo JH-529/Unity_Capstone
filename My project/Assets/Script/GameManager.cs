@@ -198,6 +198,7 @@ public class GameManager : MonoBehaviour
     public static bool inGame = false;
     public static bool inBattle = false;
     public static bool inboss = false;
+    public static bool inInter = false;
     public static bool getVictory = false;
     public static bool newGame = true;
     public CameraManager cameraManager;

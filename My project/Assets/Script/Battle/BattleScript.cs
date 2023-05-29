@@ -17,12 +17,14 @@ public class BattleScript : MonoBehaviour
     bool isAttack = false;    
     bool isBlock = false;
     bool enemyAttack = false;
+    bool interEnemyAttack = false;
     bool bossAttack = false;
     [SerializeField] Button attackButton;
     [SerializeField] Button defenceButton;
 
     [SerializeField] Animator playerAnim;
     [SerializeField] Animator enemyAnim;
+    [SerializeField] Animator interEnemyAnim;
     [SerializeField] Animator bossAnim;
 
     bool AnimationEnd(string aniName)
@@ -35,6 +37,12 @@ public class BattleScript : MonoBehaviour
     {
         //Debug.Log(aniName + "체크");
         return enemyAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && enemyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
+    }
+
+    bool InterEnemyAnimationEnd(string aniName)
+    {
+        //Debug.Log(aniName + "체크");
+        return interEnemyAnim.GetCurrentAnimatorStateInfo(0).IsName(aniName) && interEnemyAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f;
     }
 
     bool BossAnimationEnd(string aniName)
@@ -72,6 +80,13 @@ public class BattleScript : MonoBehaviour
         {
             enemyAnim.SetBool("Attack", false);
             enemyAttack = false;
+            //Debug.Log("공격 끝");
+        }
+
+        if (interEnemyAttack && InterEnemyAnimationEnd("Attack"))
+        {
+            interEnemyAnim.SetBool("Attack", false);
+            interEnemyAttack = false;
             //Debug.Log("공격 끝");
         }
 
@@ -176,11 +191,17 @@ public class BattleScript : MonoBehaviour
         enemyAnim.SetBool("Attack", true);
         enemyAttack = true;
 
-        if(GameManager.inboss)
+        if (GameManager.inInter)
+        {
+            interEnemyAnim.SetBool("Attack", true);
+            interEnemyAttack = true;
+        }
+
+        if (GameManager.inboss)
         {
             bossAnim.SetBool("Attack", true);
             bossAttack = true;
-        }
+        }       
 
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Attack);
         //playerAnim.SetBool("Attack", false);
